@@ -246,14 +246,10 @@ html.reduced .scroll-progress { display: none; }
 
 .motion-active [data-parallax] img {
   transform: translate3d(0, var(--py, 0px), 0) scale(1.09);
-  /* La transition transform du thème de base lisserait la parallaxe par rAF
-     jusqu'à l'annuler : on ne garde que le filtre. */
-  transition: filter .55s ease;
+  /* La netteté est pilotée en continu par --clarity (purify.css). */
+  transition: none;
   will-change: transform;
 }
-.motion-active [data-media].is-in [data-parallax] img,
-.motion-active [data-parallax].is-in img { filter: grayscale(1) contrast(1.05); }
-.motion-active [data-parallax]:hover img { filter: grayscale(0) contrast(1); }
 
 /* --------------------------------------------------------- 6. TICKER */
 .motion-active .ticker__track {

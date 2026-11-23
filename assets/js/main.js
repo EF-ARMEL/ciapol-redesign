@@ -26,6 +26,7 @@
 
   root.classList.add('motion-active');
   prepareDOM();
+  if (window.__ciapolPurify) window.__ciapolPurify.init();
   initScrollEngine();
   runIntro(startReveals);
 
@@ -278,9 +279,11 @@
       lastY = y;
       velocity += (raw - velocity) * .12;
 
-      /* Progression de lecture */
+      /* Progression de lecture = niveau de pureté de l'air */
       var max = Math.max(root.scrollHeight - window.innerHeight, 1);
-      bar.style.setProperty('--p', (y / max).toFixed(4));
+      var progress = y / max;
+      bar.style.setProperty('--p', progress.toFixed(4));
+      if (window.__ciapolPurify) window.__ciapolPurify.update(progress, velocity);
 
       /* Bandeau : vitesse et sens pilotés par le scroll */
       if (track) {
