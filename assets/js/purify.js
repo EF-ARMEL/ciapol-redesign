@@ -11,7 +11,8 @@
   var root = document.documentElement;
   var active = false;
   var veil, cv, ctx, hud, gauge, wave, hint, spark, sctx;
-  var elAqi, elPm, elState, elRead;
+  var elAqi, elPm, elState, elRead, elHintAqi;
+  var running = false;
   var W = 0, H = 0, dpr = 1;
   var motes = [];
   var media = [];
@@ -92,13 +93,23 @@
     elRead = gauge.querySelector('[data-read]');
 
     wave = el('purge-wave', '<span>Rinçage · capture des particules</span>');
-    hint = el('purify-hint', '↓ <b>scroller</b> pour filtrer l’air');
+    hint = el('purify-hint',
+      '<span class="purify-hint__dot"></span>' +
+      '↓ <b>scroller</b> pour filtrer l’air' +
+      '<i data-hint-aqi>168</i> AQI'
+    );
+    elHintAqi = hint.querySelector('[data-hint-aqi]');
   }
 
   function cacheMedia() {
     media = [];
     var list = document.querySelectorAll('[data-media]');
-    for (var i = 0; i < list.length; i++) media.push({ el: list[i], last: -1 });
+    for (var i = 0; i < list.length; i++) {
+      /* Le hero est le sanctuaire : il reste net dès la première image.
+         Seuls les visuels aval suivent la clarification. */
+      if (list[i].hasAttribute('data-clean-start')) continue;
+      media.push({ el: list[i], last: -1 });
+    }
   }
 
   function mote() {
@@ -158,6 +169,14 @@
     purity += (clamp(p, 0, 1) - purity) * .10;
     dirt = 1 - purity;
     agitation += (clamp(Math.abs(velocity) / 1400, 0, 1) - agitation) * .12;
+
+    /* Hystérésis : l'instrumentation monte au premier geste, se retire
+       seulement quand on est vraiment revenu au sommet. */
+    var wantRun = running ? purity > .006 : purity > .018;
+    if (wantRun !== running) {
+      running = wantRun;
+      root.classList.toggle('air-running', running);
+    }
     if (purgeT > 0) purgeT = Math.max(0, purgeT - 1 / 60);
 
     /* Une variable héritée sur <html> recalcule le style de TOUT le document.
@@ -197,7 +216,11 @@
     var pm = Math.round(94 - 90 * purity);
     var state = purity < .28 ? 'Pollué' : (purity < .72 ? 'Filtration' : 'Pur');
     if (now < purgeTextUntil) state = 'Rinçage';
-    if (aqi !== lastAqi) { elAqi.textContent = aqi; lastAqi = aqi; }
+    if (aqi !== lastAqi) {
+      elAqi.textContent = aqi;
+      elHintAqi.textContent = aqi;
+      lastAqi = aqi;
+    }
     if (pm !== lastPm) { elPm.textContent = pm; lastPm = pm; }
     if (state !== lastState) { elState.textContent = state; lastState = state; }
     var rd = Math.round(purity * 100);
@@ -206,8 +229,8 @@
       lastRead = rd;
     }
 
-    /* Indice de geste */
-    if (purity > .035 && hint && !hint.classList.contains('is-gone')) {
+    /* L'indice de geste s'efface dès que l'instrumentation prend le relais. */
+    if (running && hint && !hint.classList.contains('is-gone')) {
       hint.classList.add('is-gone');
     }
 

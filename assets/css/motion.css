@@ -75,18 +75,31 @@ html.reduced .pl__curtain { display: none; }
   text-transform: uppercase;
   user-select: none;
 }
+/* Toutes les animations sont déclenchées par .pl--play, posé par le JS au
+   même instant que le compteur : sinon les polices chargent, le CSS part ~1 s
+   avant le JS et le mot se termine avant la fin de la scène. */
 .pl__word span {
   display: inline-block;
   color: transparent;
   -webkit-text-stroke: 1.4px rgba(255, 255, 255, .82);
   clip-path: inset(0 0 100% 0);
   transform: translateY(.3em);
+}
+.pl--play .pl__word {
+  /* Le mot se condense lentement pendant que les lettres s'écrivent. */
+  animation: pl-settle 2.4s cubic-bezier(.16, 1, .3, 1) both;
+}
+.pl--play .pl__word span {
   animation:
-    pl-draw .86s cubic-bezier(.16, 1, .3, 1) forwards,
-    pl-fill .72s ease forwards;
+    pl-draw 1s cubic-bezier(.16, 1, .3, 1) forwards,
+    pl-fill .8s ease forwards;
   animation-delay:
-    calc(var(--i) * 88ms),
-    calc(var(--i) * 88ms + 430ms);
+    calc(var(--i) * 110ms + 250ms),
+    calc(var(--i) * 110ms + 780ms);
+}
+@keyframes pl-settle {
+  from { letter-spacing: .07em; }
+  to   { letter-spacing: -.03em; }
 }
 @keyframes pl-draw {
   to { clip-path: inset(0 0 0 0); transform: translateY(0); }
@@ -105,7 +118,10 @@ html.reduced .pl__curtain { display: none; }
   background: var(--mint);
   box-shadow: 0 0 22px 4px rgba(209, 255, 202, .22);
   mix-blend-mode: difference;
-  animation: pl-scan 1.42s cubic-bezier(.55, 0, .2, 1) .06s forwards;
+  opacity: 0;
+}
+.pl--play .pl__scan {
+  animation: pl-scan 2.2s cubic-bezier(.55, 0, .2, 1) .15s forwards;
 }
 @keyframes pl-scan {
   0% { left: 2%; opacity: 0; }
@@ -120,20 +136,36 @@ html.reduced .pl__curtain { display: none; }
   background: var(--mint);
   transform: scaleX(0);
   transform-origin: left;
-  animation: pl-rule .9s cubic-bezier(.16, 1, .3, 1) .82s forwards;
+  transition: background .3s ease;
+}
+.pl--play .pl__rule {
+  animation: pl-rule 1s cubic-bezier(.16, 1, .3, 1) 1.75s forwards;
 }
 @keyframes pl-rule { to { transform: scaleX(1); } }
+/* À 100 %, le filet passe menthe → jaune : témoin « système prêt ». */
+.pl--ready .pl__rule { background: var(--yellow); }
 
 .pl__sub {
   color: var(--smoke);
   text-align: center;
   opacity: 0;
   transform: translateY(10px);
-  animation: pl-fade .7s ease 1.12s forwards;
+}
+.pl--play .pl__sub {
+  animation: pl-fade .8s ease 2.15s forwards;
 }
 @keyframes pl-fade { to { opacity: 1; transform: none; } }
 
 .pl__bottom { align-items: flex-end; }
+.pl__readout {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+/* Largeur fixe : le libellé change 3 fois sans déplacer la barre. */
+.pl__phase { min-width: 21ch; color: var(--mint); }
+.pl__pct { color: var(--paper); font-variant-numeric: tabular-nums; }
 .pl__bar {
   flex: 1;
   height: 2px;
@@ -276,6 +308,27 @@ html.reduced .ticker__track { animation: none; }
 .motion-active.loaded .hero__cta,
 .motion-active.loaded .hero__foot,
 .motion-active.loaded .page-hero__foot { opacity: 1; transform: none; }
+
+/* ------------------------------------- 7bis. ENTRÉE DU SANCTUAIRE */
+/* Le rideau du préloader se lève PENDANT que le hero se met en place :
+   le message arrive déjà net, sans attente, sans contenu qui flotte. */
+.motion-active.loaded .hero__copy {
+  animation: sanctuary-copy .9s cubic-bezier(.16, 1, .3, 1) both;
+}
+.motion-active.loaded .hero__media {
+  animation: sanctuary-media 1.12s cubic-bezier(.16, 1, .3, 1) .06s both;
+}
+.motion-active.loaded .page-hero__inner {
+  animation: sanctuary-copy .9s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes sanctuary-copy {
+  from { transform: translateY(30px); clip-path: inset(0 0 10% 0); }
+  to   { transform: none; clip-path: inset(0 0 0 0); }
+}
+@keyframes sanctuary-media {
+  from { transform: translateY(38px); clip-path: inset(0 0 16% 0); }
+  to   { transform: none; clip-path: inset(0 0 0 0); }
+}
 
 /* ------------------------------------------------------------- 8. DIVERS */
 .motion-active .card,

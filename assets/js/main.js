@@ -57,7 +57,10 @@
           if (url.pathname === location.pathname && !url.search) return;
 
           e.preventDefault();
-          try { sessionStorage.setItem('ciapol:wipe', '1'); } catch (err) {}
+          try {
+            sessionStorage.setItem('ciapol:wipe', '1');
+            sessionStorage.setItem('ciapol:wipeAt', String(Date.now()));
+          } catch (err) {}
           wipe.classList.add('is-in');
           setTimeout(function () { location.href = url.href; }, 540);
         });
@@ -316,21 +319,17 @@
   function runIntro(done) {
     var pl = document.getElementById('preloader');
     var force = /[?&]intro=1/.test(location.search);
-    var seen = false;
-    try { seen = sessionStorage.getItem('ciapol:intro') === '1'; } catch (e) {}
+    var off = /[?&]intro=0/.test(location.search);
 
-    /* Filet de sécurité : une navigation interne arrive avec un referrer
-       same-origin. Même si le stockage est indisponible, l'intro ne doit jamais
-       se rejouer entre deux pages — c'est le rideau qui transitionne. */
-    var internal = false;
-    if (document.referrer) {
-      try { internal = new URL(document.referrer).origin === location.origin; }
-      catch (e) { internal = false; }
-    }
+    /* Seul un VRAI changement de page interne — signalé par le rideau menthe
+       (classe wipe-in posée dans le <head>) — court-circuite l'intro.
+       Visite, rechargement et lien externe la rejouent systématiquement :
+       c'est la signature du site, elle doit être vue. Plus de sessionStorage
+       ni de referrer qui la suppriment silencieusement. */
+    var viaWipe = root.classList.contains('wipe-in');
 
-    if (!pl || ((seen || internal) && !force)) {
-      /* IMPORTANT : sans scène, il faut retirer le décor d'intro du DOM,
-         sinon il reste en overlay plein écran sur la page suivante. */
+    if (!pl || off || (viaWipe && !force)) {
+      /* Sans scène, il faut retirer le décor du DOM, sinon il reste en overlay. */
       if (pl && pl.parentNode) pl.parentNode.removeChild(pl);
       var curtain = document.querySelector('.pl__curtain');
       if (curtain && curtain.parentNode) curtain.parentNode.removeChild(curtain);
@@ -338,38 +337,55 @@
       done();
       return;
     }
-    try { sessionStorage.setItem('ciapol:intro', '1'); } catch (e) {}
     playIntro(pl, done);
   }
 
   function playIntro(pl, done) {
     var pct = pl.querySelector('.pl__pct');
     var fill = pl.querySelector('.pl__bar-fill');
+    var phase = pl.querySelector('[data-pl-phase]');
     var skip = pl.querySelector('.pl__skip');
     var curtain = document.querySelector('.pl__curtain');
     var main = document.querySelector('main');
-    var DURATION = 2150;
-    var start = performance.now();
-    var finished = false;
+    var DURATION = 3000;   /* écriture + étalonnage */
+    var HOLD = 620;        /* respiration sur le logotype achevé */
+    var completed = false, exited = false;
 
     if (main && 'inert' in main) main.inert = true;
+    /* Horloge unique : le CSS et le compteur démarrent à la même frame. */
+    pl.classList.add('pl--play');
+    var start = performance.now();
 
     function tick(now) {
-      if (finished) return;
+      if (completed) return;
       var p = Math.min((now - start) / DURATION, 1);
-      var n = Math.round((1 - Math.pow(1 - p, 2)) * 100);
+      /* Compteur quasi linéaire : l'ancien ease-out affichait 75 % à mi-parcours
+         et donnait l'illusion d'une intro expédiée. */
+      var n = Math.round(Math.pow(p, .88) * 100);
       if (pct) pct.textContent = String(n).padStart(3, '0');
       if (fill) fill.style.setProperty('--pl', n);
+      if (phase) {
+        var label = p < .34 ? 'Initialisation'
+                  : (p < .72 ? 'Étalonnage des capteurs' : 'Système prêt');
+        if (phase.textContent !== label) phase.textContent = label;
+      }
       if (p < 1) requestAnimationFrame(tick);
-      else finish();
+      else complete();
     }
 
-    function finish() {
-      if (finished) return;
-      finished = true;
+    function complete() {
+      if (completed) return;
+      completed = true;
       if (pct) pct.textContent = '100';
       if (fill) fill.style.setProperty('--pl', 100);
+      if (phase) phase.textContent = 'Système prêt';
+      pl.classList.add('pl--ready');
+      setTimeout(exit, HOLD);
+    }
 
+    function exit() {
+      if (exited) return;
+      exited = true;
       pl.classList.add('pl--out');
       if (curtain) curtain.classList.add('pl--out');
       root.classList.add('loaded');
@@ -382,10 +398,12 @@
       }, 1250);
     }
 
-    if (skip) skip.addEventListener('click', finish);
-    pl.addEventListener('click', function (e) { if (e.target === pl) finish(); });
+    function bypass() { if (exited) return; completed = true; exit(); }
+
+    if (skip) skip.addEventListener('click', bypass);
+    pl.addEventListener('click', function (e) { if (e.target === pl) bypass(); });
     window.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' || e.key === 'Enter') finish();
+      if (e.key === 'Escape' || e.key === 'Enter') bypass();
     });
     requestAnimationFrame(tick);
   }

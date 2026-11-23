@@ -20,10 +20,12 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
   /* Transition inter-pages : le rideau menthe est déjà en place au premier pixel. */
   try {
-    if (sessionStorage.getItem('ciapol:wipe') === '1') {
+    if (sessionStorage.getItem('ciapol:wipe') === '1' &&
+        Date.now() - Number(sessionStorage.getItem('ciapol:wipeAt') || 0) < 4000) {
       d.classList.add('wipe-in');
-      sessionStorage.removeItem('ciapol:wipe');
     }
+    sessionStorage.removeItem('ciapol:wipe');
+    sessionStorage.removeItem('ciapol:wipeAt');
   } catch (e) {}
   /* Filet de sécurité : si le moteur ne démarre pas, la page est libérée. */
   window.__ciapolFailsafe = setTimeout(function () {
@@ -56,7 +58,10 @@
     <p class="pl__sub mono">Surveiller · Analyser · Protéger — Abidjan, Côte d’Ivoire</p>
   </div>
   <div class="pl__bottom mono">
-    <span class="pl__pct">000</span>
+    <div class="pl__readout">
+      <span class="pl__phase" data-pl-phase>Initialisation</span>
+      <span class="pl__pct">000</span>
+    </div>
     <span class="pl__bar"><span class="pl__bar-fill"></span></span>
     <button class="pl__skip mono" type="button">Passer l’intro ↗</button>
   </div>

@@ -430,9 +430,20 @@ button { font: inherit; }
   gap: 10px;
   margin-bottom: 28px;
 }
+/* Sur le canvas chargé, le gris clair du token .muted devient illisible. */
+.hero__meta .muted { color: var(--slate); }
 .hero h1 {
+  /* Le display s'adapte aussi à la HAUTEUR de fenêtre : sur un écran bas,
+     les 4 lignes restent entièrement visibles au lieu d'être coupées. */
+  font-size: clamp(3rem, min(8.6vw, 13.5vh), 8.125rem);
+  line-height: 0.92;
   margin-bottom: 28px;
-  line-height: 0.95;
+}
+@media (max-height: 780px) {
+  .hero__meta { margin-bottom: 18px; }
+  .hero h1 { margin-bottom: 18px; }
+  .hero__cta { margin-top: 22px; }
+  .hero__foot { margin-top: 26px; padding-top: 14px; }
 }
 .hl {
   display: inline-block;
