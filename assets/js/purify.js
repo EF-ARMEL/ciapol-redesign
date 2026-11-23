@@ -202,10 +202,10 @@
       lastMx = pointer.x; lastMy = pointer.y;
     }
 
-    /* Le canvas passe d'un gris chargé au gris clair de la charte. */
+    /* Le canvas passe d'un bleu-gris chargé au BLANC PUR : on nettoie la page. */
     var q = Math.round(purity * 100);
     if (q !== lastCanvas) {
-      var c0 = [220, 215, 207], c1 = [229, 229, 229], rgb = [];
+      var c0 = [219, 226, 236], c1 = [255, 255, 255], rgb = [];
       for (var i = 0; i < 3; i++) rgb.push(Math.round(c0[i] + (c1[i] - c0[i]) * purity));
       root.style.setProperty('--canvas', 'rgb(' + rgb.join(',') + ')');
       lastCanvas = q;
@@ -297,7 +297,7 @@
       }
 
       var r = m.r * (1 - cap * .8) * (1 + agitation * .3);
-      ctx.fillStyle = 'rgba(58, 52, 44, ' + a.toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(38, 56, 88, ' + a.toFixed(3) + ')';
       ctx.beginPath();
       ctx.arc(m.x, m.y, r, 0, 6.2832);
       ctx.fill();
@@ -308,12 +308,12 @@
     if (!spark.clientWidth) return;   /* masqué en responsive : rien à dessiner */
     var sw = spark.width / dpr, sh = 24;
     sctx.clearRect(0, 0, sw, sh);
-    sctx.strokeStyle = '#c6c6c6';
+    sctx.strokeStyle = '#c3d2e6';
     sctx.lineWidth = 1;
     sctx.beginPath(); sctx.moveTo(0, sh - .5); sctx.lineTo(sw, sh - .5); sctx.stroke();
     if (trace.length < 2) return;
 
-    sctx.strokeStyle = '#000000';
+    sctx.strokeStyle = '#004494';
     sctx.lineWidth = 1.5;
     sctx.beginPath();
     var ly = 0;
@@ -324,7 +324,7 @@
       ly = y;
     }
     sctx.stroke();
-    sctx.fillStyle = '#000000';
+    sctx.fillStyle = '#004494';
     sctx.beginPath(); sctx.arc(sw - 2, ly, 2.6, 0, 6.2832); sctx.fill();
   }
 

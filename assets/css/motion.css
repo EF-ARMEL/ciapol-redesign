@@ -20,7 +20,7 @@ html.js .preloader {
   grid-template-rows: auto 1fr auto;
   gap: 24px;
   padding: clamp(20px, 4vw, 48px);
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   transform: translateY(0);
   transition: transform .82s cubic-bezier(.76, 0, .24, 1);
@@ -32,7 +32,7 @@ html.js .preloader.pl--out { transform: translateY(-101%); }
   position: fixed;
   inset: 0;
   z-index: 9998;
-  background: var(--mint);
+  background: var(--brand);
   transform: translateY(0);
   transition: transform .9s cubic-bezier(.76, 0, .24, 1);
   will-change: transform;
@@ -51,7 +51,7 @@ html.reduced .pl__curtain { display: none; }
   gap: 20px;
   color: var(--smoke);
 }
-.pl__top b { color: var(--mint); font-weight: 400; }
+.pl__top b { color: var(--ice); font-weight: 400; }
 
 .pl__stage {
   position: relative;
@@ -115,8 +115,8 @@ html.reduced .pl__curtain { display: none; }
   top: 12%;
   bottom: 12%;
   width: 2px;
-  background: var(--mint);
-  box-shadow: 0 0 22px 4px rgba(209, 255, 202, .22);
+  background: var(--ice);
+  box-shadow: 0 0 22px 4px rgba(90, 150, 240, .28);
   mix-blend-mode: difference;
   opacity: 0;
 }
@@ -133,7 +133,7 @@ html.reduced .pl__curtain { display: none; }
 .pl__rule {
   width: min(560px, 76vw);
   height: 2px;
-  background: var(--mint);
+  background: var(--ice);
   transform: scaleX(0);
   transform-origin: left;
   transition: background .3s ease;
@@ -142,8 +142,8 @@ html.reduced .pl__curtain { display: none; }
   animation: pl-rule 1s cubic-bezier(.16, 1, .3, 1) 1.75s forwards;
 }
 @keyframes pl-rule { to { transform: scaleX(1); } }
-/* À 100 %, le filet passe menthe → jaune : témoin « système prêt ». */
-.pl--ready .pl__rule { background: var(--yellow); }
+/* À 100 %, le filet passe bleu clair → blanc : témoin « système prêt ». */
+.pl--ready .pl__rule { background: var(--paper); }
 
 .pl__sub {
   color: var(--smoke);
@@ -164,19 +164,19 @@ html.reduced .pl__curtain { display: none; }
   gap: 16px;
 }
 /* Largeur fixe : le libellé change 3 fois sans déplacer la barre. */
-.pl__phase { min-width: 21ch; color: var(--mint); }
+.pl__phase { min-width: 21ch; color: var(--ice); }
 .pl__pct { color: var(--paper); font-variant-numeric: tabular-nums; }
 .pl__bar {
   flex: 1;
   height: 2px;
-  background: #2c2c2c;
+  background: #0b2e63;
   overflow: hidden;
 }
 .pl__bar-fill {
   display: block;
   height: 100%;
   width: calc(var(--pl, 0) * 1%);
-  background: var(--mint);
+  background: var(--ice);
 }
 .pl__skip {
   flex: none;
@@ -186,7 +186,7 @@ html.reduced .pl__curtain { display: none; }
   color: var(--smoke);
   cursor: pointer;
   letter-spacing: -.03em;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #31538a;
   transition: color .2s ease, border-color .2s ease;
 }
 .pl__skip:hover { color: var(--paper); border-color: var(--paper); }
@@ -265,8 +265,8 @@ html.reduced .scroll-progress { display: none; }
   position: absolute;
   inset: 0;
   z-index: 4;
-  background: var(--carbon);
-  border-bottom: 2px solid var(--mint);
+  background: var(--navy);
+  border-bottom: 2px solid var(--ice);
   transform: scaleY(1);
   transform-origin: top;
   transition: transform 1.15s cubic-bezier(.76, 0, .24, 1);
@@ -354,13 +354,13 @@ html.no-motion [data-split] .word__inner { opacity: 1 !important; transform: non
 }
 
 /* ------------------------------------------- 9. TRANSITION ENTRE PAGES */
-/* Sortie : le rideau menthe monte du bas. Arrivée : il recouvre déjà l'écran
+/* Sortie : le rideau bleu CIAPOL monte du bas. Arrivée : il recouvre déjà l'écran
    (classe posée inline dans le <head>) puis s'efface vers le haut. */
 .page-wipe {
   position: fixed;
   inset: 0;
   z-index: 9997;
-  background: var(--mint);
+  background: var(--brand);
   transform: translateY(101%);
   transition: transform .58s cubic-bezier(.76, 0, .24, 1);
   pointer-events: none;

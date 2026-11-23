@@ -32,7 +32,7 @@
 }
 .air-veil__smog {
   /* Aplat translucide : composition alpha simple, pas de mix-blend-mode. */
-  background: #7c7263;
+  background: #4a5b78;
   opacity: calc(var(--dirt, 1) * .13 + var(--agitation, 0) * .045);
 }
 .air-veil__grain {
@@ -43,7 +43,7 @@
 }
 
 /* La teinte du canvas lui-même s'éclaircit : la page devient physiquement propre. */
-html.air-active { --canvas: rgb(220, 215, 207); }
+html.air-active { --canvas: rgb(219, 226, 236); }
 /* Le bandeau fixe ne doit pas manger la dernière ligne du pied de page. */
 html.air-active body { padding-bottom: 42px; }
 @media (max-width: 900px) { html.air-active body { padding-bottom: 38px; } }
@@ -114,10 +114,10 @@ html.air-active .page-hero__foot {
   width: 8px;
   height: 8px;
   border-radius: var(--r-pill);
-  background: var(--yellow);
+  background: var(--brand);
   transition: background .5s ease;
 }
-html.air-clean .air-hud__dot { background: var(--mint); }
+html.air-clean .air-hud__dot { background: var(--ice); }
 .air-hud__main { flex: none; display: flex; align-items: center; gap: 8px; padding: 0; }
 .air-hud__value {
   font-family: var(--display);
@@ -136,7 +136,7 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   flex: none;
   width: 120px;
   height: 4px;
-  background: var(--carbon);
+  background: var(--navy);
   border-radius: var(--r-pill);
   overflow: hidden;
 }
@@ -144,7 +144,7 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   display: block;
   height: 100%;
   width: calc(var(--purity, 0) * 100%);
-  background: var(--mint);
+  background: var(--brand);
 }
 .air-hud__note {
   flex: none;
@@ -176,14 +176,14 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   position: relative;
   width: 6px;
   height: min(44vh, 360px);
-  background: var(--carbon);
+  background: var(--navy);
   border-radius: var(--r-pill);
 }
 .purity-gauge__liquid {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: calc(var(--purity, 0) * 100%);
-  background: var(--mint);
+  background: var(--brand);
   border-radius: var(--r-pill);
 }
 .purity-gauge__meniscus {
@@ -193,7 +193,7 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   width: 14px; height: 14px;
   margin-left: -7px; margin-bottom: -7px;
   border-radius: var(--r-pill);
-  background: var(--mint);
+  background: var(--brand);
   /* Le ménisque tremble quand on brasse l'air en scrollant vite. */
   transform: translateY(calc(var(--agitation, 0) * -5px)) scale(calc(1 + var(--agitation, 0) * .22));
 }
@@ -221,7 +221,7 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   left: 0; right: 0; top: 0;
   height: 2px;
   z-index: 460;
-  background: var(--mint);
+  background: var(--brand);
   opacity: 0;
   pointer-events: none;
 }
@@ -232,7 +232,7 @@ html.air-clean .air-hud__dot { background: var(--mint); }
   transform: translateX(-50%);
   padding: 7px 16px;
   white-space: nowrap;
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   border-radius: var(--r-pill);
   font-family: var(--mono);
@@ -292,15 +292,15 @@ html.air-running .purity-gauge { opacity: 1; transform: translateY(-50%); transi
   width: 6px; height: 6px;
   margin-right: 8px;
   border-radius: var(--r-pill);
-  background: var(--yellow);
+  background: var(--brand);
   vertical-align: 1px;
 }
 .purify-hint i {
   margin-left: 10px;
   padding: 3px 9px;
   border-radius: var(--r-pill);
-  background: var(--mint);
-  color: var(--carbon);
+  background: var(--brand);
+  color: var(--paper);
   font-style: normal;
   font-variant-numeric: tabular-nums;
 }

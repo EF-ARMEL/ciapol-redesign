@@ -1,23 +1,27 @@
 /* ==========================================================================
    CIAPOL — Refonte 2026
-   Direction artistique : brutalist editorial showroom, warm gray canvas
-   Canvas #e5e5e5 · cartes #ffffff · blocs #000000 · accents mint / jaune
-   Aucune ombre. Aucun dégradé. Le contraste de surface fait la profondeur.
+   Direction artistique : brutalist editorial showroom, charte institutionnelle
+   Bleu officiel #004494 ( relevé sur le logo ) · bleu nuit · noir · blanc.
+   Aucun vert, aucun jaune : les trois couleurs de l'établissement priment
+   partout. Aucune ombre, aucun dégradé : le contraste de surface fait la
+   profondeur. Le scroll éclaircit le canvas jusqu'au blanc pur.
    ========================================================================== */
 
 :root {
-  /* --- Couleurs ------------------------------------------------------- */
-  --carbon: #000000;
-  --paper: #ffffff;
-  --canvas: #e5e5e5;
-  --mist: #f3f3f3;
-  --ash: #c6c6c6;
-  --smoke: #979797;
-  --slate: #444444;
-  --graphite: #2f2f2f;
-  --mint: #d1ffca;
-  --mint-deep: #a8e6a0;
-  --yellow: #fff100;
+  /* --- Couleurs de l'établissement ------------------------------------ */
+  --brand: #004494;        /* bleu CIAPOL officiel (logo) */
+  --navy: #001f4d;         /* bleu nuit : grandes surfaces inversées */
+  --navy-deep: #001636;    /* bleu nuit profond */
+  --carbon: #000000;       /* noir typographique */
+  --paper: #ffffff;        /* blanc */
+  --ice: #d9e7fa;          /* bleu très clair : petits accents sur fond sombre */
+  --ice-deep: #b4cdf0;     /* bleu clair soutenu */
+  --canvas: #f4f7fc;       /* quasi-blanc bleuté */
+  --mist: #eaf1fa;
+  --ash: #c3d2e6;
+  --smoke: #7a8eaa;
+  --slate: #213a62;
+  --graphite: #0e2a52;
 
   /* --- Typo ----------------------------------------------------------- */
   --display: "Anton", "Bebas Neue", "Barlow Condensed", Impact, sans-serif;
@@ -90,11 +94,11 @@ h1, h2, h3, h4, h5 { margin: 0; font-weight: 500; }
 p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-a { color: var(--carbon); text-decoration: none; }
+a { color: var(--brand); text-decoration: none; }
 
 button { font: inherit; }
 
-::selection { background: var(--mint); color: var(--carbon); }
+::selection { background: var(--brand); color: var(--paper); }
 
 :focus-visible {
   outline: 2px solid var(--carbon);
@@ -107,7 +111,7 @@ button { font: inherit; }
   top: -100px;
   left: 24px;
   z-index: 500;
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   padding: 14px 20px;
   border-radius: var(--r-8);
@@ -174,7 +178,7 @@ button { font: inherit; }
   gap: 8px;
   padding: 8px 16px;
   border-radius: var(--r-64);
-  background: var(--mint);
+  background: var(--ice);
   color: var(--carbon);
   font-family: var(--mono);
   font-size: 12px;
@@ -183,13 +187,13 @@ button { font: inherit; }
   text-transform: uppercase;
   white-space: nowrap;
 }
-.tag--dark { background: var(--carbon); color: var(--paper); }
+.tag--dark { background: var(--navy); color: var(--paper); }
 .tag--ghost {
   background: transparent;
   color: var(--carbon);
   border: 1px solid var(--ash);
 }
-.tag--yellow { background: var(--yellow); }
+.tag--blue { background: var(--brand); color: var(--paper); }
 .tag--white { background: var(--paper); }
 
 .dot {
@@ -199,7 +203,7 @@ button { font: inherit; }
   background: currentColor;
   flex: none;
 }
-.dot--live { background: #14c46b; animation: blink 2.4s ease-in-out infinite; }
+.dot--live { background: var(--brand); animation: blink 2.4s ease-in-out infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
 
 /* --------------------------------------------------------------- Layout */
@@ -215,7 +219,7 @@ button { font: inherit; }
 .section--top { padding-top: clamp(40px, 5vw, 64px); }
 .section--flush { padding-block: 0; }
 .section--paper { background: var(--paper); }
-.section--ink { background: var(--carbon); color: var(--paper); }
+.section--ink { background: var(--navy); color: var(--paper); }
 .section--mist { background: var(--mist); }
 
 .section-head {
@@ -233,7 +237,7 @@ button { font: inherit; }
   border: 0;
   margin: 0;
 }
-.section--ink .rule { background: #333; }
+.section--ink .rule { background: #1c3f78; }
 
 /* -------------------------------------------------------------- Boutons */
 .btn {
@@ -259,11 +263,11 @@ button { font: inherit; }
 .btn:hover { color: var(--fg); transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
-.btn--mint { --bg: var(--mint); --fg: var(--carbon); }
-.btn--mint:hover { --bg: var(--mint-deep); }
+.btn--ice { --bg: var(--ice); --fg: var(--carbon); }
+.btn--ice:hover { --bg: var(--ice-deep); }
 
 .btn--light { --bg: var(--paper); --fg: var(--carbon); }
-.btn--yellow { --bg: var(--yellow); --fg: var(--carbon); }
+.btn--blue { --bg: var(--brand); --fg: var(--paper); }
 
 .btn--ghost {
   --bg: transparent;
@@ -305,7 +309,7 @@ button { font: inherit; }
 
 /* ---------------------------------------------------------- Barre d'État */
 .gov {
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--smoke);
 }
 .gov__inner {
@@ -396,7 +400,7 @@ button { font: inherit; }
   transition: background .16s ease, color .16s ease;
 }
 .nav__link:hover { background: var(--mist); color: var(--carbon); }
-.nav__link[aria-current="page"] { background: var(--carbon); color: var(--paper); }
+.nav__link[aria-current="page"] { background: var(--brand); color: var(--paper); }
 .nav__link svg { width: 10px; height: 10px; opacity: .5; }
 
 .header__cta { flex: none; }
@@ -433,9 +437,11 @@ button { font: inherit; }
 /* Sur le canvas chargé, le gris clair du token .muted devient illisible. */
 .hero__meta .muted { color: var(--slate); }
 .hero h1 {
-  /* Le display s'adapte aussi à la HAUTEUR de fenêtre : sur un écran bas,
-     les 4 lignes restent entièrement visibles au lieu d'être coupées. */
-  font-size: clamp(3rem, min(8.6vw, 13.5vh), 8.125rem);
+  /* Le display s'adapte à la largeur ET à la hauteur de fenêtre. Le plafond
+     7rem évite le basculement en 5 lignes observé à 1440x900 (121 px) qui
+     poussait le chapô, les CTA et le pied du hero sous la ligne de flottaison :
+     le message d'arrivée doit tenir ENTIER dans le premier écran. */
+  font-size: clamp(3rem, min(7.2vw, 12vh), 7rem);
   line-height: 0.92;
   margin-bottom: 28px;
 }
@@ -449,10 +455,10 @@ button { font: inherit; }
   display: inline-block;
   line-height: 1;
   padding: 0 0.05em;
-  background: var(--yellow);
-  color: var(--carbon);
+  background: var(--brand);
+  color: var(--paper);
 }
-.hl--mint { background: var(--mint); }
+.hl--ice { background: var(--ice); color: var(--carbon); }
 .hero__text {
   max-width: 46ch;
   font-size: clamp(1rem, 1.4vw, 1.15rem);
@@ -475,7 +481,7 @@ button { font: inherit; }
   position: relative;
   border-radius: var(--r-64) var(--r-64) 0 0;
   overflow: hidden;
-  background: var(--carbon);
+  background: var(--navy);
   aspect-ratio: 3 / 4;
 }
 .hero__frame img {
@@ -511,7 +517,7 @@ button { font: inherit; }
   top: 20px;
   left: 20px;
   z-index: 2;
-  background: var(--mint);
+  background: var(--ice);
   color: var(--carbon);
   border-radius: var(--r-pill);
   padding: 8px 14px;
@@ -553,7 +559,7 @@ button { font: inherit; }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--mint-deep);
+  background: var(--ice-deep);
 }
 @keyframes slide {
   from { transform: translateX(0); }
@@ -562,7 +568,7 @@ button { font: inherit; }
 
 /* ---------------------------------------------------------------- Chiffres */
 .figures {
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   border-radius: var(--r-32);
   padding: clamp(32px, 4vw, 56px);
@@ -576,11 +582,11 @@ button { font: inherit; }
   line-height: 0.85;
   letter-spacing: -0.03em;
 }
-.figure__num sup { font-size: .42em; vertical-align: super; color: var(--mint); }
+.figure__num sup { font-size: .42em; vertical-align: super; color: var(--ice); }
 .figure__label {
   margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px solid #333;
+  border-top: 1px solid #1c3f78;
   color: var(--smoke);
   font-family: var(--mono);
   font-size: 11px;
@@ -657,14 +663,14 @@ button { font: inherit; }
   height: 6px;
   margin-top: .5em;
   flex: none;
-  background: var(--mint-deep);
+  background: var(--ice-deep);
   border-radius: 1px;
 }
-.card--ink { background: var(--carbon); color: var(--paper); }
+.card--ink { background: var(--navy); color: var(--paper); }
 .card--ink h3 { color: var(--paper); }
 .card--ink p, .card--ink .card__list li { color: var(--smoke); }
-.card--ink .card__index { color: #666; }
-.card--ink .card__icon { background: #1a1a1a; color: var(--paper); }
+.card--ink .card__index { color: #7f9bc4; }
+.card--ink .card__icon { background: #0b2e63; color: var(--paper); }
 
 /* ------------------------------------------------------------ Structures */
 .structures { display: grid; gap: 16px; }
@@ -700,7 +706,7 @@ button { font: inherit; }
   background: var(--canvas);
   transition: background .2s ease, color .2s ease;
 }
-.structure:hover .structure__go { background: var(--carbon); color: var(--paper); }
+.structure:hover .structure__go { background: var(--brand); color: var(--paper); }
 .structure__go svg { width: 18px; height: 18px; }
 
 /* -------------------------------------------------------- Bloc éditorial */
@@ -714,7 +720,7 @@ button { font: inherit; }
 .editorial__media {
   border-radius: var(--r-48);
   overflow: hidden;
-  background: var(--carbon);
+  background: var(--navy);
   aspect-ratio: 4 / 3;
 }
 .editorial__media img {
@@ -786,7 +792,7 @@ button { font: inherit; }
 
 /* ------------------------------------------------------ Bloc signalement */
 .report {
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   border-radius: var(--r-64);
   padding: clamp(32px, 5vw, 72px);
@@ -797,18 +803,18 @@ button { font: inherit; }
 }
 .report h2 { color: var(--paper); margin: 18px 0 20px; }
 .report .lead { color: var(--smoke); }
-.report__steps { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid #333; }
+.report__steps { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid #1c3f78; }
 .report__steps li {
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr);
   gap: 16px;
   padding: 18px 0;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #1c3f78;
 }
 .report__steps b {
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--mint);
+  color: var(--ice);
   padding-top: 3px;
 }
 .report__steps strong { display: block; font-weight: 500; font-size: var(--fs-body); color: var(--paper); }
@@ -856,7 +862,7 @@ button { font: inherit; }
 
 /* --------------------------------------------------------------- Footer */
 .site-footer {
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--smoke);
   margin-top: var(--section-gap);
   padding-top: clamp(48px, 6vw, 80px);
@@ -899,9 +905,9 @@ button { font: inherit; }
 .site-footer p { font-size: var(--fs-body-sm); line-height: 1.6; color: var(--smoke); }
 .footer-contact { display: grid; gap: 14px; }
 .footer-contact div { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-body-sm); }
-.footer-contact svg { width: 15px; height: 15px; margin-top: 3px; flex: none; color: var(--mint); }
+.footer-contact svg { width: 15px; height: 15px; margin-top: 3px; flex: none; color: var(--ice); }
 .footer-bottom {
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid #1c3f78;
   padding-block: 24px;
   display: flex;
   flex-wrap: wrap;
@@ -995,22 +1001,22 @@ button { font: inherit; }
   display: flex;
   gap: 12px;
   padding: 16px 18px;
-  background: var(--mint);
+  background: var(--ice);
   border-radius: var(--r-8);
   font-size: var(--fs-body-sm);
   line-height: 1.5;
 }
 .note svg { width: 18px; height: 18px; flex: none; margin-top: 1px; }
-.note--yellow { background: var(--yellow); }
+.note--blue { background: var(--brand); color: var(--paper); }
 
 /* --------------------------------------------------------------- Divers */
 .marquee-band {
-  background: var(--mint);
-  color: var(--carbon);
+  background: var(--brand);
+  color: var(--paper);
   padding-block: 12px;
   overflow: hidden;
 }
-.marquee-band .ticker__item::after { background: var(--carbon); }
+.marquee-band .ticker__item::after { background: var(--paper); }
 
 .ratio-wide { aspect-ratio: 21 / 9; overflow: hidden; border-radius: var(--r-48); }
 .ratio-wide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
@@ -1137,7 +1143,7 @@ button { font: inherit; }
   color: var(--slate);
   transition: background .16s ease, color .16s ease;
 }
-.anchor-nav a:hover { background: var(--carbon); color: var(--paper); }
+.anchor-nav a:hover { background: var(--brand); color: var(--paper); }
 
 /* Bloc document */
 .doc {
@@ -1192,7 +1198,7 @@ button { font: inherit; }
   position: relative;
   overflow: hidden;
   border-radius: var(--r-48);
-  background: var(--carbon);
+  background: var(--navy);
   color: var(--paper);
   min-height: 340px;
   display: flex;
@@ -1208,11 +1214,12 @@ button { font: inherit; }
   filter: grayscale(1) contrast(1.1) brightness(.55);
 }
 .map-card__body { position: relative; z-index: 2; }
-.map-card__body .mono { color: var(--mint); }
+.map-card__body .mono { color: var(--ice); }
 
 /* Bandeau d'appel */
 .cta-band {
-  background: var(--mint);
+  background: var(--brand);
+  color: var(--paper);
   border-radius: var(--r-48);
   padding: clamp(32px, 5vw, 64px);
   display: flex;
