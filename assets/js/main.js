@@ -358,7 +358,10 @@
 
     function tick(now) {
       if (completed) return;
-      var p = Math.min((now - start) / DURATION, 1);
+      /* Le timestamp rAF peut précéder de quelques microsecondes le
+         performance.now() de départ : sans clamp, Math.pow(p, .88) sur une
+         valeur négative affiche « NaN » pendant une frame. */
+      var p = Math.max(0, Math.min((now - start) / DURATION, 1));
       /* Compteur quasi linéaire : l'ancien ease-out affichait 75 % à mi-parcours
          et donnait l'illusion d'une intro expédiée. */
       var n = Math.round(Math.pow(p, .88) * 100);
