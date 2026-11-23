@@ -11,9 +11,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/css/motion.css">
+<script>
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
+  /* Transition inter-pages : le rideau menthe est déjà en place au premier pixel. */
+  try {
+    if (sessionStorage.getItem('ciapol:wipe') === '1') {
+      d.classList.add('wipe-in');
+      sessionStorage.removeItem('ciapol:wipe');
+    }
+  } catch (e) {}
+  /* Filet de sécurité : si le moteur ne démarre pas, la page est libérée. */
+  window.__ciapolFailsafe = setTimeout(function () {
+    d.classList.add('loaded', 'no-motion');
+    d.classList.remove('wipe-in');
+    var p = document.getElementById('preloader');
+    if (p && p.parentNode) p.parentNode.removeChild(p);
+    var c = document.querySelector('.pl__curtain');
+    if (c && c.parentNode) c.parentNode.removeChild(c);
+  }, 5000);
+})();
+</script>
 </head>
 <body>
+<!-- Scène d'introduction : écriture CIAPOL + double rideau -->
+<div class="page-wipe" aria-hidden="true"></div>
+<div class="pl__curtain" aria-hidden="true"></div>
+<div class="preloader" id="preloader" role="dialog" aria-label="Chargement du site CIAPOL">
+  <div class="pl__top mono">
+    <span>CIAPOL / CENTRE IVOIRIEN ANTIPOLLUTION</span>
+    <b>RÉPUBLIQUE DE CÔTE D’IVOIRE</b>
+    <span>EST. 1991 — DÉCRET N°91-662</span>
+  </div>
+  <div class="pl__stage">
+    <div class="pl__scan" aria-hidden="true"></div>
+    <div class="pl__word" aria-label="CIAPOL">
+      <span style="--i:0">C</span><span style="--i:1">I</span><span style="--i:2">A</span><span style="--i:3">P</span><span style="--i:4">O</span><span style="--i:5">L</span>
+    </div>
+    <div class="pl__rule" aria-hidden="true"></div>
+    <p class="pl__sub mono">Surveiller · Analyser · Protéger — Abidjan, Côte d’Ivoire</p>
+  </div>
+  <div class="pl__bottom mono">
+    <span class="pl__pct">000</span>
+    <span class="pl__bar"><span class="pl__bar-fill"></span></span>
+    <button class="pl__skip mono" type="button">Passer l’intro ↗</button>
+  </div>
+</div>
+
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <div class="gov">
