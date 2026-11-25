@@ -117,7 +117,7 @@
   .hh__inner { padding-top: calc(var(--header-h) + 40px); padding-bottom: 22px; row-gap: 26px; }
   .hh__title { max-width: none; font-size: clamp(2.9rem, 13.5vw, 4rem); }
   .hh__lead { font-size: 1.02rem; }
-  .hh__actions .btn { min-height: 50px; padding-inline: 22px; }
+  .hh__actions .btn { min-height: 44px; padding-inline: 18px; }
   .hh__bars { gap: 10px; }
   .hh__bar-n { display: none; }
   .hh__cap { font-size: 0.84rem; }

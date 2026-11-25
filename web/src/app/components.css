@@ -57,6 +57,14 @@ html.lagoon-off .lagoon__canvas { display: none; }
   transition: color 0.5s var(--ease-out-expo), transform 0.12s ease-out;
   white-space: nowrap;
 }
+/* Mobile et tablette : boutons plus compacts (44 px reste la zone tactile
+   minimale recommandée). */
+@media (max-width: 1024px) {
+  .btn { min-height: 46px; padding: 0 22px; font-size: 0.9rem; }
+}
+@media (max-width: 560px) {
+  .btn { min-height: 44px; padding: 0 18px; font-size: 0.875rem; }
+}
 .btn__fill {
   position: absolute;
   inset: 0;
