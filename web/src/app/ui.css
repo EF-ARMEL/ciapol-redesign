@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Composants UI partagés : en-tête de page, fil d'Ariane, titres de section,
+   cartes d'actualité.
+   ========================================================================== */
+
+/* ------------------------------------------------------------ PAGE HERO */
+.page-hero {
+  min-height: min(92svh, 980px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: calc(var(--header-h) + 90px);
+  padding-bottom: clamp(56px, 8vw, 110px);
+  overflow: hidden;
+}
+.page-hero__inner { position: relative; z-index: 2; }
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: end;
+  margin-top: clamp(28px, 6vh, 64px);
+}
+.page-hero__tag { color: var(--color-salubre-400); border-color: color-mix(in srgb, #fff 35%, transparent); }
+.page-hero__code {
+  font-size: clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
+  letter-spacing: 0.14em;
+  color: var(--color-ciapol-300);
+  margin-top: 22px;
+}
+.page-hero__title {
+  margin-top: 18px;
+  font-size: var(--text-h1);
+  color: #fff;
+  max-width: 16ch;
+  text-wrap: balance;
+  text-shadow: 0 2px 40px rgba(4, 23, 58, 0.45);
+}
+.page-hero__lead {
+  margin-top: 26px;
+  max-width: 60ch;
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  color: color-mix(in srgb, #fff 86%, transparent);
+}
+.page-hero__extra { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px; }
+.page-hero__aside {
+  padding: 26px;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-nuit) 55%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+  color: var(--color-ciapol-100);
+}
+/* Rive : la page opaque qui suit « mord » sur l'eau par une courbe douce. */
+.page-hero__shore {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: clamp(28px, 5vw, 64px);
+  background: var(--color-papier);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .page-hero__grid { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------ FIL D'ARIANE */
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 6px 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.crumbs li { display: inline-flex; align-items: center; gap: 10px; color: color-mix(in srgb, #fff 70%, transparent); }
+.crumbs li + li::before { content: "/"; opacity: 0.45; }
+.crumbs a:hover { color: #fff; }
+.crumbs [aria-current] { color: var(--color-salubre-400); }
+.surface .crumbs li { color: var(--color-brume); }
+
+/* ------------------------------------------------------------ TITRE DE SECTION */
+.sh {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 24px clamp(32px, 6vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(36px, 5vw, 72px);
+}
+.sh__left { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+.sh__title { font-size: var(--text-h2); max-width: 15ch; text-wrap: balance; }
+.sh--dark .tag { color: var(--color-ciapol); }
+.sh--dark .sh__title { color: var(--color-nuit); }
+.sh--light .tag { color: var(--color-salubre-400); border-color: color-mix(in srgb, #fff 30%, transparent); }
+.sh--light .sh__title { color: #fff; }
+.sh__lead { font-size: var(--text-lead); line-height: 1.55; color: var(--color-ardoise); max-width: 46ch; }
+.sh--light .sh__lead { color: var(--color-ciapol-100); }
+.sh__action { margin-top: 22px; }
+@media (max-width: 900px) {
+  .sh { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------ CARTE ACTUALITÉ */
+.acard { height: 100%; }
+.acard__link { display: flex; flex-direction: column; height: 100%; gap: 18px; }
+.acard__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-ciapol-100);
+  isolation: isolate;
+}
+.acard--lg .acard__media { aspect-ratio: 16 / 10; }
+.acard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.55) sepia(0.28) contrast(0.95);
+  transform: scale(1.04);
+  transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+.acard__link:hover .acard__media img,
+.acard__link:focus-visible .acard__media img { filter: none; transform: scale(1.09); }
+.acard__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(4, 23, 58, 0.5));
+  opacity: 0.8;
+  transition: opacity 0.6s var(--ease-out-expo);
+  z-index: 1;
+}
+.acard__link:hover .acard__media::after { opacity: 0.3; }
+.acard__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, var(--color-ciapol) 0%, var(--color-nuit) 100%);
+  color: color-mix(in srgb, #fff 18%, transparent);
+  font-size: 3rem;
+}
+.acard__cat {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 2;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ciapol);
+}
+.acard__body { display: flex; flex-direction: column; gap: 10px; }
+.acard__meta { display: flex; gap: 8px; color: var(--color-brume); }
+.acard__title { font-size: 1.12rem; font-weight: 600; line-height: 1.32; color: var(--color-encre); letter-spacing: -0.01em; }
+.acard--lg .acard__title { font-size: clamp(1.3rem, 1rem + 1vw, 1.8rem); }
+.acard__title span {
+  background: linear-gradient(var(--color-salubre), var(--color-salubre)) 0 100% / 0 2px no-repeat;
+  transition: background-size 0.7s var(--ease-out-expo);
+}
+.acard__link:hover .acard__title span { background-size: 100% 2px; }
+.acard__excerpt {
+  color: var(--color-ardoise);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------ SECTIONS */
+.section { padding-block: clamp(80px, 11vw, 160px); }
+.section--tight { padding-block: clamp(56px, 7vw, 100px); }

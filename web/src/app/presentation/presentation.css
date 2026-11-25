@@ -1,0 +1,198 @@
+/* /presentation/ : page d'impact éditoriale. */
+
+/* ---------------------------------------------------- Introduction */
+.prs-intro__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+.prs-intro__text { display: grid; gap: clamp(28px, 4vw, 48px); }
+.prs-statement { display: grid; gap: 0.5em; }
+.prs-statement p {
+  font-size: clamp(1.45rem, 1rem + 1.9vw, 2.7rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.022em;
+  color: var(--color-nuit);
+  max-width: 24ch;
+}
+.prs-statement p strong { font-weight: 800; color: var(--color-ciapol); }
+.prs-intro__body { font-size: 1.1rem; }
+
+.prs-intro__media {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: clamp(0px, 6vw, 96px);
+}
+.prs-intro__img { border-radius: var(--radius-card); }
+.prs-intro__img img { width: 100%; height: 100%; object-fit: cover; }
+.prs-intro__img--1 { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+.prs-intro__img--2 { grid-column: 1 / 4; aspect-ratio: 3 / 4; }
+.prs-intro__img--3 { grid-column: 4 / -1; aspect-ratio: 3 / 4; margin-top: clamp(24px, 4vw, 64px); }
+
+/* ---------------------------------------------------- Repères (eau) */
+.prs-marks { padding-block: clamp(96px, 13vw, 200px); }
+.prs-marks__title { margin-top: 14px; max-width: 16ch; }
+.prs-marks__list {
+  list-style: none;
+  margin: clamp(48px, 7vw, 96px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: end;
+}
+.prs-mark { display: grid; gap: 10px; }
+.prs-mark:nth-child(2) { transform: translateY(calc(-1 * clamp(0px, 3vw, 48px))); }
+.prs-mark__year { color: var(--color-salubre-400); }
+.prs-mark__fig {
+  font-size: clamp(3rem, 1.6rem + 5vw, 6.6rem);
+  line-height: 0.9;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.prs-mark:first-child .prs-mark__fig,
+.prs-mark:last-child .prs-mark__fig { font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.8rem); }
+.prs-mark__unit { font-size: 0.42em; }
+.prs-mark__txt { color: color-mix(in srgb, #fff 86%, transparent); max-width: 38ch; line-height: 1.55; }
+
+/* ---------------------------------------------------- Statut */
+.prs-statut__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(40px, 7vw, 120px);
+  align-items: center;
+}
+.prs-statut__img { border-radius: var(--radius-panel); aspect-ratio: 1; }
+.prs-statut__img img { width: 100%; height: 100%; object-fit: cover; }
+.prs-statut__text { display: grid; gap: 24px; }
+.prs-tutelles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 12px 0 0; }
+.prs-tutelles > div {
+  padding: clamp(20px, 2.4vw, 32px);
+  border-radius: var(--radius-card);
+  background: var(--color-ciapol-50);
+}
+.prs-tutelles dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ciapol); }
+.prs-tutelles dd { margin: 10px 0 0; font-size: clamp(1.1rem, 0.98rem + 0.5vw, 1.35rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--color-nuit); }
+
+/* ---------------------------------------------------- Organisation */
+.prs-org__head { display: grid; gap: 20px; max-width: 760px; }
+.prs-chart { margin-top: clamp(48px, 7vw, 96px); display: grid; justify-items: center; }
+.prs-chart__root {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 22px 44px;
+  border-radius: var(--radius-card);
+  background: var(--color-nuit);
+  color: #fff;
+}
+.prs-chart__root-name { font-size: clamp(2rem, 1.4rem + 1.8vw, 3rem); }
+.prs-chart__root-sub { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-salubre-400); margin-top: 6px; }
+/* tronc et branche : le lien hiérarchique, pas un ornement */
+.prs-chart__root::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  background: var(--color-ciapol-100);
+}
+.prs-chart__units {
+  list-style: none;
+  margin: 36px 0 0;
+  padding: 36px 0 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  position: relative;
+}
+.prs-chart__units::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--color-ciapol-100);
+}
+.prs-unit { position: relative; display: flex; }
+.prs-unit::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  background: var(--color-ciapol-100);
+}
+.prs-unit__link {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: clamp(20px, 2vw, 28px);
+  border-radius: var(--radius-card);
+  background: var(--color-papier);
+  color: var(--color-ardoise);
+  transition: background 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo), transform 0.1s ease-out;
+}
+a.prs-unit__link:hover { background: var(--color-ciapol); color: #fff; }
+a.prs-unit__link:active { transform: scale(0.98); }
+.prs-unit__code {
+  font-size: clamp(1.7rem, 1.2rem + 1.2vw, 2.4rem);
+  color: var(--color-nuit);
+  transition: color 0.4s var(--ease-out-expo);
+}
+a.prs-unit__link:hover .prs-unit__code { color: #fff; }
+.prs-unit__txt { font-size: 0.98rem; line-height: 1.5; flex: 1; }
+.prs-unit__txt strong { font-weight: 600; }
+.prs-unit__more {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-ciapol);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+a.prs-unit__link:hover .prs-unit__more { color: #fff; text-decoration-thickness: 2px; }
+
+.prs-antennes {
+  margin-top: clamp(56px, 8vw, 112px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: end;
+}
+.prs-antennes__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 56px); }
+.prs-antennes__list li {
+  font-size: clamp(2.4rem, 1.3rem + 4vw, 5.4rem);
+  color: var(--color-nuit);
+}
+.prs-org__actions { margin-top: clamp(48px, 6vw, 80px); }
+
+/* ---------------------------------------------------- Responsive */
+@media (max-width: 1100px) {
+  .prs-chart__units { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prs-chart__units::before, .prs-unit::before { display: none; }
+  .prs-chart__root::after { display: none; }
+}
+@media (max-width: 900px) {
+  .prs-intro__grid, .prs-statut__grid, .prs-antennes { grid-template-columns: minmax(0, 1fr); }
+  .prs-intro__media { padding-top: 0; }
+  .prs-marks__list { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .prs-mark:nth-child(2) { transform: none; }
+  .prs-statut__img { max-width: 460px; }
+}
+@media (max-width: 640px) {
+  .prs-chart__units { grid-template-columns: minmax(0, 1fr); }
+  .prs-tutelles { grid-template-columns: minmax(0, 1fr); }
+  .prs-chart { justify-items: stretch; }
+  .prs-chart__root { justify-items: start; }
+}

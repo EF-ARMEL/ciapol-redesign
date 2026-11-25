@@ -1,0 +1,85 @@
+/* /mot-du-directeur/ */
+.mdd-rub__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+.mdd-rub__img { border-radius: var(--radius-panel); position: sticky; top: calc(var(--header-h) + 32px); }
+.mdd-rub__text { display: grid; gap: 22px; align-content: start; justify-items: start; }
+.mdd-byline { color: var(--color-brume); }
+.mdd-rub__body { font-size: 1.1rem; }
+.mdd-goals { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.mdd-goals li { line-height: 1; }
+.mdd-goals__w { font-size: clamp(2.2rem, 1.4rem + 3vw, 4.4rem); color: var(--color-ciapol); }
+.mdd-goals li:nth-child(2) .mdd-goals__w { color: var(--color-ciapol-500); }
+.mdd-goals li:nth-child(3) .mdd-goals__w { color: var(--color-nuit); }
+.mdd-goals li:nth-child(4) .mdd-goals__w { color: var(--color-ci-orange); }
+.mdd-goals__more { display: block; margin-top: 8px; font-size: 1rem; line-height: 1.5; color: var(--color-ardoise); }
+.mdd-read { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* ------------------------------------------------ citation (eau) */
+.mdd-quote { padding-block: clamp(100px, 14vw, 220px); }
+.mdd-quote__fig { margin: clamp(28px, 4vw, 48px) 0 0; display: grid; gap: clamp(28px, 4vw, 48px); }
+.mdd-quote__text {
+  margin: 0;
+  font-size: clamp(2rem, 1rem + 3.6vw, 5rem);
+  line-height: 0.98;
+  color: #fff;
+  max-width: 22ch;
+}
+.mdd-sign { display: grid; gap: 4px; }
+.mdd-sign__name { font-weight: 700; font-size: 1.1rem; }
+.mdd-sign__role { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.8; }
+.mdd-quote .mdd-sign { color: #fff; padding-left: clamp(0px, 20vw, 360px); }
+.mdd-quote .mdd-sign__role { color: var(--color-salubre-400); opacity: 1; }
+
+/* ------------------------------------------------ messages */
+.mdd-msgs__head { display: grid; gap: 22px; justify-items: start; margin-bottom: clamp(48px, 7vw, 96px); }
+.mdd-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(72px, 10vw, 150px); }
+.mdd-msg {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+.mdd-msg--alt { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+.mdd-msg--alt .mdd-msg__img { order: 2; }
+.mdd-msg__img { border-radius: var(--radius-card); background: var(--color-ciapol-50); }
+.mdd-msg__text { display: grid; gap: 18px; justify-items: start; }
+.mdd-msg__date { color: var(--color-ciapol); }
+.mdd-msg__t { font-size: var(--text-h3); color: var(--color-nuit); line-height: 0.95; }
+.mdd-msg__fig { margin: 0; display: grid; gap: 14px; }
+.mdd-msg__q { margin: 0; display: grid; gap: 12px; }
+.mdd-msg__q p { font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem); font-weight: 500; line-height: 1.5; color: var(--color-encre); max-width: 46ch; }
+.mdd-msg__q .mdd-msg__motto { font-size: 1rem; font-style: italic; color: var(--color-ciapol); }
+.mdd-sign--dark .mdd-sign__name { color: var(--color-nuit); }
+.mdd-sign--dark .mdd-sign__role { color: var(--color-ciapol); opacity: 1; }
+.mdd-msg__note { font-size: 0.85rem; color: var(--color-brume); }
+
+/* ------------------------------------------------ actualités */
+.mdd-rel__grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: clamp(32px, 6vw, 100px); }
+.mdd-rel__grid > div { display: grid; gap: 18px; align-content: start; justify-items: start; }
+.mdd-rel__list { list-style: none; margin: 0; padding: 0; display: grid; }
+.mdd-rel__link {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 6px 24px;
+  padding: 18px 0;
+  border-radius: 12px;
+  transition: background 0.35s var(--ease-out-expo), padding 0.35s var(--ease-out-expo);
+}
+.mdd-rel__link:hover { background: var(--color-ciapol-50); padding-inline: 16px; }
+.mdd-rel__link time { color: var(--color-brume); padding-top: 4px; }
+.mdd-rel__title { font-weight: 600; line-height: 1.4; color: var(--color-encre); }
+.mdd-rel__link:hover .mdd-rel__title { color: var(--color-ciapol); }
+
+@media (max-width: 900px) {
+  .mdd-rub__grid, .mdd-msg, .mdd-msg--alt, .mdd-rel__grid { grid-template-columns: minmax(0, 1fr); }
+  .mdd-rub__img { position: static; }
+  .mdd-msg--alt .mdd-msg__img { order: 0; }
+  .mdd-quote .mdd-sign { padding-left: 0; }
+}
+@media (max-width: 560px) {
+  .mdd-rel__link { grid-template-columns: minmax(0, 1fr); }
+}
