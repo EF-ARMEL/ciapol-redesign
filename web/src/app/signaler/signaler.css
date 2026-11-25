@@ -1,0 +1,23 @@
+.signaler__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.7fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.signaler__aside { display: grid; gap: 12px; position: sticky; top: 110px; }
+.signaler__card {
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+  border-radius: var(--radius-card);
+  background: var(--color-blanc);
+  box-shadow: 0 0 0 1px var(--color-ligne);
+  color: var(--color-ardoise);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+.signaler__card svg { color: var(--color-ciapol); }
+.signaler__card--alert { background: var(--color-nuit); color: var(--color-ciapol-100); box-shadow: none; }
+.signaler__card--alert svg { color: var(--color-ci-orange); }
+.signaler__card--alert a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.signaler__t { font-weight: 700; color: var(--color-encre); font-size: 1.02rem; }
+.signaler__card--alert .signaler__t { color: #fff; }
+@media (max-width: 960px) {
+  .signaler__grid { grid-template-columns: 1fr; }
+  .signaler__aside { position: static; }
+}

@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@import "./components.css";
+
+/* ==========================================================================
+   CIAPOL : DESIGN SYSTEM
+   Charte officielle : bleu institutionnel CIAPOL, blanc, vert « salubrité »,
+   rappels discrets du drapeau ivoirien (orange / blanc / vert).
+   Les teintes « pollution » (vase, hydrocarbure) ne servent QU'AU récit
+   visuel (lagune WebGL, sections « avant »), jamais au texte ni aux UI.
+   ========================================================================== */
+
+@theme {
+  /* Bleus institutionnels (logo + site officiel ciapol.ci) */
+  --color-nuit: #04173a;
+  --color-abysse: #062456;
+  --color-ciapol: #003f8c;
+  --color-ciapol-600: #12509f;
+  --color-ciapol-500: #2f5aae;
+  --color-ciapol-300: #7fa3e0;
+  --color-ciapol-100: #dfe8f7;
+  --color-ciapol-50: #f1f5fc;
+
+  /* Salubrité */
+  --color-salubre: #0f9d58;
+  --color-salubre-400: #2fc27a;
+  --color-salubre-100: #dcf5e8;
+  --color-lagune: #19a7c9;
+
+  /* Drapeau */
+  --color-ci-orange: #f77f00;
+  --color-ci-vert: #009e60;
+
+  /* Récit pollution (visuels uniquement) */
+  --color-vase: #3a3628;
+  --color-limon: #7a6a4f;
+  --color-hydrocarbure: #16150f;
+
+  /* Neutres */
+  --color-encre: #0b1220;
+  --color-ardoise: #3d4a5c;
+  --color-brume: #6b7789;
+  --color-ligne: #d9e0ea;
+  --color-papier: #f6f8fb;
+  --color-blanc: #ffffff;
+
+  /* Alertes */
+  --color-alerte: #d93025;
+
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Mono", monospace;
+
+  --radius-pill: 999px;
+  --radius-card: 28px;
+  --radius-panel: 40px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Échelle typographique fluide (320 → 1600 px) */
+  --text-mega: clamp(3.4rem, 1.2rem + 10.5vw, 13rem);
+  --text-hero: clamp(2.9rem, 1.4rem + 6.6vw, 8.4rem);
+  --text-h1: clamp(2.4rem, 1.4rem + 4.2vw, 5.6rem);
+  --text-h2: clamp(2rem, 1.3rem + 2.9vw, 4.2rem);
+  --text-h3: clamp(1.35rem, 1.1rem + 1vw, 2rem);
+  --text-lead: clamp(1.05rem, 0.98rem + 0.35vw, 1.3rem);
+}
+
+/* --------------------------------------------------------------- BASE */
+@layer base {
+  :root {
+    --gutter: clamp(16px, 4vw, 64px);
+    --maxw: 1440px;
+    --header-h: 76px;
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 24px);
+  }
+  /* Lenis pilote le scroll : on neutralise le smooth natif pour éviter le double lissage. */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  body {
+    background: var(--color-papier);
+    color: var(--color-encre);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection { background: var(--color-salubre-400); color: var(--color-nuit); }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ci-orange);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  img, video, canvas, svg { display: block; max-width: 100%; }
+  img { height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; }
+}
+
+/* --------------------------------------------------------- UTILITAIRES */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -0.012em;
+    line-height: 0.9;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lead {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    color: var(--color-ardoise);
+  }
+
+  /* Pastille de section : petit repère mono + point vert « salubre » */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.55em 1em;
+    border-radius: var(--radius-pill);
+    border: 1px solid currentColor;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .tag::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-salubre-400);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-salubre-400) 22%, transparent);
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+  /* Corps d'article / de page issu du Markdown officiel */
+  .prose-ciapol { color: var(--color-ardoise); font-size: 1.06rem; line-height: 1.75; }
+  .prose-ciapol > * + * { margin-top: 1.15em; }
+  .prose-ciapol h2, .prose-ciapol h3, .prose-ciapol h4 {
+    color: var(--color-encre);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: 2em;
+    letter-spacing: -0.01em;
+  }
+  .prose-ciapol h2 { font-size: 1.7rem; }
+  .prose-ciapol h3 { font-size: 1.35rem; }
+  .prose-ciapol h4 { font-size: 1.12rem; }
+  .prose-ciapol strong { color: var(--color-encre); font-weight: 600; }
+  .prose-ciapol a {
+    color: var(--color-ciapol);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.3s var(--ease-out-expo);
+  }
+  .prose-ciapol a:hover { color: var(--color-salubre); }
+  .prose-ciapol ul, .prose-ciapol ol { padding-left: 1.3em; }
+  .prose-ciapol ul { list-style: none; }
+  .prose-ciapol ul > li { position: relative; }
+  .prose-ciapol ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.1em;
+    top: 0.72em;
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 50%;
+    background: var(--color-salubre);
+  }
+  .prose-ciapol ol { list-style: decimal; }
+  .prose-ciapol li + li { margin-top: 0.45em; }
+  .prose-ciapol blockquote {
+    border-left: 3px solid var(--color-salubre);
+    padding: 0.4em 0 0.4em 1.2em;
+    font-size: 1.15rem;
+    color: var(--color-encre);
+    font-style: italic;
+  }
+  .prose-ciapol img {
+    border-radius: 20px;
+    width: 100%;
+    margin-block: 1.6em;
+  }
+  .prose-ciapol table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .prose-ciapol th, .prose-ciapol td {
+    border-bottom: 1px solid var(--color-ligne);
+    padding: 0.7em 0.9em;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-ciapol th { color: var(--color-encre); font-weight: 600; background: var(--color-ciapol-50); }
+  .prose-ciapol hr { border: 0; height: 1px; background: var(--color-ligne); margin-block: 2.4em; }
+}
+
+/* ------------------------------------------------- MOUVEMENT RÉDUIT */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

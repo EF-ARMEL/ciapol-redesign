@@ -26,6 +26,8 @@
     }
     sessionStorage.removeItem('ciapol:wipe');
     sessionStorage.removeItem('ciapol:wipeAt');
+    /* L'intro ne se joue qu'une fois par session (forcer : ?intro=1). */
+    if (sessionStorage.getItem('ciapol:intro') === '1' && !/[?&]intro=1/.test(location.search)) d.classList.add('intro-seen');
   } catch (e) {}
   /* Filet de sécurité : si le moteur ne démarre pas, la page est libérée. */
   window.__ciapolFailsafe = setTimeout(function () {

@@ -1,0 +1,68 @@
+/* /galerie/ : maçonnerie asymétrique + filtres d'albums. */
+.gal__filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.gal__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-ciapol-50);
+  color: var(--color-ciapol);
+  font: inherit;
+  font-weight: 600;
+  transition: background 0.35s var(--ease-out-expo), color 0.35s var(--ease-out-expo), transform 0.1s ease-out;
+}
+.gal__filter:hover { background: var(--color-ciapol-100); }
+.gal__filter:active { transform: scale(0.97); }
+.gal__filter.is-on { background: var(--color-ciapol); color: #fff; }
+.gal__count { font-size: 0.85em; font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0.75; }
+
+.gal__h { margin: clamp(32px, 4vw, 56px) 0 clamp(20px, 3vw, 32px); font-size: var(--text-h3); color: var(--color-nuit); }
+
+.gal__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 4 260px;
+  column-gap: clamp(10px, 1.4vw, 20px);
+}
+.gal__item {
+  break-inside: avoid;
+  margin-bottom: clamp(10px, 1.4vw, 20px);
+  animation: gal-in 0.9s var(--ease-out-expo) both;
+}
+/* rythme asymétrique : une photo sur trois prend plus de hauteur */
+.gal__item:nth-child(3n + 1) .gal__btn img { aspect-ratio: 4 / 5; }
+.gal__item:nth-child(3n + 2) .gal__btn img { aspect-ratio: 4 / 3; }
+.gal__item:nth-child(3n) .gal__btn img { aspect-ratio: 1; }
+.gal__btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-ciapol-50);
+  cursor: zoom-in;
+  transition: transform 0.1s ease-out;
+}
+.gal__btn:active { transform: scale(0.98); }
+.gal__btn img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: saturate(0.55) contrast(0.92);
+  transform: scale(1.02);
+  transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+.gal__btn:hover img, .gal__btn:focus-visible img { filter: none; transform: scale(1.06); }
+@keyframes gal-in { from { opacity: 0; transform: translateY(24px); filter: blur(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .gal__item { animation: gal-fade 0.2s ease-out both; }
+  .gal__btn img { transition: none; transform: none; }
+}
+@keyframes gal-fade { from { opacity: 0; } }
+@media (hover: none) { .gal__btn img { filter: none; } }
+@media (max-width: 560px) { .gal__grid { columns: 2 140px; } }

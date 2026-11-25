@@ -36,12 +36,25 @@
     return d;
   }
 
+  /* Mobile, écran tactile, mode économie de données ou machine modeste :
+     le voile, le capteur et la jauge coûtent plus qu'ils n'apportent
+     (et masquent du contenu sur petit écran). Le site reste complet sans eux. */
+  function isLite() {
+    var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches; };
+    if (mq('(max-width: 900px)') || mq('(pointer: coarse)')) return true;
+    var conn = navigator.connection;
+    if (conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) return true;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return true;
+    return false;
+  }
+
   /* ------------------------------------------------------------------ INIT */
   function init() {
     if (active) return;
     if (!root.classList.contains('motion-active')) return;
     if (root.classList.contains('reduced') || root.classList.contains('no-motion')) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (isLite()) return;
 
     active = true;
     root.classList.add('air-active');
@@ -61,19 +74,22 @@
     var grain = document.createElement('div'); grain.className = 'air-veil__grain'; veil.appendChild(grain);
     ctx = cv.getContext('2d');
 
-    /* Capteur de qualité de l'air */
+    /* Capteur de qualité de l'air — SIMULATION. Les valeurs sont pilotées par
+       le scroll, pas par une mesure : le libellé doit le dire, un organisme
+       qui publie de vraies données ne peut pas afficher un faux relevé. */
     hud = el('air-hud',
-      '<div class="air-hud__top"><span>Capteur / air</span><i class="air-hud__dot"></i></div>' +
+      '<div class="air-hud__top"><span>Simulation / air</span><i class="air-hud__dot"></i></div>' +
       '<div class="air-hud__main"><span class="air-hud__value" data-aqi>168</span>' +
-      '<span class="air-hud__unit">AQI<br>indice</span></div>' +
+      '<span class="air-hud__unit">AQI<br>fictif</span></div>' +
       '<div class="air-hud__rows">' +
       '<div><span>PM2.5</span><b><span data-pm>94</span> µg/m³</b></div>' +
       '<div><span>État</span><b data-state>Pollué</b></div>' +
       '</div>' +
       '<canvas class="air-hud__spark"></canvas>' +
       '<div class="air-hud__bar"><i></i></div>' +
-      '<div class="air-hud__note">↓ scroller = filtrer l’air</div>'
+      '<div class="air-hud__note">Illustration · valeurs non mesurées</div>'
     );
+    hud.title = 'Animation illustrative : ces valeurs ne sont pas des mesures réelles du réseau RNO-CI.';
     elAqi = hud.querySelector('[data-aqi]');
     elPm = hud.querySelector('[data-pm]');
     elState = hud.querySelector('[data-state]');
@@ -96,7 +112,7 @@
     hint = el('purify-hint',
       '<span class="purify-hint__dot"></span>' +
       '↓ <b>scroller</b> pour filtrer l’air' +
-      '<i data-hint-aqi>168</i> AQI'
+      '<i data-hint-aqi>168</i> AQI simulé'
     );
     elHintAqi = hint.querySelector('[data-hint-aqi]');
   }
@@ -142,7 +158,8 @@
     spark.height = Math.round(24 * dpr);
     sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    var n = clamp(Math.round(W * H / 13000), 46, 140);
+    /* Densité réduite : l'effet reste lisible, le coût de dessin est divisé par ~2. */
+    var n = clamp(Math.round(W * H / 24000), 30, 70);
     motes = [];
     for (var i = 0; i < n; i++) motes.push(mote());
   }

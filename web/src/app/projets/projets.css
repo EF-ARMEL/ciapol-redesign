@@ -1,0 +1,19 @@
+/* Index et pages des projets. */
+.prj-empty { max-width: 62ch; }
+.oh-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: clamp(24px, 3vw, 48px); align-items: start; }
+@media (max-width: 800px) { .oh-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* CCAC : partenariat Côte d'Ivoire, panneau nuit sur photo aérienne */
+.ccac-ci { position: relative; overflow: hidden; border-radius: var(--radius-panel); background: var(--color-nuit); color: #fff; scroll-margin-top: calc(var(--header-h) + 32px); }
+.ccac-ci__bg { position: absolute; inset: 0; opacity: 0.32; }
+.ccac-ci__bg img { width: 100%; height: 100%; object-fit: cover; }
+.ccac-ci__inner { position: relative; padding: clamp(28px, 5vw, 80px); max-width: 860px; }
+.ccac-ci__logo { width: clamp(120px, 14vw, 170px); height: auto; border-radius: 16px; background: #fff; padding: 10px; }
+.ccac-ci__title { margin-top: 28px; font-size: var(--text-h2); color: #fff; }
+.ccac-ci__body { margin-top: 22px; }
+.ccac-ci .blocks__h { color: var(--color-salubre-400); font-size: var(--text-h3); }
+.ccac-ci .prose-ciapol, .ccac-ci .prose-ciapol strong { color: var(--color-ciapol-100); }
+.ccac-ci .prose-ciapol strong { color: #fff; }
+.ccac-ci .prose-ciapol a { color: #fff; display: inline-flex; min-height: 44px; align-items: center; font-weight: 600; }
+.ccac-articles { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: clamp(24px, 3vw, 48px); align-items: start; }
+@media (max-width: 800px) { .ccac-articles { grid-template-columns: minmax(0, 1fr); } }

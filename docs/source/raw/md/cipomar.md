@@ -1,0 +1,54 @@
+<!-- section -->
+
+# CIPOMAR
+
+### Compagnie d’Intervention contre les Pollutions du Milieu Marin et Lagunaire
+
+<!-- section -->
+
+# CENTRE IVOIRIEN ANTIPOLLUTION
+
+[Présentation](#)
+
+<!-- section -->
+
+![](https://ciapol.ci/wp-content/uploads/2022/07/3.jpg)
+
+## BON A SAVOIR
+
+La lutte contre la pollution et la prévention de la pollution a été organisée en Côte d’Ivoire après l’émotion soulevée dans l’opinion publique française suite aux différentes catastrophes écologiques, surtout celle de l’AMOCO CADIZ sur les côtes de Bretagne en France.La Côte d’Ivoire avec ses 500 km de côtes bordant le Golfe de Guinée et ses 300 km de lagune intérieure (1.200 km2) couvre une superficie de près de 210.000 km2 et regorgent d’énormes et diverses potentialités minérales, énergétiques et biologiques. Les risques majeurs et très préoccupants liés à la croissance et à la prolifération des entreprises industrialisées autour d’Abidjan et sa banlieue constituent une préoccupation particulière pour les autorités ivoiriennes. C’est ainsi que le 12 septembre 1985, le Gouvernement de la République de Côte d’Ivoire a pris le décret n°85-949 instituant la base légale pour la préparation du plan d’action nationale pour la lutte contre la pollution dénommé « PLAN POLLUMAR`.Cette structure était sous la tutelle du Ministre de la Marine qui a crée au sein de la Marine Nationale, la CIPOMAR, une unité opérationnelle chargée de la prévention et de la lutte contre las pollutions marines et lagunaires.
+
+<!-- section -->
+
+## Missions
+
+La Compagnie d’Intervention contre les Pollutions du Milieu Marin et Lagunaire (CIPOMAR), sous-direction du CIAPOL est chargée :
+
+- De la surveillance continue des milieux marins, lagunaires ainsi que des zones côtières ;
+- De la lutte contre les pollutions de ces milieux ;
+- Du contrôle de l’application des lois, décrets et conventions nationales, régionales et internationales, relatives aux règles de prévention et de lutte contre les pollutions de ces milieux ainsi que du littoral ;
+- De la mise en œuvre du plan d’intervention d’urgence, dénommé « Plan Pollumar ».
+
+La CIPOMAR est constituée par les divisions suivantes :Intervention, maintenance et exercices ; Surveillance et assistance Inspection et documentation. La division qui s’occupe de l’intervention, de la maintenance et des exercices constitue la partie opérationnelle de l’organisation concernant le « PLAN POLLUMAR ».
+
+![](https://ciapol.ci/wp-content/uploads/2022/07/1-2.jpg)
+
+<!-- section -->
+
+![](https://ciapol.ci/wp-content/uploads/2022/07/4.jpg)
+
+## Activités
+
+Les activités de la CIPOMAR s’articulent autour des points suivants : Protéger l’environnement en cherchant à prévenir les pollutions ; Lutter contre les pollutions déclarées si on n’a pas pu l’empêcher. Laprévention :  
+Eviter que les pollutions se produisent. Pour cela ; il faut :
+
+- Exiger le respect des normes de sécurité pour les bâtiments accostant dans nos eaux ;
+- Exiger que leurs équipages soient qualifiés
+- Suivre à la trace les cargaisons les plus nocives et les dérouter si nécessaire ;
+- Suivre en temps réel le trafic qui longe nos côtes ; et enfin assister les bateaux en difficulté dans nos eaux ;
+
+Dans un souci d’efficacité, cette prévention doit se faire en collaboration avec la Marine nationale, les affaires maritimes, les autorités portuaires et douanières, etc.) ; Faucardage de la lagune EBRIE à Grand-Bassam ;
+
+<!-- section -->
+
+## Autres sercives du CIAPOL

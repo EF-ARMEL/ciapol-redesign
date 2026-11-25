@@ -1,0 +1,162 @@
+/* ------------------------------------------------- PARCOURS DE DÉPOLLUTION */
+.parcours { color: #fff; }
+.parcours__track { height: calc(var(--steps, 6) * 85vh + 100vh); position: relative; }
+.parcours__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.parcours__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+  grid-template-rows: 1fr auto;
+  gap: 32px clamp(32px, 6vw, 100px);
+  height: 100%;
+  padding-top: calc(var(--header-h) + 56px);
+  padding-bottom: 40px;
+}
+.parcours__head { display: flex; flex-direction: column; gap: 22px; align-self: center; }
+.parcours__head .tag { align-self: flex-start; color: var(--color-salubre-400); border-color: color-mix(in srgb, #fff 30%, transparent); }
+.parcours__title { font-size: var(--text-h2); text-shadow: 0 4px 40px rgba(0, 0, 0, 0.35); }
+.parcours__intro { max-width: 40ch; color: color-mix(in srgb, #fff 82%, transparent); font-size: var(--text-lead); line-height: 1.55; }
+
+.parcours__stage {
+  align-self: center;
+  position: relative;
+  padding: clamp(24px, 3vw, 44px);
+  border-radius: var(--radius-panel);
+  background: color-mix(in srgb, var(--color-nuit) 52%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  backdrop-filter: blur(22px) saturate(1.3);
+  border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+  box-shadow: 0 40px 120px -40px rgba(0, 0, 0, 0.6);
+}
+.parcours__count { display: flex; align-items: baseline; gap: 6px; font-size: 1.3rem; color: var(--color-salubre-400); }
+.parcours__count-n { display: inline-block; animation: rise 0.8s var(--ease-out-expo) both; }
+.parcours__count-of { color: color-mix(in srgb, #fff 40%, transparent); font-size: 0.9rem; }
+.parcours__verb-mask { overflow: hidden; margin-top: 8px; }
+.parcours__verb {
+  font-size: clamp(3.2rem, 1.5rem + 7vw, 9rem);
+  line-height: 0.88;
+  padding-top: 0.14em;
+  animation: rise 1s var(--ease-out-expo) both;
+  background: linear-gradient(180deg, #fff 30%, var(--color-ciapol-300) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.parcours__card { margin-top: 26px; animation: fade-up 0.9s var(--ease-out-expo) 0.08s both; }
+.parcours__code { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--color-ciapol-100); }
+.parcours__code b {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--color-salubre);
+  color: #fff;
+  font-weight: 500;
+}
+.parcours__text { margin-top: 14px; font-size: 1.08rem; line-height: 1.6; color: color-mix(in srgb, #fff 88%, transparent); max-width: 52ch; }
+.parcours__more {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 20px;
+  font-weight: 600;
+  color: var(--color-salubre-400);
+}
+.parcours__more span { transition: transform 0.5s var(--ease-out-expo); }
+.parcours__more:hover span { transform: translateX(6px); }
+
+.parcours__rail {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(var(--steps, 6), 1fr);
+  gap: 10px;
+}
+.parcours__rail li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #fff 45%, transparent);
+  transition: color 0.5s;
+}
+.parcours__rail-dot {
+  height: 3px;
+  border-radius: 3px;
+  background: color-mix(in srgb, #fff 18%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+.parcours__rail-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-salubre-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+.parcours__rail li.is-done, .parcours__rail li.is-active { color: #fff; }
+.parcours__rail li.is-done .parcours__rail-dot::after,
+.parcours__rail li.is-active .parcours__rail-dot::after { transform: scaleX(1); }
+
+.parcours__gauge {
+  position: absolute;
+  right: var(--gutter);
+  top: calc(var(--header-h) + 60px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  color: color-mix(in srgb, #fff 70%, transparent);
+}
+.parcours__state { font-weight: 600; color: #fff; }
+.parcours__bar { width: 140px; height: 4px; border-radius: 4px; background: color-mix(in srgb, #fff 18%, transparent); overflow: hidden; }
+.parcours__bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--color-limon), var(--color-lagune), var(--color-salubre-400)); transform-origin: left; }
+
+.parcours__list { display: none; }
+
+@keyframes rise { from { transform: translateY(105%); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } }
+
+/* Petits écrans / mouvement réduit : liste verticale classique, pas d'épinglage. */
+@media (max-width: 820px), (prefers-reduced-motion: reduce) {
+  .parcours__track { display: none; }
+  .parcours__list {
+    display: grid;
+    gap: 22px;
+    padding-block: calc(var(--header-h) + 40px) 80px;
+  }
+  .parcours__list::before {
+    content: "De l'eau trouble à l'eau claire.";
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: var(--text-h2);
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+  .parcours__list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    padding: 22px;
+    border-radius: var(--radius-card);
+    background: color-mix(in srgb, var(--color-nuit) 60%, transparent);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, #fff 12%, transparent);
+  }
+  .parcours__list-n { font-size: 1.4rem; color: var(--color-salubre-400); }
+  .parcours__list-verb { font-size: 2.4rem; line-height: 1; margin-bottom: 8px; }
+}
+@media (max-width: 1100px) and (min-width: 821px) {
+  .parcours__grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }
+  .parcours__gauge { display: none; }
+}

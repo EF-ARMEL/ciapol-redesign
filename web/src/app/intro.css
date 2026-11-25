@@ -1,0 +1,27 @@
+/* ---------------------------------------------------------- PRÉCHARGEUR */
+.pl {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 28px var(--gutter);
+  background: var(--color-papier);
+  color: var(--color-nuit);
+  clip-path: inset(0 0 0 0);
+  cursor: pointer;
+}
+.pl__top, .pl__bottom { display: flex; justify-content: space-between; gap: 16px; color: var(--color-brume); }
+.pl__stage { display: grid; place-items: center; align-content: center; gap: 18px; }
+.pl__word { width: min(1100px, 92vw); height: auto; overflow: visible; }
+.pl__glyphs { font-family: var(--font-display); font-size: 132px; letter-spacing: 6px; }
+.pl__outline { fill: none; stroke: var(--color-ciapol-100); stroke-width: 1.2; }
+.pl__sub { color: var(--color-ciapol); }
+.pl__steps { display: inline-flex; gap: 18px; }
+.pl__step { opacity: 0.35; transition: opacity 0.4s, color 0.4s; }
+.pl__step.is-on { opacity: 1; color: var(--color-salubre); }
+.pl__count { color: var(--color-nuit); font-weight: 600; }
+@media (max-width: 560px) {
+  .pl__top span:last-child, .pl__steps .pl__step:not(.is-on) { display: none; }
+}
+html.intro-seen .pl { display: none; }

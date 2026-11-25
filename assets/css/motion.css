@@ -41,7 +41,9 @@ html.js .preloader.pl--out { transform: translateY(-101%); }
 .pl__curtain.pl--out { transform: translateY(-101%); transition-delay: .1s; }
 
 html.reduced .preloader,
-html.reduced .pl__curtain { display: none; }
+html.reduced .pl__curtain,
+html.intro-seen .preloader,
+html.intro-seen .pl__curtain { display: none; }
 
 .pl__top,
 .pl__bottom {

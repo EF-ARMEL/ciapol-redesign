@@ -1,0 +1,37 @@
+/* Façade (la vignette sort du voile au survol, comme l'eau qui s'éclaircit) : vidéo « clic pour charger » (articles + page Vidéos). */
+.vfac {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-nuit);
+  isolation: isolate;
+}
+.vfac__btn { position: absolute; inset: 0; width: 100%; display: block; color: #fff; text-align: left; }
+.vfac__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out-expo), filter 0.8s var(--ease-out-expo); filter: saturate(0.7); }
+.vfac__poster--empty { background: linear-gradient(150deg, var(--color-ciapol) 0%, var(--color-nuit) 100%); }
+.vfac__shade { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(4, 23, 58, 0.15), rgba(4, 23, 58, 0.6)); opacity: 1; transition: opacity 0.8s var(--ease-out-expo); }
+.vfac__btn:hover .vfac__shade { opacity: 0.45; }
+.vfac__btn:active .vfac__play { transform: scale(0.97); transition-duration: 0.1s; }
+.vfac__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 8vw, 92px);
+  height: clamp(64px, 8vw, 92px);
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-ciapol);
+  box-shadow: 0 0 0 0 color-mix(in srgb, #fff 40%, transparent);
+  transition: transform 0.6s var(--ease-out-expo), box-shadow 0.8s var(--ease-out-expo), background 0.5s var(--ease-out-expo);
+}
+.vfac__play svg { margin-left: 4px; }
+.vfac__btn:hover .vfac__poster, .vfac__btn:focus-visible .vfac__poster { transform: scale(1.05); filter: none; }
+.vfac__btn:hover .vfac__play, .vfac__btn:focus-visible .vfac__play { transform: scale(1.08); background: var(--color-salubre-400); color: var(--color-nuit); box-shadow: 0 0 0 18px color-mix(in srgb, #fff 18%, transparent); }
+.vfac__btn:focus-visible { outline-offset: -6px; }
+.vfac__note { position: absolute; left: 18px; bottom: 16px; color: color-mix(in srgb, #fff 88%, transparent); font-size: 0.64rem; }
+.vfac__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+

@@ -321,14 +321,14 @@
     var force = /[?&]intro=1/.test(location.search);
     var off = /[?&]intro=0/.test(location.search);
 
-    /* Seul un VRAI changement de page interne — signalé par le rideau menthe
-       (classe wipe-in posée dans le <head>) — court-circuite l'intro.
-       Visite, rechargement et lien externe la rejouent systématiquement :
-       c'est la signature du site, elle doit être vue. Plus de sessionStorage
-       ni de referrer qui la suppriment silencieusement. */
+    /* L'intro est la signature du site, mais elle ne doit pas faire attendre
+       un visiteur qui revient (signalement, contact) : elle se joue une seule
+       fois par session d'onglet. Un changement de page interne (rideau,
+       classe wipe-in) la court-circuite aussi. ?intro=1 la force. */
     var viaWipe = root.classList.contains('wipe-in');
+    var seen = root.classList.contains('intro-seen');
 
-    if (!pl || off || (viaWipe && !force)) {
+    if (!pl || off || ((viaWipe || seen) && !force)) {
       /* Sans scène, il faut retirer le décor du DOM, sinon il reste en overlay. */
       if (pl && pl.parentNode) pl.parentNode.removeChild(pl);
       var curtain = document.querySelector('.pl__curtain');
@@ -352,6 +352,7 @@
     var completed = false, exited = false;
 
     if (main && 'inert' in main) main.inert = true;
+    try { sessionStorage.setItem('ciapol:intro', '1'); } catch (e) {}
     /* Horloge unique : le CSS et le compteur démarrent à la même frame. */
     pl.classList.add('pl--play');
     var start = performance.now();

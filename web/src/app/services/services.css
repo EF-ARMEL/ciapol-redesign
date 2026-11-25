@@ -1,0 +1,4 @@
+/* Index des sous-directions et pages de détail des services. */
+.svc-count { display: flex; align-items: baseline; gap: 14px; color: color-mix(in srgb, #fff 82%, transparent); max-width: 36ch; line-height: 1.4; }
+.svc-count .display { font-size: clamp(3rem, 2rem + 3vw, 5rem); color: #fff; line-height: 0.9; }
+.svc { overflow: clip; }

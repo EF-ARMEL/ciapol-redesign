@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Styles des composants transverses (chrome, mouvement).
+   ========================================================================== */
+
+/* ------------------------------------------------------------ LAGUNE */
+.lagoon {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Repli sans WebGL : dégradé vase vers lagune, piloté par --purity. */
+  background:
+    radial-gradient(120% 80% at 20% 10%, rgba(122, 106, 79, calc((1 - var(--purity, 0)) * 0.9)), transparent 60%),
+    linear-gradient(180deg, #2a2a20 0%, #062456 55%, #003f8c 100%);
+}
+/* Le canvas reste invisible tant qu'aucune image n'est réellement dessinée :
+   jamais d'écran noir (chargement lent, machine saturée, contexte perdu). */
+.lagoon__canvas { width: 100%; height: 100%; image-rendering: auto; opacity: 0; transition: opacity 0.6s ease; }
+html.lagoon-live .lagoon__canvas { opacity: 1; }
+html.lagoon-off .lagoon__canvas { display: none; }
+
+/* Tout le contenu passe au-dessus de la lagune ; les sections opaques la masquent. */
+.site { position: relative; z-index: 1; }
+.surface { background: var(--color-papier); position: relative; }
+.surface--white { background: var(--color-blanc); position: relative; }
+.surface--nuit { background: var(--color-nuit); color: var(--color-blanc); position: relative; }
+.water-window { position: relative; background: transparent; color: var(--color-blanc); }
+
+/* ------------------------------------------------------------ SPLIT */
+/* Les masques de ligne (SplitText mask) coupent les accents des capitales
+   (É, È, Ç) avec un interlignage serré : on leur donne de l'air au-dessus. */
+.split-line { padding-block: 0.16em 0.06em; margin-block: -0.16em -0.06em; }
+[class*="-mask"] { padding-top: 0.16em; margin-top: -0.16em; }
+
+/* ------------------------------------------------------------ BOUTONS */
+/* Pilule pleine, libellé seul. Au survol, un niveau d'eau remonte dans le
+   bouton par le bas ; à l'appui, il s'enfonce légèrement. */
+.btn {
+  --btn-bg: var(--color-ciapol);
+  --btn-fg: var(--color-blanc);
+  --btn-fill: var(--color-salubre);
+  --btn-fill-fg: var(--color-blanc);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 30px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s var(--ease-out-expo), transform 0.12s ease-out;
+  white-space: nowrap;
+}
+.btn__fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-fill);
+  border-radius: 45% 45% 0 0 / 30% 30% 0 0;
+  transform: translateY(105%);
+  transition: transform 0.7s var(--ease-out-expo), border-radius 0.7s var(--ease-out-expo);
+}
+.btn:hover .btn__fill,
+.btn:focus-visible .btn__fill { transform: translateY(0); border-radius: 0; }
+.btn:hover, .btn:focus-visible { color: var(--btn-fill-fg); }
+.btn:active { transform: scale(0.97); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+.btn--light { --btn-bg: var(--color-blanc); --btn-fg: var(--color-nuit); --btn-fill: var(--color-salubre-400); --btn-fill-fg: var(--color-nuit); }
+.btn--alert { --btn-bg: var(--color-encre); --btn-fill: var(--color-ci-orange); }
+
+/* ------------------------------------------------------------ RIDEAU */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  visibility: hidden;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.curtain__edge {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  width: 100%;
+  height: 16vh;
+  overflow: visible;
+}
+.curtain__wave { fill: var(--color-ciapol); }
+.curtain__body {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--color-ciapol) 0%, var(--color-nuit) 100%);
+}
+.curtain__label {
+  color: var(--color-blanc);
+  font-size: clamp(3rem, 12vw, 10rem);
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------ BARRE DRAPEAU */
+.flag-rule { display: flex; height: 4px; width: 100%; }
+.flag-rule > i { flex: 1; }
+.flag-rule > i:nth-child(1) { background: var(--color-ci-orange); }
+.flag-rule > i:nth-child(2) { background: var(--color-blanc); }
+.flag-rule > i:nth-child(3) { background: var(--color-ci-vert); }

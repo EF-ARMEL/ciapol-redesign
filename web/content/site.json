@@ -1,0 +1,793 @@
+{
+  "_meta": {
+    "extractedAt": "2026-11-24",
+    "source": "https://ciapol.ci/ (live) + Wayback Machine snapshots 2024-05/06/07 and 2026-02-03 for Elementor Pro content no longer rendered live",
+    "note": "Le site en ligne n'affiche plus les éléments Elementor Pro (en-tête avec barre supérieure, pied de page riche, formulaires, galeries, carrousels). Les champs 'archive' décrivent ces éléments d'après la Wayback Machine."
+  },
+  "site": {
+    "name": "Centre Ivoirien Antipollution / CIAPOL",
+    "tagline": "La lutte contre la pollution, notre priorité",
+    "htmlTitle": "Centre Ivoirien Antipollution / CIAPOL – La lutte contre la pollution, notre priorité",
+    "language": "fr-FR",
+    "favicon": {
+      "32": "/media/site/favicon-32.png",
+      "192": "/media/site/favicon-192.png",
+      "source": "/media/site/favicon-source.png",
+      "sourceUrl": "https://ciapol.ci/wp-content/uploads/2022/07/Logo_extract-removebg-preview.png"
+    },
+    "fonts": [
+      "Oswald (Google Fonts)",
+      "Montserrat (Google Fonts)",
+      "Brandon Grotesque (fichier d'essai HvDTrial_Brandon_Grotesque_regular .otf/.woff hébergé sur ciapol.ci, licence d'essai)"
+    ]
+  },
+  "topbar": {
+    "live": null,
+    "liveNote": "Aucune barre supérieure sur le site en ligne actuel.",
+    "archive": {
+      "snapshot": "2026-02-03",
+      "address": {
+        "text": "Immeuble Grand Siège, Carrefour Kaiser, Cocody Riviera Bonoumin – Abidjan",
+        "icon": "map-marker",
+        "href": "https://maps.app.goo.gl/kLt4uJBDzn37i6Ty7"
+      },
+      "social": [
+        {
+          "network": "facebook",
+          "url": "https://fr-fr.facebook.com/ciapol.ci"
+        },
+        {
+          "network": "youtube",
+          "url": "https://www.youtube.com/@centreivoirienantipollutio4434"
+        },
+        {
+          "network": "linkedin",
+          "url": "https://www.linkedin.com/in/centre-ivoirien-antipollution-b95953253/"
+        }
+      ],
+      "visitorCounter": {
+        "labels": [
+          "Total de visiteurs:",
+          "Visiteurs actuels:"
+        ],
+        "values2026_02": [
+          188457,
+          11
+        ],
+        "plugin": "wps-visitor-counter"
+      },
+      "previousAddress2024": "Immeuble Noguès 2ème Etage Abidjan Plateau"
+    }
+  },
+  "logo": {
+    "src": "/media/site/logo-header.png",
+    "sourceUrl": "https://ciapol.ci/wp-content/uploads/2022/07/logo.png",
+    "width": 768,
+    "height": 407,
+    "alt": "",
+    "title": "← Centre Ivoirien Antipollution / CIAPOL",
+    "href": "/"
+  },
+  "nav": [
+    {
+      "label": "Accueil",
+      "href": "/",
+      "sourceUrl": "https://ciapol.ci/"
+    },
+    {
+      "label": "Présentation",
+      "href": "/presentation",
+      "sourceUrl": "https://ciapol.ci/presentation/"
+    },
+    {
+      "label": "Services",
+      "href": "/services",
+      "sourceUrl": "#",
+      "children": [
+        {
+          "label": "CIPOMAR",
+          "href": "/services/cipomar",
+          "sourceUrl": "https://ciapol.ci/cipomar/"
+        },
+        {
+          "label": "LCE",
+          "href": "/services/lce",
+          "sourceUrl": "https://ciapol.ci/lce/"
+        },
+        {
+          "label": "UNIPOL",
+          "href": "/services/unipol",
+          "sourceUrl": "https://ciapol.ci/unipol/"
+        },
+        {
+          "label": "SDIIC",
+          "href": "/services/sdiic",
+          "sourceUrl": "https://ciapol.ci/sdiic/"
+        },
+        {
+          "label": "SDGSP-VAE",
+          "href": "/services/sdgsp-vae",
+          "sourceUrl": "https://ciapol.ci/sdgsp-vae/"
+        }
+      ],
+      "note": "Parent sans lien (« # ») sur le site ; la page https://ciapol.ci/services/ existe mais n'est pas dans le menu."
+    },
+    {
+      "label": "Projets",
+      "href": "/projets",
+      "sourceUrl": "#",
+      "children": [
+        {
+          "label": "RNO",
+          "href": "/projets/rno",
+          "sourceUrl": "https://ciapol.ci/rno/"
+        },
+        {
+          "label": "GIAMSUC",
+          "href": "/projets/giamsuc",
+          "sourceUrl": "https://giamsuc.ciapol.ci/",
+          "note": "Sous-site externe, actuellement en erreur 500. En 2024 cette entrée était « GIAMAA » -> https://giamaa-ci.net/"
+        },
+        {
+          "label": "ONE HEALTH",
+          "href": "/projets/one-health",
+          "sourceUrl": "#",
+          "note": "Lien « # » : aucune page. Route proposée alimentée par la catégorie https://ciapol.ci/category/one-health/"
+        },
+        {
+          "label": "UCP LAC YAKRO",
+          "href": "/projets/ucp-lac-yakro",
+          "sourceUrl": "#",
+          "note": "Lien « # » dans le menu alors que la page https://ciapol.ci/ucp-lac-yakro/ existe (vide)."
+        },
+        {
+          "label": "CCAC",
+          "href": "/projets/ccac",
+          "sourceUrl": "https://ciapol.ci/ciapol/"
+        }
+      ],
+      "note": "Parent sans lien (« # »)."
+    },
+    {
+      "label": "Qualité de l’Air",
+      "href": "/qualite-de-lair",
+      "sourceUrl": "https://ciapol.ci/qualite-de-lair/"
+    },
+    {
+      "label": "Nous contactez",
+      "href": "/contact",
+      "sourceUrl": "https://ciapol.ci/contactez-nous/",
+      "note": "Libellé tel quel sur le site (sic)."
+    }
+  ],
+  "navHiddenPages": [
+    {
+      "label": "Décret de création",
+      "href": "/decret-de-creation",
+      "sourceUrl": "https://ciapol.ci/decret-de-creation/",
+      "note": "Accessible seulement via bouton de la page Présentation (lien « # » en ligne)"
+    },
+    {
+      "label": "Nos articles / Actualités",
+      "href": "/actualites",
+      "sourceUrl": "https://ciapol.ci/nos-articles/",
+      "note": "Via « Voir plus d'articles » sur l'accueil"
+    },
+    {
+      "label": "Galerie",
+      "href": "/galerie",
+      "sourceUrl": "https://ciapol.ci/gallerie/",
+      "note": "Via le pied de page (archive) ; page vide en ligne"
+    },
+    {
+      "label": "Mot du directeur",
+      "href": "/mot-du-directeur",
+      "sourceUrl": "https://ciapol.ci/mot-du-directeur/",
+      "note": "Articles, pas une page"
+    }
+  ],
+  "header": {
+    "search": null,
+    "mobile": "Menu hamburger (« Menu de navigation »), panneau coulissant à gauche reprenant le même menu.",
+    "skipLink": "Aller au contenu"
+  },
+  "footer": {
+    "live": {
+      "columns": [],
+      "credit": "Neve | Propulsé par WordPress",
+      "creditLinks": [
+        {
+          "label": "Neve",
+          "url": "https://themeisle.com/themes/neve/"
+        },
+        {
+          "label": "WordPress",
+          "url": "https://wordpress.org"
+        }
+      ]
+    },
+    "archive": {
+      "snapshot": "2026-02-03 (structure identique en 2024)",
+      "columns": [
+        {
+          "title": "Siège",
+          "lines": [
+            "Immeuble Grand Siège, Carrefour Kaiser, Cocody Riviera Bonoumin – Abidjan",
+            "– Tel: (225) 27 22 52 43 34 – Fax: (225) 27 22 52 43 34 – Email: courrier@ciapol.ci"
+          ],
+          "mapUrl": "https://maps.app.goo.gl/kLt4uJBDzn37i6Ty7"
+        },
+        {
+          "title": "Partenaires",
+          "links": [
+            {
+              "label": "Voie des femmes",
+              "url": "https://voiedefemme.net/category/environnement/"
+            }
+          ]
+        },
+        {
+          "title": "BUREAU ANNEXE",
+          "lines": [
+            "Plateau Avenue Noguès, Immeuble Noguès, 2 ème Etage – Tel: (225) 27 20 22 54 44 – Fax: (225) 27 20 32 22 16"
+          ]
+        },
+        {
+          "title": "Daloa",
+          "lines": [
+            "– Tel: (225) 27 32 700 583",
+            "– Tel: (225) 07 07 89 04 15",
+            "– Tel: (225) 07 48 60 59 82"
+          ]
+        },
+        {
+          "title": "SAN-PÉDRO",
+          "lines": [
+            "– Tel: (225) 01 01 27 44 00 – Tel: (225) 07 58 91 09 73"
+          ]
+        },
+        {
+          "title": "MAN",
+          "lines": [
+            "– Tel: (225) 01 03 682 757 – Tel: (225) 07 48 991 660"
+          ]
+        },
+        {
+          "title": "Korhogo",
+          "lines": [
+            "– Tel: (225) 07 58 91 09 73"
+          ]
+        },
+        {
+          "title": "Abengourou",
+          "lines": [
+            "– Tel: (225) 07 07 33 85 33"
+          ]
+        },
+        {
+          "title": "SERVICES",
+          "links": [
+            {
+              "label": "CIPOMAR",
+              "href": "/services/cipomar",
+              "url": "https://ciapol.ci/cipomar/"
+            },
+            {
+              "label": "LCE",
+              "href": "/services/lce",
+              "url": "https://ciapol.ci/lce/"
+            },
+            {
+              "label": "SDIIC",
+              "href": "/services/sdiic",
+              "url": "https://ciapol.ci/sdiic/"
+            },
+            {
+              "label": "UNIPOL",
+              "href": "/services/unipol",
+              "url": "https://ciapol.ci/unipol/"
+            },
+            {
+              "label": "SDGSP-VAE",
+              "href": "/services/sdgsp-vae",
+              "url": "https://ciapol.ci/sdgsp-vae/"
+            }
+          ]
+        },
+        {
+          "title": "Autres",
+          "links": [
+            {
+              "label": "Gallerie",
+              "href": "/galerie",
+              "url": "https://ciapol.ci/gallerie/"
+            }
+          ]
+        }
+      ],
+      "bottom": {
+        "copyright": "Copyright © 2022 Centre Ivoirien Antipollution",
+        "links": [
+          {
+            "label": "Accueil",
+            "href": "/"
+          },
+          {
+            "label": "Présentation",
+            "href": "/presentation"
+          },
+          {
+            "label": "Galerie",
+            "href": "/galerie"
+          }
+        ]
+      },
+      "note2024": "En 2024 : Siège « Riviera Attoban non loin du 30 ème Arrondissement » ; numéros de Daloa et MAN intervertis (Daloa : 27 32 700 583, 01 03 682 757, 07 48 991 660 ; MAN : 07 07 89 04 15, 07 48 60 59 82)."
+    }
+  },
+  "social": [
+    {
+      "network": "facebook",
+      "url": "https://fr-fr.facebook.com/ciapol.ci",
+      "alt": "https://facebook.com/ciapol.ci (widget page Facebook accueil)"
+    },
+    {
+      "network": "youtube",
+      "url": "https://www.youtube.com/@centreivoirienantipollutio4434"
+    },
+    {
+      "network": "linkedin",
+      "url": "https://www.linkedin.com/in/centre-ivoirien-antipollution-b95953253/"
+    }
+  ],
+  "socialNote": "Aucun lien social visible sur le site en ligne actuel ; liens issus des archives (barre supérieure).",
+  "contact": {
+    "addresses": [
+      {
+        "label": "Siège",
+        "text": "Immeuble Grand Siège, Carrefour Kaiser, Cocody Riviera Bonoumin – Abidjan",
+        "map": "https://maps.app.goo.gl/kLt4uJBDzn37i6Ty7",
+        "source": "archive 2026-02"
+      },
+      {
+        "label": "Siège (précision, PV GIAMSUC déc. 2024)",
+        "text": "Cocody, Riviera-Bonoumin, Boulevard de la Paix, rue L128"
+      },
+      {
+        "label": "BUREAU ANNEXE",
+        "text": "Plateau Avenue Noguès, Immeuble Noguès, 2 ème Etage",
+        "source": "archive"
+      },
+      {
+        "label": "Antennes régionales (page Présentation)",
+        "text": "Daloa, San-Pedro, Yamoussoukro"
+      },
+      {
+        "label": "Antennes (pied de page archivé)",
+        "text": "Daloa, SAN-PÉDRO, MAN, Korhogo, Abengourou"
+      }
+    ],
+    "phones": [
+      {
+        "label": "Siège – Tel",
+        "number": "(225) 27 22 52 43 34"
+      },
+      {
+        "label": "Siège – Fax",
+        "number": "(225) 27 22 52 43 34"
+      },
+      {
+        "label": "Bureau annexe – Tel",
+        "number": "(225) 27 20 22 54 44"
+      },
+      {
+        "label": "Bureau annexe – Fax",
+        "number": "(225) 27 20 32 22 16"
+      },
+      {
+        "label": "Daloa",
+        "number": "(225) 27 32 700 583"
+      },
+      {
+        "label": "Daloa",
+        "number": "(225) 07 07 89 04 15",
+        "tel": "+2250707890415"
+      },
+      {
+        "label": "Daloa",
+        "number": "(225) 07 48 60 59 82",
+        "tel": "+2250748605982"
+      },
+      {
+        "label": "San-Pédro",
+        "number": "(225) 01 01 27 44 00"
+      },
+      {
+        "label": "San-Pédro",
+        "number": "(225) 07 58 91 09 73"
+      },
+      {
+        "label": "Man",
+        "number": "(225) 01 03 682 757"
+      },
+      {
+        "label": "Man",
+        "number": "(225) 07 48 991 660"
+      },
+      {
+        "label": "Korhogo",
+        "number": "(225) 07 58 91 09 73"
+      },
+      {
+        "label": "Abengourou",
+        "number": "(225) 07 07 33 85 33"
+      }
+    ],
+    "emails": [
+      "courrier@ciapol.ci"
+    ],
+    "hours": null,
+    "hoursNote": "Aucun horaire d'ouverture publié sur le site (ni en ligne, ni dans les archives).",
+    "map": {
+      "embed": "https://www.google.com/maps/d/embed?mid=182OVWpEDdaw9QFhG9UrkCkBDPFo",
+      "page": "/contact",
+      "link": "https://maps.app.goo.gl/kLt4uJBDzn37i6Ty7"
+    },
+    "form": {
+      "page": "/contact",
+      "status": "archive only (absent en ligne)",
+      "fields": [
+        {
+          "label": "Name",
+          "name": "form_fields[name]",
+          "type": "text",
+          "required": true,
+          "placeholder": "Nom et prenom"
+        },
+        {
+          "label": "Email",
+          "name": "form_fields[email]",
+          "type": "email",
+          "required": true,
+          "placeholder": "Email"
+        },
+        {
+          "label": "Téléphone",
+          "name": "form_fields[field_e2802ee]",
+          "type": "tel",
+          "required": true,
+          "placeholder": "Téléphone",
+          "pattern": "[0-9()#&+*-=.]+"
+        },
+        {
+          "label": "Message",
+          "name": "form_fields[message]",
+          "type": "textarea",
+          "rows": 4,
+          "required": false,
+          "placeholder": "Message"
+        }
+      ],
+      "submit": "Envoyer"
+    }
+  },
+  "structures": [
+    {
+      "name": "Ministère de l'Environnement et de la transition écologique",
+      "logo": "/media/site/structure-ministere-environnement-transition-ecologique.jpeg",
+      "url": "https://environnement.gouv.ci/",
+      "sourceLogo": "https://ciapol.ci/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-17-at-09.00.44.jpeg",
+      "note": "Version mobile : « Ministère de l'Environnement et du Développement Durable » + ancien logo /media/site/structure-minedd-ancien-logo.jpg"
+    },
+    {
+      "name": "Agence Nationale De l'Environnement",
+      "logo": "/media/site/structure-ande.png",
+      "url": "http://www.ande-ci.com/"
+    },
+    {
+      "name": "Office Ivoirien des Parcs et Réserves",
+      "logo": "/media/site/structure-oipr.jpg",
+      "url": "https://www.oipr.ci/"
+    }
+  ],
+  "partners": [
+    {
+      "name": "CODINORM",
+      "logo": "/media/site/partenaire-codinorm.png",
+      "url": "https://codinorm.ci/"
+    },
+    {
+      "name": "CENTRE DE PROMOTION DES INVESTISSEMENTS EN COTE D'IVOIRE",
+      "logo": "/media/site/partenaire-cepici.png",
+      "url": "https://cepici.ci/",
+      "note": "Logo blanc sur fond transparent (invisible sur fond blanc)"
+    },
+    {
+      "name": "225INVEST",
+      "logo": "/media/site/partenaire-225invest.png",
+      "url": "https://www.225invest.ci/",
+      "note": "Logo blanc sur fond transparent (invisible sur fond blanc)"
+    },
+    {
+      "name": "Voie des femmes",
+      "logo": "/media/site/partenaire-voie-des-femmes.png",
+      "url": "https://voiedefemme.net/category/environnement/",
+      "note": "Version mobile et pied de page archivé uniquement"
+    }
+  ],
+  "giamsucPartners": [
+    {
+      "name": "Convention d'Abidjan",
+      "logo": "/media/pages/projets-giamsuc/logo-convention-dabidjan.png"
+    },
+    {
+      "name": "CIAPOL",
+      "logo": "/media/pages/projets-giamsuc/logo-ciapol.png"
+    },
+    {
+      "name": "CSE",
+      "logo": "/media/pages/projets-giamsuc/logo-cse.png"
+    },
+    {
+      "name": "UE",
+      "logo": "/media/pages/projets-giamsuc/logo-ue.png"
+    },
+    {
+      "name": "ACP",
+      "logo": "/media/pages/projets-giamsuc/logo-acp.png"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Non classé",
+      "slug": "non-classe",
+      "count": 102,
+      "parent": null,
+      "href": "/actualites/categorie/non-classe",
+      "sourceUrl": "https://ciapol.ci/category/non-classe/"
+    },
+    {
+      "name": "Vedette",
+      "slug": "vedette",
+      "count": 26,
+      "parent": null,
+      "href": "/actualites/categorie/vedette",
+      "sourceUrl": "https://ciapol.ci/category/vedette/"
+    },
+    {
+      "name": "ATELIER DE VALIDATION",
+      "slug": "atelier-de-validation",
+      "count": 3,
+      "parent": "vedette",
+      "href": "/actualites/categorie/atelier-de-validation",
+      "sourceUrl": "https://ciapol.ci/category/vedette/atelier-de-validation/"
+    },
+    {
+      "name": "DISTINCTION",
+      "slug": "distinction",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/distinction",
+      "sourceUrl": "https://ciapol.ci/category/distinction/"
+    },
+    {
+      "name": "PLAN POLLUMAR",
+      "slug": "plan-pollumar",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/plan-pollumar",
+      "sourceUrl": "https://ciapol.ci/category/plan-pollumar/"
+    },
+    {
+      "name": "REUNION DE PRISE DE CONTACT",
+      "slug": "reunion-de-prise-de-contact",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/reunion-de-prise-de-contact",
+      "sourceUrl": "https://ciapol.ci/category/reunion-de-prise-de-contact/"
+    },
+    {
+      "name": "ONE HEALTH",
+      "slug": "one-health",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/one-health",
+      "sourceUrl": "https://ciapol.ci/category/one-health/"
+    },
+    {
+      "name": "COHESION SOCIALE",
+      "slug": "cohesion-sociale",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/cohesion-sociale",
+      "sourceUrl": "https://ciapol.ci/category/cohesion-sociale/"
+    },
+    {
+      "name": "VISITE MINISTERIELLE",
+      "slug": "visite-ministerielle",
+      "count": 2,
+      "parent": null,
+      "href": "/actualites/categorie/visite-ministerielle",
+      "sourceUrl": "https://ciapol.ci/category/visite-ministerielle/"
+    },
+    {
+      "name": "VISITE DE CHANTIER",
+      "slug": "visite-de-chantier",
+      "count": 1,
+      "parent": null,
+      "href": "/actualites/categorie/visite-de-chantier",
+      "sourceUrl": "https://ciapol.ci/category/visite-de-chantier/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "cordon sableux",
+      "slug": "cordon-sableux",
+      "count": 1,
+      "href": "/actualites/tag/cordon-sableux",
+      "sourceUrl": "https://ciapol.ci/tag/cordon-sableux/"
+    },
+    {
+      "name": "CCAC",
+      "slug": "ccac",
+      "count": 2,
+      "href": "/actualites/tag/ccac",
+      "sourceUrl": "https://ciapol.ci/tag/ccac/"
+    },
+    {
+      "name": "FORMATION",
+      "slug": "formation",
+      "count": 1,
+      "href": "/actualites/tag/formation",
+      "sourceUrl": "https://ciapol.ci/tag/formation/"
+    },
+    {
+      "name": "EXCELLENCE",
+      "slug": "excellence",
+      "count": 1,
+      "href": "/actualites/tag/excellence",
+      "sourceUrl": "https://ciapol.ci/tag/excellence/"
+    },
+    {
+      "name": "RESTITUTION AUDIT-DIAGNOSTIC",
+      "slug": "restitution-audit-diagnostic",
+      "count": 1,
+      "href": "/actualites/tag/restitution-audit-diagnostic",
+      "sourceUrl": "https://ciapol.ci/tag/restitution-audit-diagnostic/"
+    },
+    {
+      "name": "ATELIER",
+      "slug": "atelier",
+      "count": 1,
+      "href": "/actualites/tag/atelier",
+      "sourceUrl": "https://ciapol.ci/tag/atelier/"
+    },
+    {
+      "name": "CAMPAGNE DE SENSIBILISATION ET D’INFORMATION",
+      "slug": "campagne-de-sensibilisation-et-dinformation",
+      "count": 1,
+      "href": "/actualites/tag/campagne-de-sensibilisation-et-dinformation",
+      "sourceUrl": "https://ciapol.ci/tag/campagne-de-sensibilisation-et-dinformation/"
+    },
+    {
+      "name": "REUNION",
+      "slug": "reunion",
+      "count": 2,
+      "href": "/actualites/tag/reunion",
+      "sourceUrl": "https://ciapol.ci/tag/reunion/"
+    },
+    {
+      "name": "SIGNATURE DE CONVENTION",
+      "slug": "signature-de-convention",
+      "count": 1,
+      "href": "/actualites/tag/signature-de-convention",
+      "sourceUrl": "https://ciapol.ci/tag/signature-de-convention/"
+    }
+  ],
+  "blogSidebar": {
+    "appliesTo": "articles (single posts)",
+    "widgets": [
+      "Rechercher (recherche WordPress, champ « s », bouton « Rechercher »)",
+      "Articles récents (5 derniers)",
+      "Commentaires récents (« Aucun commentaire à afficher. »)"
+    ],
+    "comments": "Formulaire « Laisser un commentaire » : Commentaire*, Nom*, E-mail*, Site web, case « Enregistrer mon nom, mon e-mail et mon site… »"
+  },
+  "cookieBanner": null,
+  "newsletter": null,
+  "documents": [
+    {
+      "label": "Magazine CIAPOL (CIAPOL'Publication)",
+      "href": "/media/documents/MAGAZINE-CIAPOL-2.pdf",
+      "sourceUrl": "https://ciapol.ci/wp-content/uploads/2022/07/MAGAZINE-CIAPOL-2.pdf",
+      "page": "/",
+      "note": "lien du site cassé : /ciapol/wp-content/... (404)"
+    },
+    {
+      "label": "DÉCRET N° 91-662 DU 9 OCTOBRE 1991 … [PDF]",
+      "href": "/media/documents/DECRET-DE-CREATION-CIAPOL.pdf",
+      "sourceUrl": "https://environnement.gouv.ci/wp-content/uploads/2022/01/DECRET-DE-CREATION-CIAPOL.pdf",
+      "page": "/decret-de-creation",
+      "note": "404 sur le site source ; récupéré via Wayback"
+    },
+    {
+      "label": "Annexe fiscale à la loi de finance N°2015 840 du 18 Décembre 2001",
+      "href": "/media/documents/Annexe-fiscale-a-la-loi-de-finance-n2015-840-du-18-Dec-2001.pdf",
+      "sourceUrl": "https://ciapol.ci//wp-content/uploads/2022/08/Annexe-fiscale-a-la-loi-de-finance-n2015-840-du-18-Dec-2001.pdf",
+      "page": "/decret-de-creation"
+    },
+    {
+      "label": "Loi de finance N84-1367 du 26 Dec 1984 portant loi des f0001",
+      "href": "/media/documents/Loi-de-finance-N84-1367-du-26-Dec-1984-portant-loi-des-f0001.pdf",
+      "sourceUrl": "https://ciapol.ci//wp-content/uploads/2022/08/Loi-de-finance-N84-1367-du-26-Dec-1984-portant-loi-des-f0001.pdf",
+      "page": "/decret-de-creation"
+    },
+    {
+      "label": "Code de l'environnement",
+      "href": "/media/documents/CODE-DE-ENVIRONNEMENT-KJP.pdf",
+      "sourceUrl": "https://ciapol.ci//wp-content/uploads/2022/08/CODE-DE-ENVIRONNEMENT-KJP.pdf",
+      "page": "/decret-de-creation"
+    },
+    {
+      "label": "RAPPORT DE L'ATELIER DE LANCEMENT DU PROJET GIAMSUC",
+      "href": "/media/documents/RAPPORT-DE-LATELIER-DE-LANCEMENT-DU-PROJET-GIAMSUC-VS.pdf",
+      "sourceUrl": "https://giamsuc.ciapol.ci/wp-content/uploads/2024/11/RAPPORT-DE-LATELIER-DE-LANCEMENT-DU-PROJET-GIAMSUC-VS.pdf",
+      "page": "/projets/giamsuc/rapports-d-activite",
+      "note": "médiathèque GIAMSUC, lien non visible dans les pages"
+    },
+    {
+      "label": "Fraternité Matin – article lancement GIAMSUC",
+      "href": "/media/documents/Fraternite-matin-article-lancement-GIAMSUC.pdf",
+      "sourceUrl": "https://giamsuc.ciapol.ci/wp-content/uploads/2025/04/Fraternite-matin-article-lancement-GIAMSUC.pdf",
+      "page": "/projets/giamsuc/rapports-d-activite"
+    },
+    {
+      "label": "Fiche d'inscription",
+      "href": "/media/documents/FICHE-DINSCRIPTION.pdf",
+      "sourceUrl": "https://giamsuc.ciapol.ci/wp-content/uploads/2024/11/FICHE-DINSCRIPTION.pdf",
+      "page": "/projets/giamsuc/rapports-d-activite"
+    }
+  ],
+  "embeds": [
+    {
+      "type": "iframe",
+      "url": "https://www.google.com/maps/d/embed?mid=182OVWpEDdaw9QFhG9UrkCkBDPFo",
+      "page": "/contact"
+    },
+    {
+      "type": "iframe",
+      "url": "https://monitoring.atmoivoir.com/website",
+      "title": "Surveillance de la Qualité de l'Air - CIAPOL",
+      "page": "/qualite-de-lair",
+      "note": "serveur injoignable lors de l'extraction (échec TLS/connexion)"
+    },
+    {
+      "type": "iframe",
+      "url": "https://maps.google.com/maps?q=Si%C3%A8ge%20social%20centre%20ivoirien%20antipollution%20%28CIAPOL%29&t=m&z=18&output=embed&iwloc=near",
+      "page": "/projets/giamsuc/contact"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/watch?v=SVzNOjfLhEY",
+      "page": "/",
+      "note": "archive 2026-02"
+    },
+    {
+      "type": "youtube",
+      "urls": [
+        "https://www.youtube.com/watch?v=3A1xL_6EK-E",
+        "https://www.youtube.com/watch?v=KPCsTFIiBIM",
+        "https://www.youtube.com/watch?v=EQsFgZgpuUY",
+        "https://www.youtube.com/watch?v=Cv6TJxdEJek"
+      ],
+      "page": "/",
+      "note": "archive 2024"
+    },
+    {
+      "type": "facebook-page",
+      "url": "https://facebook.com/ciapol.ci",
+      "page": "/",
+      "note": "archive"
+    }
+  ]
+}
