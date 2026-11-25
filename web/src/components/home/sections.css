@@ -65,7 +65,13 @@
   font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* Coupure en fondu plutôt qu'en points de suspension (WebKit les rend
+     comme un simple point, on lisait « lagun. »). */
+  text-overflow: clip;
+}
+.missions__item:not(.is-open) .missions__title[data-long] {
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 2.4em);
+  mask-image: linear-gradient(to top, transparent 0, #000 2.4em);
 }
 .missions__more {
   font-weight: 600;
@@ -120,7 +126,7 @@
   100% { box-shadow: 0 0 0 28px rgba(255, 255, 255, 0); }
 }
 .voices__cap { position: absolute; left: 20px; right: 20px; bottom: 18px; font-weight: 600; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
-.voices__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 14px; }
+.voices__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; margin-top: 14px; }
 .voices__item {
   display: grid;
   grid-template-columns: 72px 1fr;
@@ -371,4 +377,14 @@
   .eco3__panel, .eco3__panel.is-open { min-height: 0; display: flex; flex-direction: column; }
   .eco3__art, .eco3__art:has(.art--waves) { position: relative; inset: auto; height: 230px; margin-top: 30px; }
   .eco3__body { position: relative; padding-top: 6px; }
+}
+/* Mobile et tablette : chaque illustration a un cadre à sa proportion réelle,
+   au-dessus du texte, et se voit en entier (plus de boucle sous le titre). */
+@media (max-width: 900px) {
+  .eco3__art, .eco3__art:has(.art--waves) { height: auto; inset: auto; margin: 44px auto 8px; display: block; }
+  .eco3__art:not(:has(.art--waves)) { width: min(78%, 340px); aspect-ratio: 1; }
+  .eco3__art:has(.art--waves) { width: 100%; aspect-ratio: 16 / 9; }
+  .eco3__art svg { display: block; width: 100%; height: 100%; }
+  .art--loop { overflow: visible; padding: 0 12%; box-sizing: border-box; }
+  .art--sprout { transform: none; }
 }

@@ -87,6 +87,21 @@ export default function Header() {
     setDrawer(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const onSame = () => {
+      setOpen(null);
+      setDrawer(false);
+      const lenis = getLenis();
+      // Le tiroir relance Lenis à sa fermeture : on remonte juste après.
+      window.setTimeout(() => {
+        if (lenis) lenis.scrollTo(0, { duration: 1 });
+        else window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 60);
+    };
+    window.addEventListener("ciapol:same-page", onSame);
+    return () => window.removeEventListener("ciapol:same-page", onSame);
+  }, []);
+
   // Tiroir mobile : bloque le scroll, anime l'entrée des liens, Échap ferme.
   useEffect(() => {
     const lenis = getLenis();

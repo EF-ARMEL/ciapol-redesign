@@ -73,6 +73,11 @@
 .crumbs li { display: inline-flex; align-items: center; gap: 10px; color: color-mix(in srgb, #fff 70%, transparent); }
 .crumbs li + li::before { content: "/"; opacity: 0.45; }
 .crumbs a:hover { color: #fff; }
+/* Zones tactiles : 44 px de haut sans changer l'aspect. */
+@media (pointer: coarse) {
+  .crumbs a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -13px; }
+  .hh__more, .parcours__more, .voices__all, .eco3__link { display: inline-flex; align-items: center; min-height: 44px; }
+}
 .crumbs [aria-current] { color: var(--color-salubre-400); }
 .surface .crumbs li { color: var(--color-brume); }
 

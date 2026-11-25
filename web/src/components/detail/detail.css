@@ -768,3 +768,6 @@ html:has(.hdr.is-hidden) .dbody__bar { top: 0; }
 /* La barre de chapitres se cale sous le bas réel de l'en-tête. */
 .dbody__bar { top: calc(var(--hdr-bottom, var(--header-h)) + 8px); transition: top 0.25s linear; }
 html:has(.hdr.is-hidden) .dbody__bar { top: 0; }
+/* Barres collées : même rythme que l'en-tête qui se cache (0,7 s), pour ne
+   jamais passer dessous pendant sa sortie. */
+.dbody__bar { transition: top 0.7s var(--ease-out-expo); }

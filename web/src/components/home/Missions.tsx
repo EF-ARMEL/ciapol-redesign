@@ -34,7 +34,7 @@ export default function Missions({ items }: { items: Tile[] }) {
                 {m.image ? <img src={m.image} alt="" loading="lazy" decoding="async" /> : null}
                 <span className="missions__n display" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                 <span className="missions__body">
-                  <span className="missions__title">{m.title}</span>
+                  <span className="missions__title" data-long={m.title.length > 30 ? "" : undefined}>{m.title}</span>
                   <span className="missions__more">En savoir +</span>
                 </span>
               </TransitionLink>

@@ -136,3 +136,15 @@ html.lagoon-off .lagoon__canvas { display: none; }
    composants (qui forçaient object-fit: cover). */
 .fit > .fit__img { object-fit: contain !important; width: 100% !important; height: 100% !important; }
 .fit > .fit__bg { object-fit: cover !important; }
+/* Le fond flouté de FitImage l'emporte toujours sur les règles « img » des
+   composants (GIAMSUC : doublon net et décalé à la place du flou). */
+.fit > img.fit__bg {
+  position: absolute !important;
+  inset: -10% !important;
+  width: 120% !important;
+  height: 120% !important;
+  max-width: none !important;
+  filter: blur(26px) saturate(1.25) brightness(0.62) !important;
+  transform: scale(1.08) !important;
+  transition: none !important;
+}

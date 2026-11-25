@@ -197,3 +197,4 @@ textarea.gform__input { resize: vertical; min-height: 130px; }
 .giamsuc .dsec, .giamsuc .know { scroll-margin-top: calc(var(--header-h) + 120px); }
 .gnav { top: calc(var(--hdr-bottom, var(--header-h)) + 8px); transition: top 0.25s linear; }
 html:has(.hdr.is-hidden) .gnav { top: 0; }
+.gnav { transition: top 0.7s var(--ease-out-expo); }

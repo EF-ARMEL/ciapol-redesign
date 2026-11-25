@@ -374,3 +374,18 @@
   .fil__link { padding: 14px 2px; gap: 12px; }
   .fil__mini { grid-template-columns: 92px minmax(0, 1fr); }
 }
+
+/* Le hero tient dans la hauteur de l'écran (fenêtres de portable de 600 à
+   800 px de haut une fois les barres du navigateur retirées) : le titre suit
+   aussi la hauteur disponible. */
+@media (min-width: 561px) {
+  .hh__title { font-size: min(clamp(3.1rem, 1.5rem + 4.6vw, 7.4rem), 12.5svh); }
+  .hh__inner { padding-top: calc(var(--header-h) + min(64px, 6svh)); row-gap: min(48px, 4svh); }
+}
+@media (min-width: 561px) and (max-height: 860px) {
+  .hh__lead { margin-top: min(26px, 2.4svh); font-size: min(var(--text-lead), 2.6svh); }
+  .hh__actions { margin-top: min(30px, 3svh); }
+  .hh__actions .btn { min-height: min(54px, 6.4svh); }
+  .hh__scenes { padding-top: 12px; }
+  .hh__inner { padding-bottom: min(28px, 2.6svh); }
+}

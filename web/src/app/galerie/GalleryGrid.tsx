@@ -46,7 +46,7 @@ export default function GalleryGrid({ photos, albums, labels }: { photos: Galler
         {shown.map((p, i) => (
           <li key={`${p.src}-${i}`} className="gal__item" style={{ animationDelay: `${Math.min(i, 10) * 60}ms` }}>
             <button type="button" className="gal__btn" onClick={() => setOpen(i)} aria-label={`Agrandir : ${p.alt}`}>
-              <img src={p.src} alt="" loading={i < 4 ? "eager" : "lazy"} decoding="async" />
+              <img src={p.src} alt="" loading="eager" decoding="async" />
             </button>
           </li>
         ))}

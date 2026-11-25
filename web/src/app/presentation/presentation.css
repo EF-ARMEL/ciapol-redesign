@@ -55,7 +55,7 @@
   white-space: nowrap;
 }
 .prs-mark:first-child .prs-mark__fig,
-.prs-mark:last-child .prs-mark__fig { font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.8rem); }
+.prs-mark:last-child .prs-mark__fig { font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.8rem); white-space: normal; text-wrap: balance; overflow-wrap: anywhere; }
 .prs-mark__unit { font-size: 0.42em; }
 .prs-mark__txt { color: color-mix(in srgb, #fff 86%, transparent); max-width: 38ch; line-height: 1.55; }
 

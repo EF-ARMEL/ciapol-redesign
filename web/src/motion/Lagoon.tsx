@@ -133,8 +133,18 @@ export default function Lagoon() {
        si elle peine encore au minimum, l'eau ralentit à 8 images/s (sans
        jamais s'arrêter : une image effacée resterait noire). */
     let STEP = 1000 / 30;
-    let acc = 0, frames = 0, sum = 0, frozen = false;
+    let acc = 0, frames = 0, sum = 0, frozen = false, stopped = false;
     const degrade = () => {
+      if (frozen) {
+        // Même au minimum la machine ne suit pas (pas d'accélération
+        // graphique) : on coupe le rendu et on passe au fond statique, pour
+        // rendre le processeur aux interactions.
+        stopped = true;
+        cancelAnimationFrame(raf);
+        root.classList.remove("lagoon-live");
+        root.classList.add("lagoon-off");
+        return;
+      }
       if (scale > 0.26) {
         scale = scale > 0.4 ? 0.33 : 0.25;
         gl.uniform1f(u.density, 0.4);
@@ -146,6 +156,7 @@ export default function Lagoon() {
     };
 
     const frame = (now: number) => {
+      if (stopped) return;
       raf = requestAnimationFrame(frame);
       const real = now - last;
       acc += real;
@@ -153,11 +164,13 @@ export default function Lagoon() {
       acc = 0;
       const dt = Math.min(real / 1000, 0.05);
       last = now;
-      if (!frozen && !document.hidden && lagoon.windows > 0) {
+      if (!document.hidden && lagoon.windows > 0) {
         frames++;
         sum += real;
-        if (frames >= 45) {
-          if (sum / frames > 45) degrade();
+        // Bilan toutes les 45 images, ou au bout de 1,5 s si la machine est si
+        // lente que 45 images prendraient une minute.
+        if (frames >= 45 || (frames >= 4 && sum > 1500)) {
+          if (sum / frames > (frozen ? 200 : 45)) degrade();
           frames = 0; sum = 0;
         }
       }
