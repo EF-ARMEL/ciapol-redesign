@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { getLenis } from "@/motion/SmoothScroll";
 import { Check, Droplets, Factory, Fish, Trash2, Wind, Waves } from "lucide-react";
 
 const TYPES = [
@@ -54,10 +55,44 @@ export default function SignalForm({ email }: { email?: string }) {
     return Object.keys(e).length === 0;
   };
 
-  const next = () => { if (validate(step)) setStep((s) => Math.min(2, s + 1)); };
+  /* Après chaque changement d'étape, on ramène le début du formulaire sous
+     l'en-tête et on place le focus sur la nouvelle étape (lecteurs d'écran).
+     En cas d'erreur, le focus va au premier champ fautif. */
+  const top = useRef<HTMLDivElement>(null);
+  const [moved, setMoved] = useState(0);
+  useEffect(() => {
+    if (!moved) return;
+    const el = top.current;
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--hdr-bottom")) || 90) - 16;
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(Math.max(0, y), { immediate: true, force: true });
+    else window.scrollTo({ top: Math.max(0, y) });
+    const target =
+      el.querySelector<HTMLElement>(".has-err input, .has-err textarea, [aria-invalid='true'] input") ??
+      el.querySelector<HTMLElement>(".sig__legend, .sig__h");
+    if (target) {
+      if (!/^(INPUT|TEXTAREA)$/.test(target.tagName)) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    }
+  }, [moved]);
+  const bump = () => setMoved((n) => n + 1);
+
+  const next = (ev?: React.MouseEvent) => {
+    ev?.preventDefault();
+    if (validate(step)) setStep((s) => Math.min(2, s + 1));
+    bump();
+  };
+  const back = (ev: React.MouseEvent) => {
+    ev.preventDefault();
+    setErrors({});
+    setStep((s) => Math.max(0, s - 1));
+    bump();
+  };
   const submit = (ev: FormEvent) => {
     ev.preventDefault();
     if (validate(2)) setDone(true);
+    bump();
   };
 
   const typeLabel = TYPES.find((t) => t.id === d.type)?.label ?? "";
@@ -76,7 +111,7 @@ export default function SignalForm({ email }: { email?: string }) {
 
   if (done) {
     return (
-      <div className="sig sig--done" role="status" aria-live="polite">
+      <div ref={top} className="sig sig--done" role="status" aria-live="polite">
         <span className="sig__ok"><Check size={34} strokeWidth={2.4} /></span>
         <h2 className="sig__h display">Signalement prêt</h2>
         <p className="sig__p">
@@ -99,6 +134,7 @@ export default function SignalForm({ email }: { email?: string }) {
   }
 
   return (
+    <div ref={top}>
     <form className="sig" onSubmit={submit} noValidate aria-describedby="sig-steps">
       <ol id="sig-steps" className="sig__steps" aria-label="Étapes du signalement">
         {["Type", "Lieu & description", "Coordonnées"].map((s, i) => (
@@ -169,21 +205,22 @@ export default function SignalForm({ email }: { email?: string }) {
 
       <div className="sig__nav">
         {step > 0 ? (
-          <button type="button" className="sig__btn" onClick={() => setStep(step - 1)}>
+          <button key="back" type="button" className="sig__btn" onClick={back}>
             Retour
           </button>
         ) : <span />}
         {step < 2 ? (
-          <button type="button" className="sig__btn sig__btn--main" onClick={next}>
+          <button key="next" type="button" className="sig__btn sig__btn--main" onClick={next}>
             Continuer
           </button>
         ) : (
-          <button type="submit" className="sig__btn sig__btn--main">
+          <button key="submit" type="submit" className="sig__btn sig__btn--main">
             Préparer le signalement
           </button>
         )}
       </div>
     </form>
+    </div>
   );
 }
 

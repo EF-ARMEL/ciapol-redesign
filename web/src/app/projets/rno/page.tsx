@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import UnitDetail, { altFor, type SectionRender } from "@/components/detail/UnitDetail";
+import UnitDetail, { type SectionRender } from "@/components/detail/UnitDetail";
 import Blocks from "@/components/detail/Blocks";
 import { KnowPanel } from "@/components/detail/Detail";
 import StationLine from "@/components/detail/scenes/StationLine";
+import RnoMap from "@/components/detail/scenes/RnoMap";
 import { imagesIn, loadDetail, splitTitle, withoutImages, type Block } from "@/components/detail/parse";
 import { projectSiblings } from "../projects";
 import "@/components/detail/detail.css";
@@ -27,7 +28,10 @@ const knowWithStations: SectionRender = (s) => {
   });
   const img = imagesIn(rest)[0];
   return (
-    <KnowPanel id={s.id} image={img ? { ...img, alt: altFor("RNO", "Bon à savoir") } : undefined}>
+    <KnowPanel
+      id={s.id}
+      media={img ? <RnoMap src={img.src} alt="Carte des postes d'observation de Côte d'Ivoire et des zones climatiques" /> : undefined}
+    >
       <Blocks blocks={withoutImages(rest).filter((b) => b.kind !== "list")} />
       <StationLine stations={stations} label="Les trois volets du réseau" />
     </KnowPanel>
@@ -39,6 +43,7 @@ export default function RnoPage() {
   return (
     <div className="detail detail--project">
       <UnitDetail
+        unit="rno"
         doc={{ ...doc, code: "RNO" }}
         kicker="Projet coordonné par le CIAPOL"
         crumbs={[{ label: "Projets", href: "/projets/" }, { label: "RNO" }]}

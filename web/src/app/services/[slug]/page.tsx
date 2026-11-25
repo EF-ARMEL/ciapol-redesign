@@ -143,16 +143,31 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const doc = loadDetail(`services-${slug}`);
   const cfg = CONFIG[slug as Slug];
 
+  /* Image de chaque carte « Autres services » : la bannière officielle portant
+     le nom du service visé. Le site d'origine réutilisait par erreur celle du
+     LCE pour SDGSP-VAE, qui n'en a pas : on prend sa photo officielle. */
+  const BANNER: Record<Slug, string> = {
+    cipomar: "/media/pages/services-lce/banner3.jpg",
+    unipol: "/media/pages/services-lce/banner4.jpg",
+    lce: "/media/pages/services-cipomar/banner5.jpg",
+    sdiic: "/media/pages/services-lce/banner6.jpg",
+    "sdgsp-vae": "/media/pages/services-sdgsp-vae/services-sdgsp-vae-1-1.jpg",
+  };
+  const bannerOf = (href: string, fallback?: { src: string; alt: string }) => {
+    const target = SLUGS.find((x) => href.replace(/\/+$/, "").endsWith(`/${x}`));
+    return target ? { src: BANNER[target], alt: "" } : fallback;
+  };
   const siblings = cardsOf(sectionOf(doc, "autres-services")).map((c) => ({
     code: c.code,
     text: c.text,
     href: c.href,
-    img: c.img,
+    img: bannerOf(c.href, c.img),
   }));
 
   return (
     <div className="detail detail--service">
       <UnitDetail
+        unit={slug}
         doc={doc}
         kicker="Sous-direction du CIAPOL"
         crumbs={[{ label: "Services", href: "/services/" }, { label: doc.code }]}

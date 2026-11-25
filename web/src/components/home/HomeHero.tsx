@@ -1,141 +1,179 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import WaterWindow from "@/motion/WaterWindow";
 import Button from "@/components/ui/Button";
 import TransitionLink from "@/components/ui/TransitionLink";
 import { prefersReduced } from "@/motion/primitives";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(SplitText);
 
-type Featured = { title: string; href: string; date: string; image?: string };
+/* Hero d'accueil : de vraies scènes de terrain du CIAPOL (photos officielles).
+   Chaque scène apparaît d'abord ternie, comme une eau chargée de vase, puis une
+   onde de dépollution la traverse et lui rend ses couleurs. Sur ordinateur, le
+   curseur dépollue aussi l'image là où il passe. */
+const SCENES = [
+  {
+    verb: "Prélever",
+    caption: "Prélèvements d'eau par les équipes du CIAPOL sur les lacs de Yamoussoukro.",
+    src: "/media/articles/repousse-de-vegetaux-des-lacs-de-yamoussoukro-le-ciapol-depeche-des-experts/DSC05730.jpg",
+    href: "/actualites/repousse-de-vegetaux-des-lacs-de-yamoussoukro-le-ciapol-depeche-des-experts/",
+    origin: "62% 58%",
+  },
+  {
+    verb: "Intervenir",
+    caption: "Déploiement de barrages flottants contre les hydrocarbures, exercice du plan POLLUMAR.",
+    src: "/media/articles/lutte-contre-les-pollutions-par-hydrocarbures/IMG_0285.jpg",
+    href: "/actualites/lutte-contre-les-pollutions-par-hydrocarbures/",
+    origin: "55% 70%",
+  },
+  {
+    verb: "Surveiller",
+    caption: "Mesures de la qualité de l'eau au bord du lac, sous-direction du Laboratoire Central de l'Environnement.",
+    src: "/media/articles/repousse-de-vegetaux-des-lacs-de-yamoussoukro-le-ciapol-depeche-des-experts/DSC05681-1.jpg",
+    href: "/actualites/repousse-de-vegetaux-des-lacs-de-yamoussoukro-le-ciapol-depeche-des-experts/",
+    origin: "40% 55%",
+  },
+];
 
-/* Hero d'accueil : la devise officielle, en très grand, posée sur une lagune
-   polluée. Au scroll, les lettres se dispersent comme des déchets emportés
-   par le courant pendant que l'eau commence à se clarifier. Le curseur est
-   un « écrémeur » : là où il passe, l'eau redevient propre. */
-export default function HomeHero({ featured }: { featured?: Featured }) {
-  const root = useRef<HTMLDivElement>(null);
-  const cursor = useRef<HTMLDivElement>(null);
+const HOLD = 4.2; // secondes d'image propre avant la scène suivante
 
+export default function HomeHero() {
+  const root = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const go = useRef<(i: number) => void>(() => {});
+
+  // Titre, texte et boutons : entrée unique.
   useEffect(() => {
     const el = root.current;
-    if (!el) return;
-    const reduced = prefersReduced();
+    if (!el || prefersReduced()) return;
     const ctx = gsap.context(() => {
-      const title = el.querySelector<HTMLElement>(".hh__title")!;
-      const split = SplitText.create(title, { type: "chars,words,lines", mask: "lines", linesClass: "split-line" });
-      if (reduced) return;
-
-      const intro = gsap.timeline({ delay: document.documentElement.classList.contains("is-intro") ? 3.6 : 0.25 });
-      intro
-        .from(split.chars, { yPercent: 120, rotate: 6, duration: 1.4, ease: "expo.out", stagger: { each: 0.018, from: "start" } })
-        .from(".hh__meta > *", { y: 24, autoAlpha: 0, duration: 1, ease: "expo.out", stagger: 0.08 }, 0.5)
-        .from(".hh__lead, .hh__actions, .hh__une", { y: 34, autoAlpha: 0, filter: "blur(8px)", duration: 1.2, ease: "expo.out", stagger: 0.1, clearProps: "filter" }, 0.7)
-        .from(".hh__hint", { autoAlpha: 0, duration: 1 }, 1.2);
-
-      // Dispersion au scroll : chaque lettre dérive selon son propre courant.
-      const drift = split.chars.map((_, i) => ({
-        x: ((Math.sin(i * 12.9898) * 43758.5453) % 1) * 160 - 80,
-        y: -40 - (((Math.cos(i * 78.233) * 12345.678) % 1) + 1) * 140,
-        r: Math.sin(i * 3.1) * 40,
-      }));
-      gsap.to(split.chars, {
-        x: (i) => drift[i].x,
-        y: (i) => drift[i].y,
-        rotate: (i) => drift[i].r,
-        opacity: 0,
-        ease: "none",
-        stagger: { each: 0.004, from: "random" },
-        scrollTrigger: { trigger: el, start: "top top", end: "bottom 20%", scrub: 0.6 },
-      });
-      gsap.to(".hh__body", {
-        yPercent: -18,
-        autoAlpha: 0,
-        ease: "none",
-        scrollTrigger: { trigger: el, start: "35% top", end: "bottom 25%", scrub: true },
-      });
+      const split = SplitText.create(".hh__title", { type: "words,lines", mask: "lines", linesClass: "split-line" });
+      const delay = document.documentElement.classList.contains("is-intro") ? 3.4 : 0.2;
+      gsap.timeline({ delay })
+        .from(split.lines, { yPercent: 115, duration: 1.3, ease: "expo.out", stagger: 0.1 })
+        .from(".hh__lead, .hh__actions, .hh__scenes", { y: 26, autoAlpha: 0, duration: 1.1, ease: "expo.out", stagger: 0.1 }, 0.45);
     }, el);
     return () => ctx.revert();
   }, []);
 
-  // Écrémeur : anneau qui suit le curseur au-dessus de l'eau.
+  // Scènes : ternie, onde de dépollution, image propre, scène suivante.
   useEffect(() => {
-    const el = root.current, c = cursor.current;
-    if (!el || !c || prefersReduced() || window.matchMedia("(pointer: coarse)").matches) return;
-    const xTo = gsap.quickTo(c, "x", { duration: 0.6, ease: "expo.out" });
-    const yTo = gsap.quickTo(c, "y", { duration: 0.6, ease: "expo.out" });
-    const move = (e: PointerEvent) => {
-      const interactive = (e.target as HTMLElement).closest("a, button");
-      c.classList.toggle("is-hidden", !!interactive);
-      xTo(e.clientX);
-      yTo(e.clientY);
+    const el = root.current;
+    if (!el) return;
+    const slides = Array.from(el.querySelectorAll<HTMLElement>(".hh__slide"));
+    const reduced = prefersReduced();
+    if (reduced) {
+      slides.forEach((s, i) => {
+        s.style.opacity = i === 0 ? "1" : "0";
+        s.style.setProperty("--r", "160%");
+      });
+      return;
+    }
+
+    let tl: gsap.core.Timeline | null = null;
+    let current = 0;
+    const play = (i: number) => {
+      tl?.kill();
+      const prev = slides[current];
+      const s = slides[i];
+      current = i;
+      setActive(i);
+      el.style.setProperty("--progress", "0");
+      gsap.set(s, { zIndex: 2, "--r": "0%" });
+      slides.forEach((o) => { if (o !== s && o !== prev) gsap.set(o, { opacity: 0, zIndex: 0 }); });
+      if (prev !== s) gsap.set(prev, { zIndex: 1 });
+      const img = s.querySelectorAll("img");
+      tl = gsap.timeline({ onComplete: () => play((i + 1) % slides.length) });
+      tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: prev === s ? 0.01 : 1.1, ease: "power2.out" })
+        .fromTo(img, { scale: 1.1 }, { scale: 1, duration: 3.4 + HOLD + 1, ease: "none" }, 0)
+        .to(s, { "--r": "165%", duration: 3.4, ease: "power2.inOut" }, 0.9)
+        .fromTo(el, { "--progress": 0 }, { "--progress": 1, duration: 0.9 + 3.4 + HOLD, ease: "none" }, 0)
+        .to({}, { duration: HOLD });
     };
-    const enter = () => c.classList.add("is-on");
-    const leave = () => c.classList.remove("is-on");
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerenter", enter);
-    el.addEventListener("pointerleave", leave);
+    go.current = play;
+
+    // Démarrage après l'intro éventuelle ; pause quand le hero n'est plus visible.
+    const start = window.setTimeout(() => play(0), document.documentElement.classList.contains("is-intro") ? 3200 : 300);
+    const io = new IntersectionObserver(([e]) => { if (tl) (e.isIntersecting && !document.hidden ? tl.resume() : tl.pause()); });
+    io.observe(el);
+
+    // Curseur : une lentille de dépollution suit la souris.
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const move = (e: PointerEvent) => {
+      const b = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - b.left}px`);
+      el.style.setProperty("--my", `${e.clientY - b.top}px`);
+    };
+    const enter = () => el.classList.add("is-lens");
+    const leave = () => el.classList.remove("is-lens");
+    if (fine) {
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerenter", enter);
+      el.addEventListener("pointerleave", leave);
+    }
     return () => {
+      window.clearTimeout(start);
+      io.disconnect();
+      tl?.kill();
       el.removeEventListener("pointermove", move);
       el.removeEventListener("pointerenter", enter);
       el.removeEventListener("pointerleave", leave);
     };
   }, []);
 
+  const scene = SCENES[active];
+
   return (
-    <WaterWindow as="section" className="hh" aria-labelledby="hh-title">
-      <div ref={cursor} className="hh__cursor" aria-hidden="true">
-        <svg viewBox="0 0 120 120">
-          <defs>
-            <path id="hh-ring" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
-          </defs>
-          <text>
-            <textPath href="#hh-ring">ÉCRÉMEUR · L&apos;EAU SE CLARIFIE · </textPath>
-          </text>
-        </svg>
+    <section ref={root} className="hh" aria-labelledby="hh-title">
+      <div className="hh__stage" aria-hidden="true">
+        {SCENES.map((s, i) => (
+          <div key={s.src} className="hh__slide" style={{ ["--o" as string]: s.origin, opacity: i === 0 ? 1 : 0 }}>
+            <img className="hh__img hh__img--dirty" src={s.src} alt="" fetchPriority={i === 0 ? "high" : "low"} decoding="async" />
+            <span className="hh__murk" />
+            <img className="hh__img hh__img--clean" src={s.src} alt="" decoding="async" />
+          </div>
+        ))}
+        <span className="hh__veil" />
       </div>
 
-      <div className="shell hh__inner" ref={root}>
-        <div className="hh__meta">
-          <span className="tag">Établissement public · Décret n°91-662</span>
-          <span className="eyebrow hh__since">Abidjan · depuis 1991</span>
-        </div>
-
+      <div className="shell hh__inner">
         <div className="hh__body">
           <h1 id="hh-title" className="hh__title display">
             La lutte contre la pollution, <em>notre priorité.</em>
           </h1>
-
-          <div className="hh__row">
-            <p className="hh__lead">
-              Le Centre Ivoirien Antipollution surveille, analyse, contrôle et intervient pour protéger les eaux
-              marines, lagunaires et continentales, l&apos;air et les sols de Côte d&apos;Ivoire.
-            </p>
-            <div className="hh__actions">
-              <Button href="/presentation/" variant="light" magnetic>Découvrir le CIAPOL</Button>
-              <Button href="/services/" variant="ghost">Nos services</Button>
-            </div>
+          <p className="hh__lead">
+            Le Centre Ivoirien Antipollution veille sur les eaux, l&apos;air et les sols de Côte d&apos;Ivoire.
+          </p>
+          <div className="hh__actions">
+            <Button href="/presentation/" variant="light" magnetic>Découvrir le CIAPOL</Button>
+            <TransitionLink href="/services/" className="hh__more">Nos services</TransitionLink>
           </div>
         </div>
 
-        {featured ? (
-          <TransitionLink href={featured.href} className="hh__une">
-            {featured.image ? <img src={featured.image} alt="" /> : null}
-            <span className="hh__une-body">
-              <span className="eyebrow">À la une</span>
-              <span className="hh__une-title">{featured.title}</span>
-            </span>
-          </TransitionLink>
-        ) : null}
-
-        <p className="hh__hint eyebrow" aria-hidden="true">
-          <span className="hh__hint-dot" /> Faites glisser le curseur : l&apos;eau se clarifie. Descendez : elle se dépollue.
-        </p>
+        <div className="hh__scenes">
+          <div className="hh__bars" role="group" aria-label="Scènes de terrain">
+            {SCENES.map((s, i) => (
+              <button
+                key={s.verb}
+                type="button"
+                className={`hh__bar ${i === active ? "is-on" : ""}`}
+                aria-pressed={i === active}
+                onClick={() => go.current(i)}
+              >
+                <span className="hh__bar-n">{String(i + 1).padStart(2, "0")}</span>
+                <span className="hh__bar-v">{s.verb}</span>
+                <span className="hh__bar-line" aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+          <p className="hh__cap" aria-live="polite">
+            <span>{scene.caption}</span>{" "}
+            <TransitionLink href={scene.href} className="hh__cap-link">Voir le reportage</TransitionLink>
+          </p>
+        </div>
       </div>
-    </WaterWindow>
+    </section>
   );
 }

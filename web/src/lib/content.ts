@@ -9,6 +9,10 @@ import { marked } from "marked";
 
 const ROOT = path.join(process.cwd(), "content");
 
+/* Fins de ligne normalisées : sous Windows, Git peut extraire le contenu en
+   CRLF, ce qui cassait le découpage en paragraphes (lignes vides). */
+const readText = (file: string) => fs.readFileSync(file, "utf8").replace(/\r\n?/g, "\n");
+
 export type ArticleDoc = { label: string; url: string };
 
 export type Article = {
@@ -108,7 +112,7 @@ function readArticlesRaw(): Raw[] {
         .readdirSync(dir)
         .filter((f) => f.endsWith(".md"))
         .map((f) => {
-          const { data, content } = matter(fs.readFileSync(path.join(dir, f), "utf8"));
+          const { data, content } = matter(readText(path.join(dir, f)));
           return { file: f, data, content };
         });
   _raw = { sig, list };
@@ -208,7 +212,7 @@ export function getPage(slug: string): Page | undefined {
 }
 
 function readPage(slug: string, file: string): Page {
-  const { data, content } = matter(fs.readFileSync(file, "utf8"));
+  const { data, content } = matter(readText(file));
   const sections: Page["sections"] = [];
   const re = /<!--\s*section:\s*([^>]+?)\s*-->/g;
   const marks = [...content.matchAll(re)];
@@ -242,7 +246,7 @@ export function listPages(): string[] {
 export function getSite<T = Record<string, unknown>>(): T {
   const file = path.join(ROOT, "site.json");
   if (!fs.existsSync(file)) return {} as T;
-  return JSON.parse(fs.readFileSync(file, "utf8")) as T;
+  return JSON.parse(readText(file)) as T;
 }
 
 export const formatDate = (iso: string, opts: Intl.DateTimeFormatOptions = { day: "2-digit", month: "long", year: "numeric" }) =>

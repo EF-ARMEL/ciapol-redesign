@@ -76,15 +76,24 @@ export default function Lagoon() {
        le canvas est mis à l'échelle en CSS. Coût GPU divisé par 4 à 9. */
     let scale = lagoon.mode === "lite" ? 0.33 : 0.5;
     let W = 0, H = 0;
-    const resize = () => {
-      W = Math.max(2, Math.round(window.innerWidth * scale));
-      H = Math.max(2, Math.round(window.innerHeight * scale));
+    let vw = 0, vh = 0;
+    /* Redimensionner un canvas l'efface. Sur iPhone, la barre d'adresse qui se
+       replie change la hauteur à chaque défilement : on l'ignore (le canvas est
+       étiré en CSS) et on redessine aussitôt après un vrai redimensionnement. */
+    let dirty = true;
+    const resize = (force?: unknown) => {
+      const w = window.innerWidth, h = window.innerHeight;
+      if (force !== true && w === vw && Math.abs(h - vh) < 160) return;
+      vw = w; vh = h;
+      W = Math.max(2, Math.round(w * scale));
+      H = Math.max(2, Math.round(h * scale));
       cv.width = W;
       cv.height = H;
       gl.viewport(0, 0, W, H);
       gl.uniform2f(u.res, W, H);
+      dirty = true;
     };
-    resize();
+    resize(true);
     gl.uniform1f(u.density, lagoon.mode === "lite" ? 0.4 : 1);
 
     const mouse = { x: -9999, y: -9999, on: 0, target: 0 };
@@ -121,20 +130,33 @@ export default function Lagoon() {
 
     /* 30 images/s suffisent à un liquide lent et divisent le coût par deux.
        Si la machine peine (moyenne > 45 ms par image), la résolution baisse ;
-       si elle peine encore au minimum, l'eau se fige sur l'image courante. */
-    const STEP = 1000 / 30;
-    let acc = 0, frames = 0, sum = 0, frozen = false;
+       si elle peine encore au minimum, l'eau ralentit à 8 images/s (sans
+       jamais s'arrêter : une image effacée resterait noire). */
+    let STEP = 1000 / 30;
+    let acc = 0, frames = 0, sum = 0, frozen = false, stopped = false;
     const degrade = () => {
+      if (frozen) {
+        // Même au minimum la machine ne suit pas (pas d'accélération
+        // graphique) : on coupe le rendu et on passe au fond statique, pour
+        // rendre le processeur aux interactions.
+        stopped = true;
+        cancelAnimationFrame(raf);
+        root.classList.remove("lagoon-live");
+        root.classList.add("lagoon-off");
+        return;
+      }
       if (scale > 0.26) {
         scale = scale > 0.4 ? 0.33 : 0.25;
         gl.uniform1f(u.density, 0.4);
-        resize();
+        resize(true);
       } else {
         frozen = true;
+        STEP = 1000 / 8;
       }
     };
 
     const frame = (now: number) => {
+      if (stopped) return;
       raf = requestAnimationFrame(frame);
       const real = now - last;
       acc += real;
@@ -145,8 +167,10 @@ export default function Lagoon() {
       if (!document.hidden && lagoon.windows > 0) {
         frames++;
         sum += real;
-        if (frames >= 45) {
-          if (sum / frames > 45) degrade();
+        // Bilan toutes les 45 images, ou au bout de 1,5 s si la machine est si
+        // lente que 45 images prendraient une minute.
+        if (frames >= 45 || (frames >= 4 && sum > 1500)) {
+          if (sum / frames > (frozen ? 200 : 45)) degrade();
           frames = 0; sum = 0;
         }
       }
@@ -155,9 +179,9 @@ export default function Lagoon() {
       agit += (Math.min(Math.abs(lagoon.velocity) / 2500, 1) - agit) * Math.min(1, dt * 4);
       mouse.on += (mouse.target - mouse.on) * Math.min(1, dt * 5);
 
-      if (lost || frozen) return;
-      if (lagoon.windows <= 0 && root.dataset.lagoonAlways !== "1") return;
-      if (document.hidden) return;
+      if (lost || document.hidden) return;
+      if (!dirty && lagoon.windows <= 0 && root.dataset.lagoonAlways !== "1") return;
+      dirty = false;
 
       gl.uniform1f(u.time, reduced ? 12 : (now - t0) / 1000);
       gl.uniform1f(u.purity, purity);
@@ -175,6 +199,7 @@ export default function Lagoon() {
       const still = () => {
         raf = requestAnimationFrame(still);
         if (lost) return;
+        if (dirty) { lastDrawn = -1; dirty = false; }
         const p = targetPurity();
         if (Math.abs(p - lastDrawn) < 0.02) return;
         lastDrawn = p;

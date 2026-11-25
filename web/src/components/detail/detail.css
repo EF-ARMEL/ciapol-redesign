@@ -16,7 +16,7 @@
 }
 
 /* ------------------------------------------------------------ CORPS + SOMMAIRE */
-.dbody { padding-block: clamp(56px, 8vw, 120px) clamp(72px, 10vw, 150px); }
+.dbody { padding-block: clamp(40px, 8vw, 120px) clamp(56px, 10vw, 150px); }
 .dbody__grid {
   display: grid;
   grid-template-columns: 210px minmax(0, 1fr);
@@ -240,8 +240,8 @@
 .sibs__item { flex: 0 0 clamp(260px, 29vw, 400px); scroll-snap-align: start; }
 .sibs__link { display: flex; flex-direction: column; gap: 14px; height: 100%; }
 .sibs__media { display: block; aspect-ratio: 4 / 3; border-radius: var(--radius-card); overflow: hidden; background: var(--color-ciapol-50); }
-.sibs__media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.55) brightness(0.92); transform: scale(1.02); transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo); }
-.sibs__link:hover .sibs__media img, .sibs__link:focus-visible .sibs__media img { filter: none; transform: scale(1.07); }
+.sibs__media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.6) brightness(0.95); transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo); }
+.sibs__link:hover .sibs__media img, .sibs__link:focus-visible .sibs__media img { filter: none; transform: scale(1.04); }
 .sibs__code { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); color: var(--color-nuit); margin-top: 6px; }
 .sibs__text { color: var(--color-ardoise); line-height: 1.5; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: transparent; transition: text-decoration-color 0.4s var(--ease-out-expo); }
 .sibs__link:hover .sibs__text { text-decoration-color: currentColor; }
@@ -430,3 +430,344 @@
 .logos li:hover img { filter: none; opacity: 1; }
 .dsec__body--wide { max-width: none; }
 .dbody--solo .dbody__grid { grid-template-columns: minmax(0, 1fr); }
+
+/* ------------------------------------------------------------ CARTE RNO VIVANTE */
+.know--media { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+.know__custom { min-width: 0; }
+@media (min-width: 901px) { .know__custom { position: sticky; top: calc(var(--header-h) + 40px); } }
+@media (max-width: 900px) {
+  .know--media { grid-template-columns: minmax(0, 1fr); }
+  .know__custom { order: -1; }
+}
+.rno-map { margin: 0; }
+.rno-map__stage {
+  position: relative;
+  aspect-ratio: 900 / 793;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 30px 60px -40px rgba(4, 23, 58, 0.45);
+}
+.rno-map__stage img, .rno-map__stage svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.rno-map__stage img { object-fit: contain; }
+.rno-map__trail { fill: none; stroke: var(--color-lagune); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 2 7; opacity: 0.85; }
+.rno-map__dot { fill: color-mix(in srgb, var(--color-ciapol) 22%, transparent); stroke: var(--color-ciapol); stroke-width: 1.5; transition: fill 0.5s var(--ease-out-expo), stroke 0.5s var(--ease-out-expo); }
+.rno-map__dot.is-on { fill: var(--color-salubre-400); stroke: #fff; stroke-width: 2.5; }
+.rno-map__ring { fill: none; stroke: var(--color-salubre); stroke-width: 2.5; opacity: 0; }
+.rno-map__probe { opacity: 0; }
+.rno-map__probe-halo { fill: color-mix(in srgb, var(--color-ci-orange) 28%, transparent); }
+.rno-map__probe-core { fill: var(--color-ci-orange); stroke: #fff; stroke-width: 3; }
+.rno-map__cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px; color: var(--color-ardoise); }
+.rno-map__count { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.06em; }
+.rno-map__count b { font-size: 1.15rem; color: var(--color-ciapol); font-variant-numeric: tabular-nums; }
+
+/* Cadres d'illustration des sections : ils prennent le format réel de la
+   photo (sinon bande vide sous l'image, ou photo paysage coupée de moitié
+   dans un cadre portrait). */
+.dsec__frame { aspect-ratio: auto; }
+.dsec__frame > div { height: auto; }
+.dsec__frame img { display: block; width: 100%; height: auto; object-fit: cover; }
+@media (max-width: 900px) { .dsec__frame { aspect-ratio: auto; } }
+
+/* « Bon à savoir » : la photo garde son format réel (pas de portrait forcé
+   qui coupait la moitié d'une photo paysage). */
+.know__media { aspect-ratio: auto; }
+.know__media img { height: auto; display: block; }
+@media (max-width: 900px) { .know__media { aspect-ratio: auto; } }
+
+/* Mosaïque « En images » : colonnes façon presse, chaque photo à son format
+   réel (plus de trous dans la grille ni de têtes coupées). */
+.mosaic { display: block; columns: 3 260px; column-gap: clamp(10px, 1.4vw, 20px); grid-auto-rows: auto; }
+.mosaic__cell, .mosaic__cell:nth-child(n), .mosaic--1 .mosaic__cell, .mosaic--2 .mosaic__cell:nth-child(2) { grid-column: auto; grid-row: auto; break-inside: avoid; margin-bottom: clamp(10px, 1.4vw, 20px); }
+.mosaic--1 { columns: 1; }
+.mosaic--2 { columns: 2 260px; }
+.mosaic__frame { height: auto; }
+.mosaic__frame img { height: auto; display: block; }
+@media (max-width: 700px) {
+  .mosaic { columns: 2; grid-template-columns: none; }
+  .mosaic__cell, .mosaic__cell:nth-child(n) { grid-column: auto; grid-row: auto; }
+}
+
+/* Frise des volets RNO : s'adapte à la largeur de sa colonne (les titres ne
+   se chevauchent plus quand elle est étroite). */
+.stations { container-type: inline-size; }
+@container (max-width: 680px) {
+  .stations__list { grid-template-columns: minmax(0, 1fr); margin-top: 12px; gap: 22px; }
+}
+.stations__name { font-size: clamp(1.25rem, 1rem + 1vw, 1.8rem); overflow-wrap: anywhere; }
+
+/* Bandeau officiel des pages détail : frise panoramique entière. */
+.dhero__band { margin: 0; width: 100%; max-width: 880px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.6); border: 1px solid color-mix(in srgb, #fff 18%, transparent); }
+.dhero__band img { display: block; width: 100%; height: auto; }
+
+/* ==========================================================================
+   OUVERTURE « FICHE D'UNITÉ » (services et projets)
+   Photo de terrain officielle, sigle qui se remplit comme un niveau d'eau,
+   fiche d'identité, mission en pastille.
+   ========================================================================== */
+.uhero {
+  position: relative;
+  color: #fff;
+  background:
+    radial-gradient(80% 60% at 85% 20%, color-mix(in srgb, var(--color-ciapol) 55%, transparent), transparent 70%),
+    radial-gradient(60% 50% at 10% 90%, color-mix(in srgb, var(--color-salubre) 18%, transparent), transparent 70%),
+    var(--color-nuit);
+  padding-top: calc(var(--header-h) + clamp(28px, 4vw, 56px));
+  padding-bottom: clamp(72px, 9vw, 130px);
+  overflow: hidden;
+  isolation: isolate;
+}
+.uhero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+.uhero__text { container-type: inline-size; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.uhero .crumbs { color: color-mix(in srgb, #fff 70%, transparent); }
+.uhero .crumbs a:hover { color: #fff; }
+.uhero__tag { margin-top: clamp(22px, 3vw, 40px); color: var(--color-salubre-400); border-color: color-mix(in srgb, #fff 30%, transparent); }
+.uhero__code {
+  position: relative;
+  margin-top: 18px;
+  font-size: min(11rem, calc(190cqi / var(--len, 8)));
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, #fff 55%, transparent);
+  padding-top: 0.08em;
+}
+/* Remplissage : le sigle se remplit de bas en haut, du trouble au clair. */
+.uhero__code::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  padding-top: inherit;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  background: linear-gradient(180deg, #fff 35%, var(--color-salubre-400) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  clip-path: inset(100% 0 0 0);
+  animation: uhero-fill 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
+}
+@keyframes uhero-fill { to { clip-path: inset(0 0 0 0); } }
+.uhero__code-line { display: block; }
+.uhero__lead {
+  margin-top: clamp(16px, 2vw, 26px);
+  max-width: 34ch;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
+  line-height: 1.35;
+  font-weight: 500;
+  color: color-mix(in srgb, #fff 92%, transparent);
+  text-wrap: balance;
+  animation: uhero-up 1s var(--ease-out-expo) 0.5s both;
+}
+.uhero__facts {
+  margin: clamp(28px, 4vw, 48px) 0 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid color-mix(in srgb, #fff 18%, transparent);
+}
+.uhero__fact { padding: 16px 18px 4px 0; animation: uhero-up 1s var(--ease-out-expo) both; }
+.uhero__fact:nth-child(1) { animation-delay: 0.65s; }
+.uhero__fact:nth-child(2) { animation-delay: 0.75s; border-left: 1px solid color-mix(in srgb, #fff 14%, transparent); padding-left: 18px; }
+.uhero__fact:nth-child(3) { animation-delay: 0.85s; border-left: 1px solid color-mix(in srgb, #fff 14%, transparent); padding-left: 18px; }
+.uhero__fact dt { color: var(--color-salubre-400); }
+.uhero__fact dd { margin: 8px 0 0; font-size: 0.98rem; line-height: 1.4; color: #fff; }
+@keyframes uhero-up { from { opacity: 0; transform: translateY(18px); } }
+
+.uhero__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  max-height: min(74svh, 760px);
+  width: 100%;
+  justify-self: end;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background: var(--color-abysse, #062456);
+  box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.7);
+  clip-path: inset(100% 0 0 0 round var(--radius-panel));
+  animation: uhero-curtain 1.4s cubic-bezier(0.77, 0, 0.18, 1) 0.15s forwards;
+}
+@keyframes uhero-curtain { to { clip-path: inset(0 0 0 0 round var(--radius-panel)); } }
+.uhero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.16);
+  animation: uhero-zoom 7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+@keyframes uhero-zoom { to { transform: scale(1); } }
+.uhero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 23, 58, 0) 55%, rgba(4, 23, 58, 0.75) 100%);
+  pointer-events: none;
+}
+.uhero__verb {
+  position: absolute;
+  z-index: 1;
+  left: clamp(16px, 2vw, 26px);
+  bottom: clamp(16px, 2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 18px 12px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--color-nuit) 55%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, #fff 16%, transparent);
+  animation: uhero-up 1s var(--ease-out-expo) 1.2s both;
+}
+.uhero__verb .eyebrow { color: var(--color-salubre-400); }
+.uhero__verb .display { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.4rem); line-height: 1; }
+.uhero__shore {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: clamp(28px, 5vw, 64px);
+  background: var(--color-papier);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+@media (max-width: 900px) {
+  .uhero__grid { grid-template-columns: minmax(0, 1fr); }
+  .uhero__media { order: -1; aspect-ratio: 4 / 3; max-height: none; }
+  .uhero__tag { margin-top: 18px; }
+}
+@media (max-width: 560px) {
+  .uhero { padding-top: calc(var(--header-h) + 18px); padding-bottom: 64px; }
+  .uhero__facts { grid-template-columns: minmax(0, 1fr); }
+  .uhero__fact, .uhero__fact:nth-child(n) { border-left: 0; padding: 12px 0 10px; border-bottom: 1px solid color-mix(in srgb, #fff 12%, transparent); display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 12px; align-items: baseline; }
+  .uhero__fact dd { margin: 0; }
+  .uhero__code { -webkit-text-stroke-width: 1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uhero__code::after { animation: none; clip-path: none; }
+  .uhero__media { animation: none; clip-path: none; }
+  .uhero__media img { animation: none; transform: none; }
+  .uhero__lead, .uhero__fact, .uhero__verb { animation: none; }
+}
+
+/* ------------------------------------------------------------ CORPS « FICHE »
+   Barre de chapitres collée, chapitres numérotés, missions en tuiles. */
+.dbody { padding-top: 0; }
+.dbody__grid { grid-template-columns: minmax(0, 1fr); }
+.dbody__main { padding-top: clamp(40px, 6vw, 88px); gap: clamp(72px, 9vw, 136px); }
+.dbody__bar {
+  position: sticky;
+  top: calc(var(--header-h) - 6px);
+  z-index: 20;
+  background: color-mix(in srgb, var(--color-papier) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--color-ligne);
+}
+.toc--bar .toc__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.toc--bar .toc__track { padding-left: 0; }
+.toc--bar .toc__rail { top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 2px; }
+.toc--bar .toc__level { transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--color-vase), var(--color-ciapol) 50%, var(--color-salubre-400)); }
+.toc--bar ol { flex-direction: row; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 8px 10px; }
+.toc--bar ol::-webkit-scrollbar { display: none; }
+.toc--bar a { min-height: 40px; padding: 0 14px; border-radius: 999px; white-space: nowrap; gap: 8px; font-size: 0.92rem; }
+.toc--bar a::before { display: none; }
+.toc--bar a.is-active { background: var(--color-ciapol); color: #fff; }
+.toc--bar a:not(.is-active):hover { background: var(--color-ciapol-50); color: var(--color-ciapol); }
+.toc__n { font-family: var(--font-mono); font-size: 0.7rem; opacity: 0.7; }
+
+/* Numéro de chapitre : grand, en contour, qui se remplit à l'entrée. */
+.dsec__num {
+  font-size: clamp(3.4rem, 2.4rem + 3vw, 6rem);
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ciapol-300);
+  margin-bottom: 14px;
+}
+.uchap > .dsec__num { margin-bottom: 18px; }
+
+/* Missions et listes officielles : tuiles numérotées au lieu d'une liste. */
+.dsec .rows:not(.rows--plain),
+.uchap .rows:not(.rows--plain) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: 14px;
+  counter-reset: tile;
+}
+.dsec .rows:not(.rows--plain) > .rows__item,
+.uchap .rows:not(.rows--plain) > .rows__item {
+  counter-increment: tile;
+  margin: 0;
+  padding: 54px 22px 22px;
+  border-radius: 22px;
+  background: var(--color-blanc);
+  border: 1px solid var(--color-ligne);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo), border-color 0.6s;
+}
+.dsec .rows:not(.rows--plain) > .rows__item:hover,
+.uchap .rows:not(.rows--plain) > .rows__item:hover { transform: translateY(-4px); border-color: var(--color-ciapol-300); box-shadow: 0 24px 40px -28px rgba(4, 23, 58, 0.35); }
+.dsec .rows:not(.rows--plain) > .rows__item::before,
+.uchap .rows:not(.rows--plain) > .rows__item::before {
+  content: counter(tile, decimal-leading-zero);
+  left: 22px;
+  top: 20px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--color-salubre);
+}
+/* Dans une section avec image, le texte garde une colonne : tuiles sur 1 colonne large. */
+.dsec--split .dsec__body .rows:not(.rows--plain) { grid-template-columns: minmax(0, 1fr); }
+
+/* « Bon à savoir » devient l'exergue de la mission. */
+.know { background: var(--color-blanc); border: 1px solid var(--color-ligne); }
+.know .know__body > p:first-child, .know .blocks > .blocks__p:first-child p:first-child {
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem);
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--color-nuit);
+  letter-spacing: -0.01em;
+}
+
+/* Deux photos d'une section : empilées, plus de chevauchement. */
+.dsec__frame--2, .dsec--flip .dsec__frame--2 { width: 100%; margin-top: 0; justify-self: stretch; box-shadow: none; }
+
+/* UCP LAC YAKRO : le projet raconté par ses articles officiels. */
+.ucp__head { max-width: 62ch; margin-bottom: clamp(32px, 4vw, 56px); }
+.ucp__lead { margin-top: 18px; color: var(--color-ardoise); font-size: var(--text-lead); line-height: 1.55; }
+.ucp__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 36px); }
+.ucp__grid > li:first-child { grid-column: span 2; grid-row: span 2; }
+@media (max-width: 1000px) { .ucp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .ucp__grid { grid-template-columns: minmax(0, 1fr); } .ucp__grid > li:first-child { grid-column: auto; grid-row: auto; } }
+
+/* Barre de chapitres : fond opaque (elle ne flotte plus au-dessus des photos)
+   et elle remonte en haut de l'écran quand l'en-tête se cache au défilement. */
+.dbody__bar {
+  background: var(--color-papier);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 10px 24px -20px rgba(4, 23, 58, 0.35);
+  transition: top 0.6s var(--ease-out-expo);
+}
+html:has(.hdr.is-hidden) .dbody__bar { top: 0; }
+/* Ouverture sur téléphone : la photo ne colle plus à la barre de navigation. */
+@media (max-width: 900px) {
+  .uhero { padding-top: calc(var(--header-h) + 72px); }
+}
+/* La barre de chapitres se cale sous le bas réel de l'en-tête. */
+.dbody__bar { top: calc(var(--hdr-bottom, var(--header-h)) + 8px); transition: top 0.25s linear; }
+html:has(.hdr.is-hidden) .dbody__bar { top: 0; }
+/* Barres collées : même rythme que l'en-tête qui se cache (0,7 s), pour ne
+   jamais passer dessous pendant sa sortie. */
+.dbody__bar { transition: top 0.7s var(--ease-out-expo); }

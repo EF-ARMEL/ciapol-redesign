@@ -33,7 +33,10 @@ export default function TransitionLink({ href, onClick, onMouseEnter, onFocus, o
     const norm = (s: string) => s.replace(/\/+$/, "") || "/";
     if (target.includes("#") && norm(clean) === norm(pathname)) return; // ancre locale
     if (norm(clean) === norm(pathname)) {
+      // Lien vers la page courante : pas de navigation, mais on ferme les
+      // menus ouverts et on remonte en haut de page.
       e.preventDefault();
+      window.dispatchEvent(new CustomEvent("ciapol:same-page"));
       return;
     }
     e.preventDefault();

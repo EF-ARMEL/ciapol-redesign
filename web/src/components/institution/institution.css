@@ -189,3 +189,24 @@
 .zoom:active { transform: scale(0.98); }
 .zoom img { width: 100%; height: auto; transition: transform 1.2s var(--ease-out-expo); }
 .zoom:hover img { transform: scale(1.03); }
+
+/* Pastille .tag isolée au-dessus d'un titre : un vrai espace entre les deux
+   (elle touchait le titre, ex. « Sur le territoire » / « Antennes régionales »).
+   Les titres de section .sh ont déjà leur propre espacement. */
+:not(.sh__left) > [data-reveal-root]:has(> .tag:only-child) + * { margin-top: 18px; }
+:not(.sh__left) > [data-reveal-root]:has(> .tag:only-child) + .sr-only + * { margin-top: 18px; }
+
+/* Embed sur téléphone : la façade prend sa hauteur naturelle (plus de grand
+   vide au-dessus du titre ni de bouton coupé en bas) ; une fois chargé, le
+   service tiers dispose d'une hauteur confortable. */
+@media (max-width: 640px) {
+  .embed:has(.embed__facade) { aspect-ratio: auto !important; min-height: 0; }
+  .embed__facade { position: relative; inset: auto; padding: 24px 22px 26px; }
+  .embed:has(.embed__frame) { aspect-ratio: auto !important; min-height: 72svh; }
+}
+
+/* Façade d'un service tiers (carte, qualité de l'air) : hauteur naturelle sur
+   tous les écrans, plus de grand bloc vide au-dessus du texte. */
+.embed:has(.embed__facade) { aspect-ratio: auto !important; min-height: 0 !important; }
+.embed__facade { position: relative; inset: auto; }
+.embed:has(.embed__frame) { aspect-ratio: auto !important; min-height: min(78svh, 760px); }

@@ -1,3 +1,4 @@
+import FitImage from "@/components/ui/FitImage";
 import TransitionLink from "@/components/ui/TransitionLink";
 import { Reveal } from "@/motion/primitives";
 import { formatFr, type GiamsucPost } from "./giamsuc";
@@ -13,7 +14,7 @@ export default function GiamsucPosts({ posts, headingLevel = "h3" }: { posts: Gi
           <TransitionLink href={`/projets/giamsuc/actualites/${p.slug}/`} className="gpost__link">
             <span className="gpost__media">
               {p.cover ? (
-                <img src={p.cover.src} alt="" loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+                <FitImage src={p.cover.src} eager={i === 0} />
               ) : (
                 <img src="/media/pages/projets-giamsuc/logo-giamsuc.png" alt="" className="gpost__placeholder" loading="lazy" decoding="async" />
               )}

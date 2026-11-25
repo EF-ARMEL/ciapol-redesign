@@ -1,11 +1,12 @@
 import TransitionLink from "./TransitionLink";
+import FitImage from "./FitImage";
 import type { ArticleMeta } from "@/lib/content";
 
 const fmt = (iso: string) =>
   new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(iso));
 
-/* Carte d'actualité : l'image passe du sépia « trouble » à la couleur au
-   survol (l'eau se clarifie), le titre se souligne par un trait vert. */
+/* Carte d'actualité : la photo entière (jamais recadrée) passe du terne à la
+   couleur au survol (l'eau se clarifie), le titre se souligne d'un trait vert. */
 export default function ArticleCard({
   article,
   size = "md",
@@ -21,7 +22,7 @@ export default function ArticleCard({
       <TransitionLink href={`/actualites/${article.slug}/`} className="acard__link">
         <div className="acard__media">
           {article.cover ? (
-            <img src={article.cover} alt="" loading={priority ? "eager" : "lazy"} decoding="async" />
+            <FitImage src={article.cover} eager={priority} />
           ) : (
             <div className="acard__placeholder" aria-hidden="true">
               <span className="display">CIAPOL</span>

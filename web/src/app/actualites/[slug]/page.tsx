@@ -1,3 +1,4 @@
+import FitImage from "@/components/ui/FitImage";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CalendarDays, Clock, Download, FileText, UserRound } from "lucide-react";
@@ -137,7 +138,7 @@ export default async function ArticlePage({ params }: Params) {
         {article.cover ? (
           <div className="shell art-cover-wrap">
             <ImageReveal className="art-cover">
-              <img src={article.cover} alt="" loading="eager" decoding="async" fetchPriority="high" />
+              <FitImage src={article.cover} eager />
             </ImageReveal>
           </div>
         ) : null}

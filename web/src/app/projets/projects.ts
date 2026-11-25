@@ -41,7 +41,14 @@ export function getProjects(): Unit[] {
       sentence: oh?.title,
       img: oh?.cover ? { src: oh.cover, alt: "" } : undefined,
     },
-    "/projets/ucp-lac-yakro/": {},
+    // La page officielle n'a pas d'image : photo de l'article officiel sur
+    // l'avancement des travaux de réhabilitation des lacs de Yamoussoukro.
+    "/projets/ucp-lac-yakro/": {
+      img: {
+        src: "/media/articles/etat-davancement-des-travaux-de-rehabilitation-des-lacs-de-yamoussoukro/329896696_699890515020566_7869837156099970463_n.jpg",
+        alt: "",
+      },
+    },
     "/projets/ccac/": {
       sentence: officialSentence("projets-ccac", "La Coalition pour le Climat et l’Air Pur (CCAC) est un partenariat volontaire"),
       img: { src: "/media/pages/projets-ccac/abidjan-adobestock-106549160-scaled.jpeg", alt: "" },

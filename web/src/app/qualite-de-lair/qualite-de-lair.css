@@ -10,7 +10,7 @@
 .aq__intro { display: grid; gap: 12px; font-size: var(--text-lead); line-height: 1.55; color: var(--color-ardoise); max-width: 52ch; }
 .aq__host { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-nuit); overflow-wrap: anywhere; }
 .aq__direct { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 1rem; }
-.aq__frame .embed { min-height: 560px; border-radius: var(--radius-panel); background: var(--color-nuit); }
+.aq__frame .embed { min-height: 0; border-radius: var(--radius-panel); background: var(--color-nuit); }
 .aq__frame .embed__facade { color: #fff; }
 .aq__frame .embed__note { color: var(--color-ciapol-100); }
 .aq__frame .embed__load { background: var(--color-salubre); }
@@ -19,4 +19,8 @@
 .aq__label { font-size: var(--text-h2); color: #fff; max-width: 14ch; line-height: 0.92; }
 .aq__more { margin-top: 28px; color: var(--color-ardoise); }
 @media (max-width: 900px) { .aq__head { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 560px) { .aq__frame .embed { min-height: 520px; } }
+@media (max-width: 640px) {
+  /* Façade : hauteur naturelle ; plateforme chargée : grande hauteur utile. */
+  .aq__frame .embed:has(.embed__facade) { min-height: 0; }
+  .aq__frame .embed:has(.embed__frame) { min-height: 78svh; }
+}
