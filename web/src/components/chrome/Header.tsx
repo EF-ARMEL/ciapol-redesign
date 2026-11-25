@@ -23,6 +23,49 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<number | null>(null);
+  const hdrRef = useRef<HTMLElement>(null);
+
+  /* Bas réel de l'en-tête (il replie son bandeau, se cache au défilement et
+     change de taille selon l'écran) : exposé en --hdr-bottom pour que les
+     barres collées en dessous (chapitres, onglets GIAMSUC) ne le chevauchent
+     jamais. */
+  useEffect(() => {
+    const el = hdrRef.current;
+    if (!el) return;
+    const root = document.documentElement;
+    let raf = 0;
+    const measure = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const bar = el.querySelector<HTMLElement>(".hdr__bar") ?? el;
+        root.style.setProperty("--hdr-bottom", `${Math.max(0, Math.round(bar.getBoundingClientRect().bottom))}px`);
+      });
+    };
+    // Pendant les transitions de l'en-tête, on suit image par image.
+    let follow = 0;
+    const track = () => {
+      const t0 = performance.now();
+      const step = () => {
+        measure();
+        if (performance.now() - t0 < 800) follow = requestAnimationFrame(step);
+      };
+      cancelAnimationFrame(follow);
+      follow = requestAnimationFrame(step);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    const mo = new MutationObserver(track);
+    mo.observe(el, { attributes: true, attributeFilter: ["class"] });
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      ro.disconnect();
+      mo.disconnect();
+      window.removeEventListener("resize", measure);
+      cancelAnimationFrame(raf);
+      cancelAnimationFrame(follow);
+    };
+  }, []);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -81,7 +124,7 @@ export default function Header() {
   return (
     <>
       <a href="#contenu" className="skip-link">Aller au contenu</a>
-      <header className={`hdr ${hidden && !open ? "is-hidden" : ""} ${scrolled ? "is-scrolled" : ""}`}>
+      <header ref={hdrRef} className={`hdr ${hidden && !open ? "is-hidden" : ""} ${scrolled ? "is-scrolled" : ""}`}>
         <div className="hdr__gov">
           <div className="shell hdr__gov-inner">
             <span className="hdr__gov-id">

@@ -23,6 +23,7 @@ export default function OneHealthPage() {
   return (
     <div className="detail detail--project">
       <DetailHero
+        unit="one-health"
         kicker="Projet"
         title={doc.code}
         lead="Une seule santé"

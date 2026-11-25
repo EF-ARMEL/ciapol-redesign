@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
-import type { Crumb } from "@/components/ui/Breadcrumb";
+import Breadcrumb, { type Crumb } from "@/components/ui/Breadcrumb";
 import { ImageReveal, Parallax, Reveal, SplitReveal } from "@/motion/primitives";
 import Toc, { type TocItem } from "./Toc";
 import type { Img } from "./parse";
+import { IDENTITY } from "./identity";
 import "./detail.css";
 
 /* ==========================================================================
@@ -20,6 +21,7 @@ export function DetailHero({
   crumbs,
   lead,
   image,
+  unit,
   children,
 }: {
   code?: string;
@@ -28,8 +30,49 @@ export function DetailHero({
   crumbs: Crumb[];
   lead?: ReactNode;
   image?: Img;
+  /** Clé de la fiche d'identité (identity.ts) : active l'ouverture photo. */
+  unit?: string;
   children?: ReactNode;
 }) {
+  const id = unit ? IDENTITY[unit] : undefined;
+  if (id) {
+    return (
+      <section className="uhero" aria-labelledby="uhero-title">
+        <div className="shell uhero__grid">
+          <div className="uhero__text">
+            <Breadcrumb items={crumbs} />
+            {kicker ? <span className="tag uhero__tag">{kicker}</span> : null}
+            <h1
+              id="uhero-title"
+              className="uhero__code display"
+              data-text={title}
+              style={{ ["--len" as string]: Math.max(6, title.replace(/\s/g, "").length) }}
+            >
+              <span className="uhero__code-line">{title}</span>
+            </h1>
+            {lead ? <p className="uhero__lead">{lead}</p> : null}
+            <dl className="uhero__facts">
+              {id.facts.map((f) => (
+                <div key={f.k} className="uhero__fact">
+                  <dt className="eyebrow">{f.k}</dt>
+                  <dd>{f.v}</dd>
+                </div>
+              ))}
+            </dl>
+            {children}
+          </div>
+          <figure className="uhero__media">
+            <img src={id.photo} alt={id.photoAlt} style={{ objectPosition: id.focus }} decoding="async" fetchPriority="high" />
+            <figcaption className="uhero__verb">
+              <span className="eyebrow">Mission</span>
+              <span className="display">{id.verb}</span>
+            </figcaption>
+          </figure>
+        </div>
+        <span className="uhero__shore" aria-hidden="true" />
+      </section>
+    );
+  }
   return (
     <PageHero
       eyebrow={kicker}
@@ -50,16 +93,19 @@ export function DetailHero({
   );
 }
 
-/* Corps de page : rail de sommaire à gauche (≥ 1100 px), contenu à droite. */
+/* Corps de page : barre de chapitres collée sous l'en-tête (elle suit la
+   lecture et se remplit comme un niveau d'eau), contenu sur toute la largeur. */
 export function DetailBody({ toc, children, tocLabel }: { toc: TocItem[]; children: ReactNode; tocLabel?: string }) {
   return (
     <div className={`surface dbody ${toc.length < 2 ? "dbody--solo" : ""}`}>
+      {toc.length >= 2 ? (
+        <div className="dbody__bar">
+          <div className="shell">
+            <Toc items={toc} label={tocLabel ?? "Chapitres"} variant="bar" />
+          </div>
+        </div>
+      ) : null}
       <div className="shell dbody__grid">
-        {toc.length >= 2 ? (
-          <aside className="dbody__rail">
-            <Toc items={toc} label={tocLabel} />
-          </aside>
-        ) : null}
         <div className="dbody__main">{children}</div>
       </div>
     </div>
@@ -76,7 +122,9 @@ export function DetailSection({
   flip = false,
   wide = false,
   tone,
+  index,
 }: {
+  index?: number;
   id: string;
   kicker?: string;
   title?: string;
@@ -95,6 +143,11 @@ export function DetailSection({
       className={`dsec ${imgs.length ? "dsec--split" : ""} ${flip ? "dsec--flip" : ""} ${wide ? "dsec--wide" : ""} ${tone ? `dsec--${tone}` : ""}`}
     >
       <div className="dsec__text">
+        {index ? (
+          <p className="dsec__num display" aria-hidden="true">
+            {String(index).padStart(2, "0")}
+          </p>
+        ) : null}
         {kicker ? <p className="eyebrow dsec__kicker">{kicker}</p> : null}
         {title ? (
           <SplitReveal as="h2" id={headingId} className="display dsec__title">

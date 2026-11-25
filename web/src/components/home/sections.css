@@ -272,3 +272,103 @@
 .ecosys__fb:hover { background: var(--color-ciapol); color: #fff; }
 @media (max-width: 900px) { .ecosys__structs { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .ecosys__track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } }
+
+/* ------------------------------------------------------------ TROIS ÉCONOMIES
+   Accordéon sur fond nuit, illustrations animées dessinées en code. */
+.eco3 { overflow: hidden; }
+.eco3__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr); gap: 20px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.eco3__tag { color: var(--color-salubre-400); border-color: color-mix(in srgb, #fff 30%, transparent); }
+.eco3__title { margin-top: 18px; font-size: var(--text-h2); color: #fff; max-width: 14ch; }
+.eco3__lead { color: var(--color-ciapol-100); font-size: var(--text-lead); line-height: 1.55; max-width: 44ch; }
+
+.eco3__panels { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; height: clamp(440px, 62vh, 580px); }
+.eco3__panel {
+  --tone: var(--color-salubre-400);
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--tone) 12%, var(--color-abysse));
+  border: 1px solid color-mix(in srgb, #fff 10%, transparent);
+  transition: flex-grow 0.9s cubic-bezier(0.65, 0, 0.35, 1), background 0.8s, border-color 0.8s;
+}
+.eco3__panel.is-open { flex-grow: 2.3; background: color-mix(in srgb, var(--tone) 20%, var(--color-abysse)); border-color: color-mix(in srgb, var(--tone) 45%, transparent); cursor: default; }
+.eco3__panel--circulaire { --tone: var(--color-ci-orange); }
+.eco3__panel--bleue { --tone: var(--color-lagune); }
+.eco3__panel--verte { --tone: var(--color-salubre-400); }
+.eco3__n { position: absolute; top: 22px; left: 24px; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em; color: var(--tone); }
+.eco3__art { position: absolute; inset: 0 0 34% 0; display: grid; place-items: center; opacity: 0.55; transform: scale(0.82); transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo); }
+.eco3__panel.is-open .eco3__art { opacity: 1; transform: none; }
+.eco3__art svg { width: min(100%, 360px); height: 100%; overflow: visible; }
+.eco3__body { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(20px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 10px; }
+.eco3__k { color: var(--tone); }
+.eco3__name { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.6rem); line-height: 0.95; color: #fff; white-space: nowrap; }
+.eco3__def, .eco3__link { opacity: 0; transform: translateY(10px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+.eco3__panel.is-open .eco3__def, .eco3__panel.is-open .eco3__link { opacity: 1; transform: none; transition-delay: 0.35s; }
+.eco3__def { color: color-mix(in srgb, #fff 84%, transparent); line-height: 1.5; max-width: 40ch; }
+.eco3__link { align-self: flex-start; color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.eco3__link:hover { color: var(--tone); }
+.eco3__link:focus-visible { opacity: 1; }
+
+/* Illustrations */
+.art text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; fill: color-mix(in srgb, #fff 78%, transparent); }
+.art--loop .art__ring { fill: none; stroke: color-mix(in srgb, #fff 16%, transparent); stroke-width: 2; }
+.art--loop .art__flow { fill: none; stroke: var(--tone); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 22 78; animation: art-flow 6s linear infinite; transform-origin: 160px 160px; }
+.art--loop .art__orbit { transform-origin: 160px 160px; animation: art-spin 6s linear infinite; }
+.art--loop .art__dot { fill: #fff; filter: drop-shadow(0 0 8px var(--tone)); }
+.art--loop .art__node circle { fill: var(--color-nuit); stroke: var(--tone); stroke-width: 2.5; animation: art-pop 6s ease-in-out infinite; animation-delay: calc(var(--d) * 6); transform-box: fill-box; transform-origin: center; }
+.art--loop .art__core { font-family: var(--font-display); font-size: 26px; letter-spacing: 0.02em; fill: #fff; }
+@keyframes art-flow { to { stroke-dashoffset: -100; } }
+@keyframes art-spin { to { transform: rotate(360deg); } }
+@keyframes art-pop { 0%, 100% { transform: scale(1); } 8% { transform: scale(1.35); fill: var(--tone); } 20% { transform: scale(1); } }
+
+.art--waves .art__sun { fill: color-mix(in srgb, #ffd27a 85%, transparent); animation: art-breathe 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.art--waves .art__wave path { transform-box: view-box; }
+.art--waves .art__wave { animation: art-swell 7s linear infinite; }
+.art--waves .art__wave--1 path { fill: color-mix(in srgb, var(--color-lagune) 55%, transparent); }
+.art--waves .art__wave--2 { animation-duration: 5s; animation-direction: reverse; }
+.art--waves .art__wave--2 path { fill: color-mix(in srgb, var(--color-ciapol) 70%, transparent); }
+.art--waves .art__wave--3 { animation-duration: 9s; }
+.art--waves .art__wave--3 path { fill: color-mix(in srgb, var(--color-nuit) 80%, var(--color-lagune)); }
+.art--waves .art__bubble { fill: none; stroke: color-mix(in srgb, #fff 70%, transparent); stroke-width: 1.5; animation: art-rise 4.5s ease-in infinite; animation-delay: var(--d); opacity: 0; }
+@keyframes art-swell { to { transform: translateX(-160px); } }
+@keyframes art-rise { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-150px); opacity: 0; } }
+@keyframes art-breathe { 50% { transform: scale(1.12); } }
+
+.art--sprout .art__sun { fill: color-mix(in srgb, #ffd27a 80%, transparent); animation: art-breathe 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.art--sprout .art__ground { stroke: color-mix(in srgb, #fff 30%, transparent); stroke-width: 2; stroke-linecap: round; }
+.art--sprout .art__grass { fill: none; stroke: color-mix(in srgb, var(--tone) 70%, transparent); stroke-width: 2; stroke-linecap: round; }
+.art--sprout .art__stem { fill: none; stroke: var(--tone); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: art-grow 6s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.art--sprout .art__leaf { fill: color-mix(in srgb, var(--tone) 85%, transparent); transform-box: fill-box; transform: scale(0); animation: art-leaf 6s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.art--sprout .art__leaf--l { transform-origin: 100% 100%; animation-delay: 0.6s; }
+.art--sprout .art__leaf--r { transform-origin: 0% 100%; animation-delay: 0.9s; }
+@keyframes art-grow { 0% { stroke-dashoffset: 100; opacity: 1; } 35% { stroke-dashoffset: 0; opacity: 1; } 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes art-leaf { 0%, 20% { transform: scale(0); opacity: 1; } 45% { transform: scale(1); opacity: 1; } 88% { transform: scale(1); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .art *, .art { animation: none !important; }
+  .art--sprout .art__stem { stroke-dashoffset: 0; }
+  .art--sprout .art__leaf { transform: none; }
+}
+@media (max-width: 900px) {
+  .eco3__head { grid-template-columns: minmax(0, 1fr); }
+  .eco3__panels { flex-direction: column; height: auto; }
+  .eco3__panel, .eco3__panel.is-open { flex: none; min-height: 340px; cursor: default; }
+  .eco3__art { opacity: 1; transform: none; inset: 0 0 42% 0; }
+  .eco3__def, .eco3__link { opacity: 1; transform: none; }
+}
+/* Ajustements : la houle remplit tout le panneau ; pousse plus lisible ;
+   sur mobile l'illustration ne passe plus sous le titre. */
+.eco3__art:has(.art--waves) { inset: 0 0 30% 0; place-items: stretch; }
+.eco3__art .art--waves { width: 100%; max-width: none; height: 100%; }
+.art--sprout .art__stem { stroke-width: 6; }
+.art--sprout .art__leaf { stroke: color-mix(in srgb, var(--tone) 60%, #fff); stroke-width: 1.5; }
+.art--sprout { transform: scale(1.15); transform-origin: 50% 80%; }
+@media (max-width: 900px) {
+  .eco3__panel, .eco3__panel.is-open { min-height: 0; display: flex; flex-direction: column; }
+  .eco3__art, .eco3__art:has(.art--waves) { position: relative; inset: auto; height: 230px; margin-top: 30px; }
+  .eco3__body { position: relative; padding-top: 6px; }
+}

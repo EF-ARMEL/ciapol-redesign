@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TransitionLink from "@/components/ui/TransitionLink";
+import FitImage from "@/components/ui/FitImage";
 import { DetailBody, DetailSection, PhotoBand } from "@/components/detail/Detail";
 import { ImageReveal, Reveal } from "@/motion/primitives";
 import type { Block, Img } from "@/components/detail/parse";
@@ -32,14 +33,17 @@ export default function GiamsucMediathequePage() {
           <Reveal as="ul" className="gmedia" y={30} stagger={0.07}>
             {items.map((it, i) => {
               const post = posts.find((p) => norm(p.title) === norm(it.title));
+              /* Vignette « placeholder » du sous-site d'origine : on prend la photo
+                 de l'article lié (première de sa galerie), sinon le logo du projet. */
               const placeholder = /placeholder\.png$/.test(it.img.src);
+              const photo = placeholder ? post?.cover?.src ?? post?.gallery[0]?.src : it.img.src;
               const inner = (
                 <>
-                  <ImageReveal className={`gmedia__frame ${placeholder ? "gmedia__frame--empty" : ""}`} from={i % 2 ? "left" : "bottom"}>
-                    {placeholder ? (
-                      <img src={it.img.src} alt="" className="gmedia__ph" loading="lazy" decoding="async" />
+                  <ImageReveal className={`gmedia__frame ${photo ? "" : "gmedia__frame--logo"}`} from={i % 2 ? "left" : "bottom"}>
+                    {photo ? (
+                      <FitImage src={photo} alt={placeholder ? "" : it.img.alt} />
                     ) : (
-                      <img src={it.img.src} alt={it.img.alt} loading="lazy" decoding="async" />
+                      <img src="/media/pages/projets-giamsuc/logo-giamsuc.png" alt="" className="gmedia__logo" loading="lazy" decoding="async" />
                     )}
                   </ImageReveal>
                   <h3 className="gmedia__title">{it.title}</h3>

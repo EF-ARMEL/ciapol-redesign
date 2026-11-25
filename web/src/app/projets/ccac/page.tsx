@@ -69,6 +69,7 @@ export default function CcacPage() {
   return (
     <div className="detail detail--project">
       <UnitDetail
+        unit="ccac"
         doc={doc}
         kicker="Partenariat"
         crumbs={[{ label: "Projets", href: "/projets/" }, { label: "CCAC" }]}

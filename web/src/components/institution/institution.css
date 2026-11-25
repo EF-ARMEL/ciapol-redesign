@@ -204,3 +204,9 @@
   .embed__facade { position: relative; inset: auto; padding: 24px 22px 26px; }
   .embed:has(.embed__frame) { aspect-ratio: auto !important; min-height: 72svh; }
 }
+
+/* Façade d'un service tiers (carte, qualité de l'air) : hauteur naturelle sur
+   tous les écrans, plus de grand bloc vide au-dessus du texte. */
+.embed:has(.embed__facade) { aspect-ratio: auto !important; min-height: 0 !important; }
+.embed__facade { position: relative; inset: auto; }
+.embed:has(.embed__frame) { aspect-ratio: auto !important; min-height: min(78svh, 760px); }

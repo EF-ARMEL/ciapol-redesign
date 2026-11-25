@@ -8,7 +8,7 @@ export type TocItem = { id: string; label: string };
 
 /* Sommaire de la page (grand écran) : suit la lecture. Le trait vertical se
    remplit comme un niveau d'eau à mesure qu'on avance dans la page. */
-export default function Toc({ items, label = "Sur cette page" }: { items: TocItem[]; label?: string }) {
+export default function Toc({ items, label = "Sur cette page", variant = "rail" }: { items: TocItem[]; label?: string; variant?: "rail" | "bar" }) {
   const [active, setActive] = useState(items[0]?.id);
   const level = useRef<HTMLSpanElement>(null);
 
@@ -33,7 +33,7 @@ export default function Toc({ items, label = "Sur cette page" }: { items: TocIte
         const start = first.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.4;
         const end = last.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.6;
         const p = Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1, end - start)));
-        if (level.current) level.current.style.transform = `scaleY(${p})`;
+        if (level.current) level.current.style.transform = variant === "bar" ? `scaleX(${p})` : `scaleY(${p})`;
       });
     };
     onScroll();
@@ -43,14 +43,14 @@ export default function Toc({ items, label = "Sur cette page" }: { items: TocIte
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, [items]);
+  }, [items, variant]);
 
   const go = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
     e.preventDefault();
     const lenis = getLenis();
-    if (lenis && !prefersReduced()) lenis.scrollTo(el, { offset: -110, duration: 1.2 });
+    if (lenis && !prefersReduced()) lenis.scrollTo(el, { offset: variant === "bar" ? -170 : -110, duration: 1.2 });
     else el.scrollIntoView({ block: "start" });
     history.replaceState(null, "", `#${id}`);
     const h = el.querySelector<HTMLElement>("h2, h3");
@@ -62,7 +62,7 @@ export default function Toc({ items, label = "Sur cette page" }: { items: TocIte
 
   if (items.length < 2) return null;
   return (
-    <nav className="toc" aria-label={label}>
+    <nav className={`toc toc--${variant}`} aria-label={label}>
       <p className="toc__label">{label}</p>
       <div className="toc__track">
         <span className="toc__rail" aria-hidden="true">

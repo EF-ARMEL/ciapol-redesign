@@ -167,6 +167,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <div className="detail detail--service">
       <UnitDetail
+        unit={slug}
         doc={doc}
         kicker="Sous-direction du CIAPOL"
         crumbs={[{ label: "Services", href: "/services/" }, { label: doc.code }]}

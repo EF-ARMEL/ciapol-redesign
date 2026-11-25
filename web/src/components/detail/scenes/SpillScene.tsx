@@ -16,17 +16,31 @@ export default function SpillScene({ children }: { children: ReactNode }) {
   useEffect(() => {
     const el = root.current;
     if (!el || prefersReduced()) return;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: el, start: "top 70%", end: "bottom 60%", scrub: 0.8 },
-        defaults: { ease: "none" },
-      });
-      tl.fromTo(".spill__boom", { attr: { r: 182 } }, { attr: { r: 118 }, duration: 0.45, ease: "expo.out" })
+    const build = (tl: gsap.core.Timeline) =>
+      tl
+        .fromTo(".spill__boom", { attr: { r: 182 }, opacity: 1 }, { attr: { r: 118 }, duration: 0.45, ease: "expo.out" })
         .fromTo(".spill__slick", { scale: 1, opacity: 0.94 }, { scale: 0.18, opacity: 0, duration: 0.55 }, 0.4)
         .fromTo(".spill__boom", { attr: { r: 118 } }, { attr: { r: 40 }, opacity: 0, duration: 0.4 }, 0.6)
         .fromTo(".spill__clear", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.45)
         .fromTo(".spill__ripple", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 0.5, duration: 0.4, stagger: 0.08 }, 0.6);
-    }, el);
+    const mm = gsap.matchMedia(el);
+    // Grand écran : l'illustration reste collée, la lecture pilote l'animation.
+    mm.add("(min-width: 901px)", () => {
+      build(gsap.timeline({ scrollTrigger: { trigger: el, start: "top 70%", end: "bottom 60%", scrub: 0.8 }, defaults: { ease: "none" } }));
+    });
+    // Téléphone et tablette : l'illustration défile avec le texte, l'animation
+    // se joue d'elle-même quand elle est à l'écran (et se rejoue en revenant).
+    mm.add("(max-width: 900px)", () => {
+      const tl = build(gsap.timeline({ paused: true, defaults: { ease: "power1.inOut" } })).timeScale(0.32);
+      ScrollTrigger.create({
+        trigger: el.querySelector(".spill__stage"),
+        start: "top 80%",
+        end: "bottom 15%",
+        onEnter: () => tl.restart(),
+        onEnterBack: () => tl.restart(),
+      });
+    });
+    const ctx = { revert: () => mm.revert() };
     return () => ctx.revert();
   }, []);
 

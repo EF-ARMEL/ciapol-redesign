@@ -27,7 +27,9 @@ export default function UnitDetail({
   skip = [],
   cta,
   after,
+  unit,
 }: {
+  unit?: string;
   doc: DetailDoc;
   kicker: string;
   crumbs: Crumb[];
@@ -47,6 +49,7 @@ export default function UnitDetail({
   }));
 
   let flip = false;
+  let n = 0;
   return (
     <>
       <DetailHero
@@ -56,6 +59,7 @@ export default function UnitDetail({
         lead={lead ?? doc.subtitle}
         crumbs={crumbs}
         image={doc.heroBg ? { src: doc.heroBg, alt: "" } : undefined}
+        unit={unit}
       />
       <DetailBody toc={toc}>
         {sections.map((s) => {
@@ -63,7 +67,14 @@ export default function UnitDetail({
           const custom = renders[s.name];
           if (custom) {
             flip = !flip;
-            return <div key={s.id}>{custom(s, { flip, title })}</div>;
+            if (s.name === "bon-a-savoir") return <div key={s.id}>{custom(s, { flip, title })}</div>;
+            n += 1;
+            return (
+              <div key={s.id} className="uchap">
+                <p className="dsec__num display" aria-hidden="true">{String(n).padStart(2, "0")}</p>
+                {custom(s, { flip, title })}
+              </div>
+            );
           }
           if (s.name === "bon-a-savoir") {
             const first = imagesIn(s.blocks)[0];
@@ -75,9 +86,10 @@ export default function UnitDetail({
             );
           }
           flip = !flip;
+          n += 1;
           const imgs = imagesIn(rest).map((im) => ({ ...im, alt: im.alt || altFor(doc.code, title ?? labels[s.name]) }));
           return (
-            <DetailSection key={s.id} id={s.id} title={title ?? labels[s.name]} media={imgs.length ? imgs : undefined} flip={!flip}>
+            <DetailSection key={s.id} id={s.id} index={n} title={title ?? labels[s.name]} media={imgs.length ? imgs : undefined} flip={!flip}>
               <Blocks blocks={withoutImages(rest)} />
             </DetailSection>
           );

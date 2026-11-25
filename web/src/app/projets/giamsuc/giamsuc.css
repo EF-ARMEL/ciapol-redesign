@@ -183,3 +183,17 @@ textarea.gform__input { resize: vertical; min-height: 130px; }
 .gmap iframe { display: block; width: 100%; height: clamp(320px, 50vh, 520px); border: 0; border-radius: calc(var(--radius-panel) - 12px); background: var(--color-ciapol-50); }
 .giamsuc .dbody__rail { top: calc(var(--header-h) + 130px); }
 @media (max-width: 900px) { .g-logo { max-width: 200px; padding: 14px; } .g-logo img { width: 150px; } }
+
+/* Médiathèque : grille alignée (plus de décalage vertical), logo du projet
+   quand aucun visuel n'existe. */
+.gmedia__item:nth-child(3n + 5) { margin-top: 0; }
+.gmedia__frame--logo { background: #fff; border: 1px solid var(--color-ligne); display: grid; place-items: center; }
+.gmedia__frame--logo .gmedia__logo { width: 46%; height: auto; object-fit: contain; filter: none; }
+/* Contact : la carte n'est plus incrustée dans une photo. */
+.gmap { background-image: none !important; padding: 0; border: 1px solid var(--color-ligne); }
+.gmap iframe { border-radius: 0; }
+/* Sous-site : sa propre barre d'onglets suffit (pas de seconde barre collée). */
+.giamsuc .dbody__bar { display: none; }
+.giamsuc .dsec, .giamsuc .know { scroll-margin-top: calc(var(--header-h) + 120px); }
+.gnav { top: calc(var(--hdr-bottom, var(--header-h)) + 8px); transition: top 0.25s linear; }
+html:has(.hdr.is-hidden) .gnav { top: 0; }

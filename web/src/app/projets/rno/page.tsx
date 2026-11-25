@@ -43,6 +43,7 @@ export default function RnoPage() {
   return (
     <div className="detail detail--project">
       <UnitDetail
+        unit="rno"
         doc={{ ...doc, code: "RNO" }}
         kicker="Projet coordonné par le CIAPOL"
         crumbs={[{ label: "Projets", href: "/projets/" }, { label: "RNO" }]}
