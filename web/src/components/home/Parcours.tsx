@@ -72,9 +72,16 @@ export default function Parcours({ steps }: { steps: Step[] }) {
             </header>
 
             <div className="parcours__stage" aria-live="polite">
-              <div className="parcours__count display" aria-hidden="true">
-                <span key={active} className="parcours__count-n">{String(active + 1).padStart(2, "0")}</span>
-                <span className="parcours__count-of">/{String(steps.length).padStart(2, "0")}</span>
+              <div className="parcours__top">
+                <div className="parcours__count display" aria-hidden="true">
+                  <span key={active} className="parcours__count-n">{String(active + 1).padStart(2, "0")}</span>
+                  <span className="parcours__count-of">/{String(steps.length).padStart(2, "0")}</span>
+                </div>
+                <div className="parcours__gauge" aria-hidden="true">
+                  <span className="eyebrow">État du milieu</span>
+                  <span className="parcours__state">{step.state}</span>
+                  <span className="parcours__bar"><i style={{ transform: `scaleX(${progress})` }} /></span>
+                </div>
               </div>
               <div className="parcours__verb-mask">
                 <p key={step.verb} className="parcours__verb display">{step.verb}</p>
@@ -99,11 +106,6 @@ export default function Parcours({ steps }: { steps: Step[] }) {
               ))}
             </ol>
 
-            <div className="parcours__gauge" aria-hidden="true">
-              <span className="eyebrow">État du milieu</span>
-              <span className="parcours__state">{step.state}</span>
-              <span className="parcours__bar"><i style={{ transform: `scaleX(${progress})` }} /></span>
-            </div>
           </div>
         </div>
       </div>

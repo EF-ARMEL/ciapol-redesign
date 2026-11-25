@@ -19,4 +19,8 @@
 .aq__label { font-size: var(--text-h2); color: #fff; max-width: 14ch; line-height: 0.92; }
 .aq__more { margin-top: 28px; color: var(--color-ardoise); }
 @media (max-width: 900px) { .aq__head { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 560px) { .aq__frame .embed { min-height: 520px; } }
+@media (max-width: 640px) {
+  /* Façade : hauteur naturelle ; plateforme chargée : grande hauteur utile. */
+  .aq__frame .embed:has(.embed__facade) { min-height: 0; }
+  .aq__frame .embed:has(.embed__frame) { min-height: 78svh; }
+}

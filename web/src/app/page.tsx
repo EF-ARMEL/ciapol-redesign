@@ -1,9 +1,8 @@
 import HomeHero from "@/components/home/HomeHero";
-import ALaUne from "@/components/home/ALaUne";
+import Newsroom from "@/components/home/Newsroom";
 import Missions from "@/components/home/Missions";
 import Parcours from "@/components/home/Parcours";
 import Voices from "@/components/home/Voices";
-import HomeNews from "@/components/home/HomeNews";
 import Economies from "@/components/home/Economies";
 import Publication from "@/components/home/Publication";
 import Ecosysteme from "@/components/home/Ecosysteme";
@@ -37,7 +36,6 @@ export default function Home() {
     cover: a.cover,
     category: a.categories.find((c) => c !== "Vedette" && c !== "Non classé"),
   }));
-  const top = slides[0];
   const latest = articles.filter((a) => !a.categories.includes("Vedette"));
 
   const dirPage = getPage("mot-du-directeur");
@@ -52,11 +50,13 @@ export default function Home() {
 
   return (
     <>
-      <HomeHero featured={top ? { title: top.title, href: `/actualites/${top.slug}/`, date: top.date, image: top.cover } : undefined} />
-      <ALaUne slides={slides} />
+      <HomeHero />
+      <Newsroom
+        featured={slides.slice(0, 6)}
+        latest={latest.slice(0, 3).map((a) => ({ slug: a.slug, title: a.title, date: a.date, cover: a.cover }))}
+      />
       <Missions items={getMissions()} />
       <Parcours steps={PARCOURS} />
-      <HomeNews articles={latest.slice(0, 4)} />
       <Voices
         videos={getHomeVideos()}
         director={{ title: "La parole du Directeur", href: "/mot-du-directeur/", excerpt: dirExcerpt ? dirExcerpt.slice(0, 260) + (dirExcerpt.length > 260 ? "…" : "") : undefined }}

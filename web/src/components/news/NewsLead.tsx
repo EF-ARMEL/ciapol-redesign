@@ -1,4 +1,5 @@
 import TransitionLink from "@/components/ui/TransitionLink";
+import FitImage from "@/components/ui/FitImage";
 import { ImageReveal, Reveal } from "@/motion/primitives";
 import type { ArticleMeta } from "@/lib/content";
 import { fmtDate } from "./news-utils";
@@ -12,7 +13,7 @@ export default function NewsLead({ article, labels }: { article: ArticleMeta; la
       <TransitionLink href={href} className="lead-news__media" tabIndex={-1} aria-hidden="true">
         <ImageReveal className="lead-news__frame">
           {article.cover ? (
-            <img src={article.cover} alt="" loading="eager" decoding="async" fetchPriority="high" />
+            <FitImage src={article.cover} eager />
           ) : (
             <div className="acard__placeholder">
               <span className="display">CIAPOL</span>

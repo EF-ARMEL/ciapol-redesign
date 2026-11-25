@@ -109,22 +109,18 @@
   isolation: isolate;
 }
 .acard--lg .acard__media { aspect-ratio: 16 / 10; }
-.acard__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.55) sepia(0.28) contrast(0.95);
-  transform: scale(1.04);
+.acard__media .fit__img {
+  filter: saturate(0.6) sepia(0.22);
   transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
 }
-.acard__link:hover .acard__media img,
-.acard__link:focus-visible .acard__media img { filter: none; transform: scale(1.09); }
+.acard__link:hover .acard__media .fit__img,
+.acard__link:focus-visible .acard__media .fit__img { filter: none; transform: scale(1.03); }
 .acard__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(4, 23, 58, 0.5));
-  opacity: 0.8;
+  background: linear-gradient(180deg, transparent 62%, rgba(4, 23, 58, 0.4));
+  opacity: 0.7;
   transition: opacity 0.6s var(--ease-out-expo);
   z-index: 1;
 }
@@ -174,5 +170,19 @@
 }
 
 /* ------------------------------------------------------------ SECTIONS */
-.section { padding-block: clamp(80px, 11vw, 160px); }
+.section { padding-block: clamp(80px, 8.5vw, 136px); }
 .section--tight { padding-block: clamp(56px, 7vw, 100px); }
+
+/* ------------------------------------------------------------ RYTHME MOBILE
+   Les marges entre sections pensées pour l'ordinateur créaient de grands vides
+   sur téléphone : on les resserre. */
+@media (max-width: 640px) {
+  .section { padding-block: 60px; }
+  .section--tight { padding-block: 44px; }
+}
+/* En-tête de page sur téléphone : assez haut pour voir l'eau, sans laisser
+   un grand vide au-dessus d'un titre court. */
+@media (max-width: 640px) {
+  .page-hero { min-height: min(68svh, 620px); padding-top: calc(var(--header-h) + 48px); padding-bottom: 64px; }
+  .page-hero__grid { margin-top: 22px; }
+}

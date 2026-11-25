@@ -19,7 +19,7 @@
 .mdd-read { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 
 /* ------------------------------------------------ citation (eau) */
-.mdd-quote { padding-block: clamp(100px, 14vw, 220px); }
+.mdd-quote { padding-block: clamp(64px, 14vw, 220px); }
 .mdd-quote__fig { margin: clamp(28px, 4vw, 48px) 0 0; display: grid; gap: clamp(28px, 4vw, 48px); }
 .mdd-quote__text {
   margin: 0;

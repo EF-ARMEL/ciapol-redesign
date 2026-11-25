@@ -8,6 +8,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { lagoon } from "./lagoon-store";
 
 gsap.registerPlugin(ScrollTrigger);
+// iOS : la barre d'adresse qui se replie ne doit pas tout recalculer.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 let lenisInstance: Lenis | null = null;
 export const getLenis = () => lenisInstance;
@@ -48,7 +50,19 @@ export default function SmoothScroll() {
     gsap.ticker.lagSmoothing(0);
     update();
 
+    /* La hauteur de page bouge après coup (images différées, polices) : sans
+       recalcul, des déclencheurs calés sur l'ancienne mise en page ne se
+       déclenchaient jamais et laissaient des blocs invisibles. */
+    let t = 0;
+    const ro = new ResizeObserver(() => {
+      window.clearTimeout(t);
+      t = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(document.body);
+
     return () => {
+      ro.disconnect();
+      window.clearTimeout(t);
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisInstance = null;

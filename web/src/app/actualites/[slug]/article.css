@@ -56,7 +56,7 @@
   background: var(--color-ciapol-100);
   box-shadow: 0 40px 80px -40px rgba(4, 23, 58, 0.45);
 }
-.art-cover img { width: 100%; height: 100%; object-fit: cover; }
+.art-cover .fit { height: 100%; }
 @media (max-width: 700px) {
   .art-cover { aspect-ratio: 4 / 3; border-radius: var(--radius-card); }
 }

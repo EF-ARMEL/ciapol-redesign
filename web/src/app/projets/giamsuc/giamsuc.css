@@ -59,7 +59,7 @@
 .gpost--lead .gpost__media { aspect-ratio: 16 / 11; }
 .gpost__media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.6) brightness(0.94); transform: scale(1.02); transition: filter 0.9s var(--ease-out-expo), transform 1.2s var(--ease-out-expo); }
 .gpost__media img.gpost__placeholder { object-fit: contain; padding: 18%; filter: none; }
-.gpost__link:hover .gpost__media img, .gpost__link:focus-visible .gpost__media img { filter: none; transform: scale(1.06); }
+.gpost__link:hover .gpost__media img, .gpost__link:focus-visible .gpost__media img { filter: none; transform: scale(1.03); }
 .gpost__body { display: flex; flex-direction: column; gap: 12px; }
 .gpost__date { color: var(--color-ciapol); }
 .gpost__title { font-weight: 700; font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.3rem); line-height: 1.32; color: var(--color-encre); letter-spacing: -0.01em; }

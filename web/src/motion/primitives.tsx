@@ -105,25 +105,34 @@ export function Reveal<T extends ElementType = "div">({
     const el = ref.current;
     if (!el || prefersReduced()) return;
     const ctx = gsap.context(() => {
-      const items = el.querySelectorAll<HTMLElement>("[data-reveal-item]");
-      const targets = items.length ? Array.from(items) : [el];
-      gsap.from(targets, {
-        y,
-        autoAlpha: 0,
-        filter: "blur(10px)",
-        duration: 1.3,
-        ease: "expo.out",
-        stagger,
-        delay,
-        clearProps: "filter",
-        scrollTrigger: { trigger: el, start: "top 86%", once: true },
-      });
+      /* Seulement les éléments qui appartiennent à CE bloc : avec des Reveal
+         imbriqués, deux animations « depuis invisible » sur les mêmes
+         éléments les laissaient invisibles pour toujours (espaces vides). */
+      const items = Array.from(el.querySelectorAll<HTMLElement>("[data-reveal-item]")).filter(
+        (it) => it.parentElement?.closest("[data-reveal-root]") === el,
+      );
+      const targets = items.length ? items : [el];
+      gsap.fromTo(
+        targets,
+        { y, autoAlpha: 0, filter: "blur(10px)" },
+        {
+          y: 0,
+          autoAlpha: 1,
+          filter: "blur(0px)",
+          duration: 1.3,
+          ease: "expo.out",
+          stagger,
+          delay,
+          clearProps: "filter,transform",
+          scrollTrigger: { trigger: el, start: "top 92%", once: true },
+        },
+      );
     }, el);
     return () => ctx.revert();
   }, [delay, y, stagger]);
 
   return (
-    <Tag ref={ref} className={className} style={style} {...rest}>
+    <Tag ref={ref} data-reveal-root="" className={className} style={style} {...rest}>
       {children}
     </Tag>
   );

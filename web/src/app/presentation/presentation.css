@@ -33,7 +33,7 @@
 .prs-intro__img--3 { grid-column: 4 / -1; aspect-ratio: 3 / 4; margin-top: clamp(24px, 4vw, 64px); }
 
 /* ---------------------------------------------------- Repères (eau) */
-.prs-marks { padding-block: clamp(96px, 13vw, 200px); }
+.prs-marks { padding-block: clamp(64px, 13vw, 200px); }
 .prs-marks__title { margin-top: 14px; max-width: 16ch; }
 .prs-marks__list {
   list-style: none;

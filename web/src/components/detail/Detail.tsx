@@ -37,14 +37,14 @@ export function DetailHero({
       title={title}
       lead={lead}
       crumbs={crumbs}
-      aside={
-        image ? (
-          <figure className="dhero__figure">
-            <img src={image.src} alt={image.alt} decoding="async" />
-          </figure>
-        ) : undefined
-      }
     >
+      {/* Bandeau officiel (photos de terrain en frise) : affiché en entier,
+          au format panoramique d'origine, sous le chapô. */}
+      {image ? (
+        <figure className="dhero__band">
+          <img src={image.src} alt={image.alt} decoding="async" fetchPriority="high" />
+        </figure>
+      ) : null}
       {children}
     </PageHero>
   );
@@ -119,16 +119,18 @@ export function DetailSection({
 }
 
 /* « Bon à savoir » : panneau teinté, premier paragraphe en serif. */
-export function KnowPanel({ id, title = "Bon à savoir", children, image }: { id: string; title?: string; children: ReactNode; image?: Img }) {
+export function KnowPanel({ id, title = "Bon à savoir", children, image, media }: { id: string; title?: string; children: ReactNode; image?: Img; media?: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-titre`} className={`know ${image ? "know--img" : ""}`}>
+    <section id={id} aria-labelledby={`${id}-titre`} className={`know ${media ? "know--media" : image ? "know--img" : ""}`}>
       <div className="know__text">
         <h2 id={`${id}-titre`} className="eyebrow know__kicker">
           {title}
         </h2>
         <Reveal className="know__body">{children}</Reveal>
       </div>
-      {image ? (
+      {media ? (
+        <div className="know__custom">{media}</div>
+      ) : image ? (
         <ImageReveal className="know__media" from="bottom">
           <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
         </ImageReveal>

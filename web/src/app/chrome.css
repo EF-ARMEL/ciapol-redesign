@@ -224,3 +224,19 @@
   .logo__mark { width: 40px; height: 40px; }
   .hdr__cta { height: 44px; padding: 0 16px; }
 }
+
+/* ------------------------------------------------------------ PETITS ÉCRANS
+   iPhone X (375 px) : tout tient dans la capsule, rien ne dépasse à droite. */
+@media (max-width: 560px) {
+  .hdr__bar { gap: 8px; padding: 0 7px 0 8px; }
+  .hdr__brand { flex: 0 1 auto; min-width: 0; overflow: hidden; }
+  .hdr__cta { margin-left: auto; padding: 0 14px; font-size: 0.86rem; }
+  .hdr__burger { align-self: center; width: 46px; height: 46px; }
+}
+@media (max-width: 360px) {
+  .hdr__cta { padding: 0 12px; }
+}
+/* Tiroir : les accents des majuscules (PRÉSENTATION) ne sont plus rognés. */
+.drawer__mask { padding-top: 0.14em; margin-top: -0.14em; }
+.drawer__top { line-height: 1.05; }
+.drawer__scroll { padding-top: 132px; }
