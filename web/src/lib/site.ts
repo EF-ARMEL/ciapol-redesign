@@ -3,7 +3,7 @@
    officiel, récupérés dans ses archives de février 2026). Aucun horaire
    d'ouverture n'est publié par le CIAPOL : on n'en affiche pas. */
 
-export type Antenna = { city: string; phones: string[] };
+type Antenna = { city: string; phones: string[] };
 
 export const SITE = {
   name: "CIAPOL",

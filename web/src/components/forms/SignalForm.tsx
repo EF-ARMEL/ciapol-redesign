@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { getLenis } from "@/motion/SmoothScroll";
 import { Check, Droplets, Factory, Fish, Trash2, Wind, Waves } from "lucide-react";
 
@@ -37,7 +37,8 @@ export default function SignalForm({ email }: { email?: string }) {
   const [done, setDone] = useState(false);
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((s) => ({ ...s, [k]: v }));
-  const ref = useMemo(() => `SIG-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`, []);
+  // Référence créée à l'envoi (et non au rendu) : un nouveau signalement en reçoit une nouvelle.
+  const [ref, setRef] = useState("");
 
   const validate = (s: number) => {
     const e: Record<string, string> = {};
@@ -91,7 +92,10 @@ export default function SignalForm({ email }: { email?: string }) {
   };
   const submit = (ev: FormEvent) => {
     ev.preventDefault();
-    if (validate(2)) setDone(true);
+    if (validate(2)) {
+      setRef(`SIG-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`);
+      setDone(true);
+    }
     bump();
   };
 

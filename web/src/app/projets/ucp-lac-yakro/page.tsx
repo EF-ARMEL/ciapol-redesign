@@ -1,7 +1,6 @@
 import ArticleCard from "@/components/ui/ArticleCard";
 import { getArticleMetas } from "@/lib/content";
 import type { Metadata } from "next";
-import TransitionLink from "@/components/ui/TransitionLink";
 import { DetailCta, DetailHero } from "@/components/detail/Detail";
 import Siblings from "@/components/detail/Siblings";
 import { loadDetail } from "@/components/detail/parse";

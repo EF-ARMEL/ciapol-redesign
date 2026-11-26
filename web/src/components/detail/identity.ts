@@ -1,7 +1,7 @@
 /* Fiche d'identité des sous-directions et des projets : photo de terrain
    officielle (reportages du CIAPOL), verbe d'action (le même que dans le
    parcours de l'accueil) et repères tirés des intitulés et textes officiels. */
-export type Identity = {
+type Identity = {
   photo: string;
   photoAlt: string;
   /** Point d'intérêt de la photo pour le recadrage de l'ouverture. */

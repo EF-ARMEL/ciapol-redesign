@@ -13,7 +13,7 @@ const ROOT = path.join(process.cwd(), "content");
    CRLF, ce qui cassait le découpage en paragraphes (lignes vides). */
 const readText = (file: string) => fs.readFileSync(file, "utf8").replace(/\r\n?/g, "\n");
 
-export type ArticleDoc = { label: string; url: string };
+type ArticleDoc = { label: string; url: string };
 
 export type Article = {
   slug: string;
@@ -152,7 +152,7 @@ function renderMarkdown(md: string): string {
   return html;
 }
 
-export function getArticles(): Article[] {
+function getArticles(): Article[] {
   const raw = readArticlesRaw();
   const sig = _raw!.sig;
   if (_articles && _articles.sig === sig) return _articles.list;
@@ -191,11 +191,6 @@ export function getArticle(slug: string): Article | undefined {
   return getArticles().find((a) => a.slug === slug);
 }
 
-export function getCategories(): { name: string; count: number }[] {
-  const map = new Map<string, number>();
-  for (const a of getArticles()) for (const c of a.categories) map.set(c, (map.get(c) ?? 0) + 1);
-  return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
-}
 
 /* ------------------------------------------------------------- PAGES */
 const _pages = new Map<string, { sig: string; page: Page }>();

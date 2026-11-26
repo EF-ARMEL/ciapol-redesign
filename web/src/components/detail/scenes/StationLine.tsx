@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export type Station = { name: string; detail?: string };
+type Station = { name: string; detail?: string };
 
 /* RNO : les trois volets du réseau, comme des stations d'observation posées
    le long d'un trait de côte. Le littoral se trace, puis chaque station

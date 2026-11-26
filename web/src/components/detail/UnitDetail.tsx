@@ -48,8 +48,14 @@ export default function UnitDetail({
     label: labels[s.name] ?? (s.name === "bon-a-savoir" ? "Bon à savoir" : splitTitle(s).title ?? s.name),
   }));
 
-  let flip = false;
-  let n = 0;
+  // Alternance gauche/droite et numéro de chaque chapitre, calculés avant le rendu.
+  // « Bon à savoir » n'est pas numéroté ; sans rendu dédié, il n'alterne pas non plus.
+  const layout: { flip: boolean; n: number }[] = [];
+  for (const s of sections) {
+    const prev = layout[layout.length - 1] ?? { flip: false, n: 0 };
+    const know = s.name === "bon-a-savoir";
+    layout.push(know && !renders[s.name] ? prev : { flip: !prev.flip, n: prev.n + (know ? 0 : 1) });
+  }
   return (
     <>
       <DetailHero
@@ -62,13 +68,12 @@ export default function UnitDetail({
         unit={unit}
       />
       <DetailBody toc={toc}>
-        {sections.map((s) => {
+        {sections.map((s, i) => {
+          const { flip, n } = layout[i];
           const { title, rest } = splitTitle(s);
           const custom = renders[s.name];
           if (custom) {
-            flip = !flip;
             if (s.name === "bon-a-savoir") return <div key={s.id}>{custom(s, { flip, title })}</div>;
-            n += 1;
             return (
               <div key={s.id} className="uchap">
                 <p className="dsec__num display" aria-hidden="true">{String(n).padStart(2, "0")}</p>
@@ -85,8 +90,6 @@ export default function UnitDetail({
               </KnowPanel>
             );
           }
-          flip = !flip;
-          n += 1;
           const imgs = imagesIn(rest).map((im) => ({ ...im, alt: im.alt || altFor(doc.code, title ?? labels[s.name]) }));
           return (
             <DetailSection key={s.id} id={s.id} index={n} title={title ?? labels[s.name]} media={imgs.length ? imgs : undefined} flip={!flip}>

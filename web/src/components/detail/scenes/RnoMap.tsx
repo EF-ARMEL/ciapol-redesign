@@ -36,6 +36,8 @@ export default function RnoMap({ src, alt }: { src: string; alt: string }) {
       dots.forEach((d) => d.classList.add("is-on"));
       trail.setAttribute("points", STATIONS.map((p) => p.join(",")).join(" "));
       gsap.set(probe, { x: STATIONS[0][0], y: STATIONS[0][1] });
+      // Préférence lue au navigateur seulement : l'état final est posé ici.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCount(STATIONS.length);
       return;
     }

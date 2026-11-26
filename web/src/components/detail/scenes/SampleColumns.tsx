@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export type SampleColumn = { title: string; items: string[] };
+type SampleColumn = { title: string; items: string[] };
 
 /* LCE : la liste officielle des analyses, en trois éprouvettes. À l'entrée
    dans l'écran, le prélèvement décante : le trouble se dépose au fond et

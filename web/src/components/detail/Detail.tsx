@@ -101,7 +101,7 @@ export function DetailBody({ toc, children, tocLabel }: { toc: TocItem[]; childr
       {toc.length >= 2 ? (
         <div className="dbody__bar">
           <div className="shell">
-            <Toc items={toc} label={tocLabel ?? "Chapitres"} variant="bar" />
+            <Toc items={toc} label={tocLabel ?? "Chapitres"} />
           </div>
         </div>
       ) : null}

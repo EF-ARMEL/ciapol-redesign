@@ -18,6 +18,24 @@ export default function PageCurtain() {
   const pending = useRef<string | null>(null);
   const safety = useRef<number | undefined>(undefined);
 
+  // Nouvelle page montée : l'eau se retire vers le haut.
+  const retreat = () => {
+    const el = root.current;
+    if (!el) return;
+    window.clearTimeout(safety.current);
+    const label = el.querySelector<HTMLElement>(".curtain__label")!;
+    gsap.killTweensOf(el);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        busy.current = false;
+        pending.current = null;
+        gsap.set(el, { visibility: "hidden", yPercent: 100 });
+      },
+    });
+    tl.to(label, { autoAlpha: 0, y: -24, duration: 0.2, ease: "power3.in" })
+      .to(el, { yPercent: -100, duration: 0.6, ease: "power3.inOut" }, 0.05);
+  };
+
   useEffect(() => {
     const onNav = (e: Event) => {
       const href = (e as CustomEvent<string>).detail;
@@ -50,27 +68,8 @@ export default function PageCurtain() {
     return () => window.removeEventListener("ciapol:navigate", onNav);
   }, [router]);
 
-  // Nouvelle page montée : l'eau se retire vers le haut.
-  const retreat = () => {
-    const el = root.current;
-    if (!el) return;
-    window.clearTimeout(safety.current);
-    const label = el.querySelector<HTMLElement>(".curtain__label")!;
-    gsap.killTweensOf(el);
-    const tl = gsap.timeline({
-      onComplete: () => {
-        busy.current = false;
-        pending.current = null;
-        gsap.set(el, { visibility: "hidden", yPercent: 100 });
-      },
-    });
-    tl.to(label, { autoAlpha: 0, y: -24, duration: 0.2, ease: "power3.in" })
-      .to(el, { yPercent: -100, duration: 0.6, ease: "power3.inOut" }, 0.05);
-  };
-
   useEffect(() => {
     if (busy.current) retreat();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (

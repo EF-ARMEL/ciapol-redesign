@@ -96,7 +96,7 @@ export default function HomeHero() {
 
     // Démarrage après l'intro éventuelle ; pause quand le hero n'est plus visible.
     const start = window.setTimeout(() => play(0), document.documentElement.classList.contains("is-intro") ? 3200 : 300);
-    const io = new IntersectionObserver(([e]) => { if (tl) (e.isIntersecting && !document.hidden ? tl.resume() : tl.pause()); });
+    const io = new IntersectionObserver(([e]) => { if (!tl) return; if (e.isIntersecting && !document.hidden) tl.resume(); else tl.pause(); });
     io.observe(el);
 
     // Curseur : une lentille de dépollution suit la souris.

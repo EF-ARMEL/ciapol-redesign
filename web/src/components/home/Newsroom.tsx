@@ -6,7 +6,7 @@ import FitImage from "@/components/ui/FitImage";
 import Button from "@/components/ui/Button";
 import { Reveal, SplitReveal } from "@/motion/primitives";
 
-export type NewsItem = {
+type NewsItem = {
   slug: string;
   title: string;
   date: string;

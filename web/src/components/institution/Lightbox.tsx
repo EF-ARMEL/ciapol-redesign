@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type PointerEvent as RPointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type PointerEvent as RPointerEvent } from "react";
+
+const noop = () => () => {};
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
-export type LightboxItem = { src: string; alt: string; caption?: string };
+type LightboxItem = { src: string; alt: string; caption?: string };
 
 /* Visionneuse accessible : fenêtre modale (aria-modal), focus piégé puis
    rendu au déclencheur, Échap pour fermer, flèches gauche/droite, glisser
@@ -28,9 +30,8 @@ export default function Lightbox({
   const opener = useRef<HTMLElement | null>(null);
   const [dx, setDx] = useState(0);
   const drag = useRef<{ x: number; id: number } | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  // Vrai au navigateur, faux au rendu statique : le portail attend le client.
+  const mounted = useSyncExternalStore(noop, () => true, () => false);
 
   const go = useCallback(
     (step: number) => {

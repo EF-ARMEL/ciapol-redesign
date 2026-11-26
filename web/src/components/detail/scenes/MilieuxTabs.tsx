@@ -2,7 +2,7 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 
-export type Milieu = { label: string; items: string[] };
+type Milieu = { label: string; items: string[] };
 
 /* UNIPOL : les milieux récepteurs (sol, air, zones côtières) en onglets.
    Clavier : flèches gauche / droite, Début, Fin (motif ARIA « tabs »). */

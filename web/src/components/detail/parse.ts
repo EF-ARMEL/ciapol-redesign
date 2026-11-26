@@ -16,7 +16,7 @@ export type Block =
   | { kind: "image"; img: Img };
 
 export type Section = { name: string; id: string; bg: string[]; blocks: Block[]; markdown: string };
-export type Card = { code: string; text: string; href: string; img?: Img };
+type Card = { code: string; text: string; href: string; img?: Img };
 
 export const slugify = (s: string) =>
   s
@@ -28,7 +28,7 @@ export const slugify = (s: string) =>
     .slice(0, 80);
 
 /* Liens de l'ancien site → routes de la refonte (barre oblique finale). */
-export function fixHref(href: string): string {
+function fixHref(href: string): string {
   if (/^(https?:|mailto:|tel:)/.test(href)) return href;
   const giam = href.match(/^\/projets\/giamsuc\/actualites#(.+)$/);
   if (giam) return `/projets/giamsuc/actualites/${giam[1]}/`;
@@ -39,7 +39,7 @@ export function fixHref(href: string): string {
   return hash ? `${p}#${hash}` : p;
 }
 
-export function postHtml(html: string): string {
+function postHtml(html: string): string {
   return html
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/href="([^"]+)"/g, (_, h: string) => `href="${fixHref(h)}"`)

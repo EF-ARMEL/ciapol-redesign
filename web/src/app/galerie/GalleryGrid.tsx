@@ -15,6 +15,7 @@ export default function GalleryGrid({ photos, albums, labels }: { photos: Galler
   const shown = useMemo(() => (album ? photos.filter((p) => p.albums.includes(album)) : photos), [album, photos]);
   const items = useMemo(
     () => shown.map((p) => ({ src: p.src, alt: p.alt, caption: `${p.alt}. Album : ${p.albums.map(L).join(", ")}` })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- L ne dépend que de labels (props stables)
     [shown],
   );
 

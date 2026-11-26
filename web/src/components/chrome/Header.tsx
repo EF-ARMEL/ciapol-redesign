@@ -82,10 +82,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
+  // Changement de page : on referme menu et tiroir pendant le rendu
+  // (motif React « stocker la valeur précédente », sans effet en cascade).
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
     setOpen(null);
     setDrawer(false);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     const onSame = () => {

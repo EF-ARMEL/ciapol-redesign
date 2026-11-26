@@ -32,13 +32,16 @@ export default function NewsHub({ items, categories, years }: Props) {
   const listRef = useRef<HTMLUListElement>(null);
 
   // Lecture initiale de l'URL (export statique : pas de searchParams serveur).
+  // L'URL n'existe qu'au navigateur : la synchroniser dans un effet est voulu.
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     const p = new URLSearchParams(window.location.search);
     const c = p.get("categorie") ?? "";
     const y = p.get("annee") ?? "";
     if (categories.some((f) => f.value === c)) setCat(c);
     if (years.some((f) => f.value === y)) setYear(y);
     setQ(p.get("q") ?? "");
+    /* eslint-enable react-hooks/set-state-in-effect */
     ready.current = true;
   }, [categories, years]);
 
@@ -71,7 +74,12 @@ export default function NewsHub({ items, categories, years }: Props) {
   }, [items, cat, year, q]);
 
   // Réinitialise la pagination à chaque changement de critère.
-  useEffect(() => setVisible(PAGE), [cat, year, q]);
+  const criteria = `${cat}|${year}|${q}`;
+  const [prevCriteria, setPrevCriteria] = useState(criteria);
+  if (prevCriteria !== criteria) {
+    setPrevCriteria(criteria);
+    setVisible(PAGE);
+  }
 
   const lead = !filtered ? results[0] : undefined;
   const pool = lead ? results.slice(1) : results;

@@ -54,8 +54,6 @@
 .inst-btn:active { transform: scale(0.97); }
 .inst-btn--quiet { background: var(--color-ciapol-50); color: var(--color-ciapol); }
 .inst-btn--quiet:hover { background: var(--color-ciapol-100); }
-.inst-btn--light { background: #fff; color: var(--color-nuit); }
-.inst-btn--light:hover { background: var(--color-ciapol-50); }
 
 .inst-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 

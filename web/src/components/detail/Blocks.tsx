@@ -64,7 +64,7 @@ export default function Blocks({
 
 /* Liste de missions / pièces : une rangée par élément, qui se dépose comme un
    sédiment (flou → net) à l'entrée dans l'écran. */
-export function Rows({ items, ordered = false, plain = false }: { items: string[]; ordered?: boolean; plain?: boolean }) {
+function Rows({ items, ordered = false, plain = false }: { items: string[]; ordered?: boolean; plain?: boolean }) {
   const L = ordered ? "ol" : "ul";
   return (
     <Reveal as={L} className={`rows ${ordered ? "rows--ordered" : ""} ${plain ? "rows--plain" : ""}`} y={18} stagger={0.06}>

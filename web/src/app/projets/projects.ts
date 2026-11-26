@@ -5,7 +5,7 @@ import { officialSentence } from "@/components/detail/parse";
 import type { Unit } from "@/components/detail/UnitIndex";
 import type { Sibling } from "@/components/detail/Siblings";
 
-export const ONE_HEALTH_ARTICLES = [
+const ONE_HEALTH_ARTICLES = [
   "installation-dune-equipe-one-health-au-ciapol-quand-la-protection-de-lenvironnement-devient-un-enjeu-de-sante-publique-en-cote-divoire",
   "celebration-de-la-6eme-journee-nationale-une-seule-sante-en-cote-divoire",
 ];
